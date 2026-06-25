@@ -12,6 +12,7 @@ class LearningRecommendation {
   final int estimatedDuration;
   final String difficulty;
   final bool isUrgent;
+  final String? contentId;
   final DateTime generatedAt;
 
   LearningRecommendation({
@@ -25,6 +26,7 @@ class LearningRecommendation {
     this.estimatedDuration = 300,
     this.difficulty = 'beginner',
     this.isUrgent = false,
+    this.contentId,
     DateTime? generatedAt,
   }) : generatedAt = generatedAt ?? DateTime.now();
 
@@ -39,6 +41,7 @@ class LearningRecommendation {
         'estimatedDuration': estimatedDuration,
         'difficulty': difficulty,
         'isUrgent': isUrgent,
+        'contentId': contentId,
         'generatedAt': generatedAt.toIso8601String(),
       };
 
@@ -55,6 +58,7 @@ class LearningRecommendation {
       estimatedDuration: json['estimatedDuration'] as int? ?? 300,
       difficulty: json['difficulty'] as String? ?? 'beginner',
       isUrgent: json['isUrgent'] as bool? ?? false,
+      contentId: json['contentId'] as String?,
       generatedAt: json['generatedAt'] != null
           ? DateTime.parse(json['generatedAt'] as String)
           : DateTime.now(),

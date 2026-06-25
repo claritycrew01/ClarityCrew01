@@ -10,7 +10,9 @@ import '../../models/interaction_event.dart';
 import '../../services/content/content_repository.dart';
 
 class QuizScreen extends StatefulWidget {
-  const QuizScreen({super.key});
+  final String? initialLessonId;
+
+  const QuizScreen({super.key, this.initialLessonId});
 
   @override
   State<QuizScreen> createState() => _QuizScreenState();
@@ -45,7 +47,12 @@ class _QuizScreenState extends State<QuizScreen>
   }
 
   void _generateQuestions() {
-    _questions.addAll(ContentRepository.getAll().map((lesson) {
+    final lessons = widget.initialLessonId != null
+        ? ContentRepository.getAll()
+            .where((l) => l.id == widget.initialLessonId)
+            .toList()
+        : ContentRepository.getAll();
+    _questions.addAll(lessons.map((lesson) {
       return ContentItem(
         id: 'q_${lesson.id}',
         title: lesson.title,
@@ -312,7 +319,7 @@ class _QuizScreenState extends State<QuizScreen>
         automaticallyImplyLeading: false,
       ),
       body: SafeArea(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

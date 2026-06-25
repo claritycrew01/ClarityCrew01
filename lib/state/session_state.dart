@@ -49,9 +49,15 @@ class SessionState extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setActiveContent(List<ContentItem> content) {
+  void setActiveContent(List<ContentItem> content, {String? startContentId}) {
     _activeContent = content;
     _activeContentIndex = 0;
+    if (startContentId != null) {
+      final index = content.indexWhere((item) => item.id == startContentId);
+      if (index >= 0) {
+        _activeContentIndex = index;
+      }
+    }
     notifyListeners();
   }
 

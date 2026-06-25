@@ -1,24 +1,126 @@
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
+
 import '../../core/theme/colors.dart';
 import '../../models/video_content.dart';
+import '../../persistence/video_progress_storage.dart';
 import '../../services/content/content_repository.dart';
 
 class VideoScreen extends StatefulWidget {
-  const VideoScreen({super.key});
+  final String? videoId;
+  final String? lessonId;
+
+  const VideoScreen({
+    super.key,
+    this.videoId,
+    this.lessonId,
+  });
 
   @override
   State<VideoScreen> createState() => _VideoScreenState();
 }
 
 class _VideoScreenState extends State<VideoScreen> {
+  final _progressStorage = VideoProgressStorage();
+  late List<VideoContent> _videos;
+  VideoPlayerController? _controller;
   int _currentVideoIndex = 0;
   bool _isWatched = false;
-  late List<VideoContent> _videos;
+  bool _isLoadingVideo = true;
+  String? _loadError;
 
   @override
   void initState() {
     super.initState();
     _videos = ContentRepository.getAllVideos();
+    _currentVideoIndex = _resolveInitialIndex();
+    _loadVideo();
+  }
+
+  int _resolveInitialIndex() {
+    if (_videos.isEmpty) return 0;
+    if (widget.videoId != null) {
+      final index = _videos.indexWhere((v) => v.id == widget.videoId);
+      if (index >= 0) return index;
+    }
+    if (widget.lessonId != null) {
+      final index =
+          _videos.indexWhere((v) => v.linkedLessonId == widget.lessonId);
+      if (index >= 0) return index;
+    }
+    return 0;
+  }
+
+  Future<void> _loadVideo() async {
+    await _controller?.dispose();
+    _controller = null;
+    if (!mounted) return;
+
+    setState(() {
+      _isLoadingVideo = true;
+      _loadError = null;
+    });
+
+    if (_videos.isEmpty) {
+      setState(() => _isLoadingVideo = false);
+      return;
+    }
+
+    _currentVideoIndex = _currentVideoIndex.clamp(0, _videos.length - 1);
+    final video = _videos[_currentVideoIndex];
+    final progress = await _progressStorage.loadForVideo(video.id);
+    _isWatched = progress?['watched'] as bool? ?? false;
+
+    try {
+      final controller = VideoPlayerController.asset(video.assetPath);
+      await controller.initialize();
+      final positionMs = progress?['positionMs'] as int? ?? 0;
+      if (positionMs > 0) {
+        await controller.seekTo(Duration(milliseconds: positionMs));
+      }
+      controller.addListener(_handlePlaybackProgress);
+      if (!mounted) {
+        await controller.dispose();
+        return;
+      }
+      setState(() {
+        _controller = controller;
+        _isLoadingVideo = false;
+      });
+    } catch (error) {
+      if (!mounted) return;
+      setState(() {
+        _isLoadingVideo = false;
+        _loadError = 'Could not load ${video.title}.';
+      });
+    }
+  }
+
+  void _handlePlaybackProgress() {
+    final controller = _controller;
+    if (controller == null || !controller.value.isInitialized) return;
+
+    final video = _videos[_currentVideoIndex];
+    final position = controller.value.position.inMilliseconds;
+    _progressStorage.saveForVideo(
+      video.id,
+      watched: _isWatched,
+      positionMs: position,
+    );
+
+    if (!_isWatched &&
+        controller.value.duration.inMilliseconds > 0 &&
+        position >= controller.value.duration.inMilliseconds * 0.9) {
+      setState(() => _isWatched = true);
+      _progressStorage.saveForVideo(video.id, watched: true, positionMs: position);
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller?.removeListener(_handlePlaybackProgress);
+    _controller?.dispose();
+    super.dispose();
   }
 
   @override
@@ -36,7 +138,8 @@ class _VideoScreenState extends State<VideoScreen> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(Icons.videocam_off_outlined,
-                    size: 64, color: AppColors.textSecondary.withValues(alpha: 0.3)),
+                    size: 64,
+                    color: AppColors.textSecondary.withValues(alpha: 0.3)),
                 const SizedBox(height: 16),
                 Text(
                   'No videos available yet.',
@@ -51,7 +154,6 @@ class _VideoScreenState extends State<VideoScreen> {
       );
     }
 
-    _currentVideoIndex = _currentVideoIndex.clamp(0, _videos.length - 1);
     final video = _videos[_currentVideoIndex];
 
     return Scaffold(
@@ -67,6 +169,8 @@ class _VideoScreenState extends State<VideoScreen> {
             children: [
               _buildSubjectHeader(video),
               const SizedBox(height: 20),
+              _buildVideoPlayer(video),
+              const SizedBox(height: 20),
               _buildVideoHeader(video),
               const SizedBox(height: 20),
               _buildChapterList(video.chapters),
@@ -80,6 +184,69 @@ class _VideoScreenState extends State<VideoScreen> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildVideoPlayer(VideoContent video) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: AspectRatio(
+        aspectRatio: 16 / 9,
+        child: Container(
+          color: Colors.black,
+          child: _isLoadingVideo
+              ? const Center(child: CircularProgressIndicator())
+              : _loadError != null
+                  ? Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Text(
+                          _loadError!,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                color: Colors.white70,
+                              ),
+                        ),
+                      ),
+                    )
+                  : _controller != null && _controller!.value.isInitialized
+                      ? Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            VideoPlayer(_controller!),
+                            _buildPlayOverlay(),
+                          ],
+                        )
+                      : const SizedBox.shrink(),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPlayOverlay() {
+    final controller = _controller!;
+    final isPlaying = controller.value.isPlaying;
+
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          if (isPlaying) {
+            controller.pause();
+          } else {
+            controller.play();
+          }
+        });
+      },
+      child: Container(
+        color: isPlaying ? Colors.transparent : Colors.black26,
+        child: isPlaying
+            ? const SizedBox.expand()
+            : const Icon(
+                Icons.play_circle_fill_rounded,
+                color: Colors.white,
+                size: 72,
+              ),
       ),
     );
   }
@@ -145,50 +312,24 @@ class _VideoScreenState extends State<VideoScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: AppColors.sereneBlue.withValues(alpha: 0.15),
-                    borderRadius: BorderRadius.circular(10),
+            Text(
+              video.title,
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge
+                  ?.copyWith(fontWeight: FontWeight.w700),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              video.description,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: AppColors.textSecondary,
                   ),
-                  child: const Icon(
-                    Icons.play_circle_fill_rounded,
-                    size: 32,
-                    color: AppColors.sereneBlue,
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        video.title,
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleLarge
-                            ?.copyWith(fontWeight: FontWeight.w700),
-                      ),
-                      const SizedBox(height: 2),
-                      Text(
-                        '${video.subject} · ${video.chapter}',
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelMedium
-                            ?.copyWith(color: AppColors.textSecondary),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
             ),
             const SizedBox(height: 16),
             Container(
               width: double.infinity,
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
                 color: Colors.black.withValues(alpha: 0.05),
                 borderRadius: BorderRadius.circular(10),
@@ -205,11 +346,11 @@ class _VideoScreenState extends State<VideoScreen> {
                         ),
                   ),
                   const Spacer(),
-                  const Icon(Icons.subtitles_outlined,
+                  const Icon(Icons.offline_pin_outlined,
                       size: 16, color: AppColors.textSecondary),
                   const SizedBox(width: 6),
                   Text(
-                    '${video.chapters.length} chapters',
+                    'Offline video',
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: AppColors.textSecondary,
                         ),
@@ -242,25 +383,25 @@ class _VideoScreenState extends State<VideoScreen> {
                 ),
           ),
           const SizedBox(height: 12),
-          ...chapters.asMap().entries.map((entry) {
-            return Padding(
+          ...chapters.map(
+            (chapter) => Padding(
               padding: const EdgeInsets.only(bottom: 8),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(Icons.play_circle_outline,
+                  const Icon(Icons.play_circle_outline,
                       size: 18, color: AppColors.sereneBlue),
                   const SizedBox(width: 10),
                   Expanded(
                     child: Text(
-                      entry.value,
+                      chapter,
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ),
                 ],
               ),
-            );
-          }),
+            ),
+          ),
         ],
       ),
     );
@@ -310,7 +451,7 @@ class _VideoScreenState extends State<VideoScreen> {
                     child: Center(
                       child: Text(
                         '${entry.key + 1}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: AppColors.calmTeal,
                           fontWeight: FontWeight.w600,
                           fontSize: 11,
@@ -336,8 +477,16 @@ class _VideoScreenState extends State<VideoScreen> {
               button: true,
               label: _isWatched ? 'Watched' : 'Mark as watched',
               child: OutlinedButton.icon(
-                onPressed: () {
+                onPressed: () async {
+                  final video = _videos[_currentVideoIndex];
                   setState(() => _isWatched = !_isWatched);
+                  await _progressStorage.saveForVideo(
+                    video.id,
+                    watched: _isWatched,
+                    positionMs:
+                        _controller?.value.position.inMilliseconds ?? 0,
+                  );
+                  if (!mounted) return;
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(_isWatched
@@ -349,9 +498,7 @@ class _VideoScreenState extends State<VideoScreen> {
                   );
                 },
                 icon: Icon(
-                  _isWatched
-                      ? Icons.check_circle
-                      : Icons.check_circle_outline,
+                  _isWatched ? Icons.check_circle : Icons.check_circle_outline,
                   color: _isWatched ? AppColors.success : null,
                 ),
                 label: Text(_isWatched ? 'Watched' : 'Mark as Watched'),
@@ -405,6 +552,7 @@ class _VideoScreenState extends State<VideoScreen> {
                     _currentVideoIndex--;
                     _isWatched = false;
                   });
+                  _loadVideo();
                 },
                 icon: const Icon(Icons.arrow_back_rounded),
                 label: const Text('Previous'),
@@ -425,6 +573,7 @@ class _VideoScreenState extends State<VideoScreen> {
                     _currentVideoIndex++;
                     _isWatched = false;
                   });
+                  _loadVideo();
                 } else {
                   Navigator.pop(context);
                 }

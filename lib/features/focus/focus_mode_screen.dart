@@ -58,22 +58,30 @@ class _FocusModeScreenState extends State<FocusModeScreen>
         centerTitle: true,
       ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            children: [
-              const SizedBox(height: 20),
-              _buildStatusBadge(isBreak, isRunning),
-              const SizedBox(height: 40),
-              Expanded(
-                child: _buildTimerCircle(progress, isRunning),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return SingleChildScrollView(
+              padding: const EdgeInsets.all(24),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: constraints.maxHeight - 48),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 20),
+                    _buildStatusBadge(isBreak, isRunning),
+                    const SizedBox(height: 32),
+                    SizedBox(
+                      height: 280,
+                      child: _buildTimerCircle(progress, isRunning),
+                    ),
+                    const SizedBox(height: 24),
+                    _buildControls(context, isRunning, isBreak),
+                    const SizedBox(height: 24),
+                    _buildDurationSelector(),
+                  ],
+                ),
               ),
-              const SizedBox(height: 24),
-              _buildControls(context, isRunning, isBreak),
-              const SizedBox(height: 24),
-              _buildDurationSelector(),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );

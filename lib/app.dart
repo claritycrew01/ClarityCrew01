@@ -6,6 +6,7 @@ import 'state/session_state.dart';
 import 'state/app_state.dart';
 import 'features/onboarding/onboarding_screen.dart';
 import 'features/home/home_screen.dart';
+import 'services/content/content_repository.dart';
 
 class ClarityCrewApp extends StatelessWidget {
   const ClarityCrewApp({super.key});
@@ -34,7 +35,7 @@ class ClarityCrewApp extends StatelessWidget {
   }
 
   Widget _buildHome(BuildContext context, LearnerState learnerState) {
-    if (learnerState.isLoading) {
+    if (learnerState.isLoading || !ContentRepository.isInitialized) {
       return const Scaffold(
         body: Center(child: CircularProgressIndicator()),
       );

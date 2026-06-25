@@ -10,7 +10,9 @@ import '../../models/interaction_event.dart';
 import '../../services/content/content_repository.dart';
 
 class FlashcardScreen extends StatefulWidget {
-  const FlashcardScreen({super.key});
+  final String? initialLessonId;
+
+  const FlashcardScreen({super.key, this.initialLessonId});
 
   @override
   State<FlashcardScreen> createState() => _FlashcardScreenState();
@@ -47,7 +49,12 @@ class _FlashcardScreenState extends State<FlashcardScreen>
   }
 
   void _initializeCards() {
-    for (final lesson in ContentRepository.getAll()) {
+    final lessons = widget.initialLessonId != null
+        ? ContentRepository.getAll()
+            .where((l) => l.id == widget.initialLessonId)
+            .toList()
+        : ContentRepository.getAll();
+    for (final lesson in lessons) {
       _cards.addAll(lesson.flashcards);
     }
     _initialized = true;
@@ -327,12 +334,11 @@ class _FlashcardScreenState extends State<FlashcardScreen>
         automaticallyImplyLeading: false,
       ),
       body: SafeArea(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(32),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(32),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
                 Container(
                   width: 100,
                   height: 100,
@@ -365,8 +371,7 @@ class _FlashcardScreenState extends State<FlashcardScreen>
                   onPressed: () => Navigator.pop(context),
                   child: const Text('Back to Dashboard'),
                 ),
-              ],
-            ),
+            ],
           ),
         ),
       ),

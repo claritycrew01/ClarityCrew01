@@ -6,6 +6,10 @@ import '../../state/session_state.dart';
 import '../../state/app_state.dart';
 import '../../models/learner_profile.dart';
 import '../../models/learning_recommendation.dart';
+import '../../models/tutor_message.dart';
+import '../../persistence/tutor_storage.dart';
+import '../../services/study_navigation.dart';
+import '../../services/tutor/tutor_service.dart';
 import '../learning/learning_session_screen.dart';
 import '../quiz/quiz_screen.dart';
 import '../flashcards/flashcard_screen.dart';
@@ -22,6 +26,12 @@ class AiTutorScreen extends StatefulWidget {
 class _AiTutorScreenState extends State<AiTutorScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _pulseController;
+  final _messageController = TextEditingController();
+  final _tutorService = TutorService();
+  final _tutorStorage = TutorStorage();
+  final _messages = <TutorMessage>[];
+  String? _activeContentId;
+  bool _conversationLoaded = false;
 
   @override
   void initState() {
@@ -30,11 +40,73 @@ class _AiTutorScreenState extends State<AiTutorScreen>
       vsync: this,
       duration: const Duration(seconds: 3),
     )..repeat(reverse: true);
+    _loadConversation();
+  }
+
+  Future<void> _loadConversation() async {
+    final conversation = await _tutorStorage.loadConversation();
+    if (!mounted) return;
+    setState(() {
+      _messages.addAll(conversation.messages);
+      _activeContentId = conversation.lastContentId;
+      _conversationLoaded = true;
+      if (_messages.isEmpty) {
+        _messages.add(
+          TutorMessage(
+            id: 'welcome',
+            role: 'tutor',
+            text:
+                'I am your AI tutor. Ask me to explain a lesson, simplify a topic, go deeper, or tell you what to study next.',
+            timestamp: DateTime.now(),
+          ),
+        );
+      }
+    });
+  }
+
+  Future<void> _sendMessage() async {
+    final text = _messageController.text.trim();
+    if (text.isEmpty) return;
+
+    final learnerState = context.read<LearnerState>();
+    final appState = context.read<AppState>();
+    final userMessage = TutorMessage(
+      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      role: 'user',
+      text: text,
+      contentId: _activeContentId,
+      timestamp: DateTime.now(),
+    );
+
+    setState(() {
+      _messages.add(userMessage);
+    });
+    _messageController.clear();
+
+    final response = _tutorService.respond(
+      userMessage: text,
+      profile: learnerState.profile,
+      contentId: _activeContentId,
+      activeRecommendation: appState.currentRecommendation,
+    );
+
+    setState(() {
+      _messages.add(response);
+      _activeContentId = response.contentId ?? _activeContentId;
+    });
+
+    await _tutorStorage.saveConversation(
+      TutorConversation(
+        messages: _messages,
+        lastContentId: _activeContentId,
+      ),
+    );
   }
 
   @override
   void dispose() {
     _pulseController.dispose();
+    _messageController.dispose();
     super.dispose();
   }
 
@@ -49,6 +121,12 @@ class _AiTutorScreenState extends State<AiTutorScreen>
     appState.generateNewRecommendations(profile);
     final recs = appState.recommendations;
 
+    if (!_conversationLoaded) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('AI Tutor'),
@@ -61,6 +139,8 @@ class _AiTutorScreenState extends State<AiTutorScreen>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildAiHeader(context, profile),
+              const SizedBox(height: 24),
+              _buildConversation(context),
               const SizedBox(height: 24),
               _buildRecommendedForYou(context, recs, profile),
               const SizedBox(height: 24),
@@ -148,6 +228,116 @@ class _AiTutorScreenState extends State<AiTutorScreen>
           ),
         );
       },
+    );
+  }
+
+  Widget _buildConversation(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            const Icon(Icons.chat_bubble_outline,
+                size: 20, color: AppColors.calmTeal),
+            const SizedBox(width: 8),
+            Text(
+              'Ask the AI Tutor',
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: AppColors.cardLight,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: Colors.grey.withValues(alpha: 0.1)),
+          ),
+          child: Column(
+            children: [
+              ..._messages.map((message) => _buildMessageBubble(context, message)),
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _messageController,
+                      decoration: const InputDecoration(
+                        hintText: 'Explain linear equations...',
+                        prefixIcon: Icon(Icons.auto_awesome_outlined),
+                      ),
+                      textInputAction: TextInputAction.send,
+                      onSubmitted: (_) => _sendMessage(),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Semantics(
+                    button: true,
+                    label: 'Send message to AI tutor',
+                    child: FilledButton(
+                      onPressed: _sendMessage,
+                      child: const Icon(Icons.send_rounded),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildMessageBubble(BuildContext context, TutorMessage message) {
+    final isTutor = message.isTutor;
+    final color = isTutor ? AppColors.calmTeal : AppColors.sereneBlue;
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 32,
+            height: 32,
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.15),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Icon(
+              isTutor ? Icons.auto_awesome : Icons.person_outline,
+              size: 18,
+              color: color,
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  isTutor ? 'AI Tutor' : 'You',
+                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                        color: color,
+                        fontWeight: FontWeight.w700,
+                      ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  message.text,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        height: 1.5,
+                      ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -279,6 +469,19 @@ class _AiTutorScreenState extends State<AiTutorScreen>
                             .bodySmall
                             ?.copyWith(color: AppColors.textSecondary),
                       ),
+                      if (rec.reason.isNotEmpty) ...[
+                        const SizedBox(height: 4),
+                        Text(
+                          rec.reason,
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelSmall
+                              ?.copyWith(
+                                color: AppColors.calmTeal,
+                                fontStyle: FontStyle.italic,
+                              ),
+                        ),
+                      ],
                     ],
                   ),
                 ),
@@ -784,26 +987,9 @@ class _AiTutorScreenState extends State<AiTutorScreen>
 
   void _launchRecommendation(BuildContext context,
       LearningRecommendation rec, LearnerProfile profile) {
-    switch (rec.recommendedMode) {
-      case LearningMode.quiz:
-        Navigator.push(
-            context, MaterialPageRoute(builder: (_) => const QuizScreen()));
-      case LearningMode.video:
-        Navigator.push(context,
-            MaterialPageRoute(builder: (_) => const VideoScreen()));
-      case LearningMode.flashcard:
-        Navigator.push(context,
-            MaterialPageRoute(builder: (_) => const FlashcardScreen()));
-      case LearningMode.guidedPractice:
-      case LearningMode.microLesson:
-      case LearningMode.visualSummary:
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (_) => const LearningSessionScreen()));
-      case LearningMode.focusSprint:
-        Navigator.push(context,
-            MaterialPageRoute(builder: (_) => const FocusModeScreen()));
+    if (rec.contentId != null) {
+      setState(() => _activeContentId = StudyNavigation.contentForRecommendation(rec)?.id ?? rec.contentId);
     }
+    StudyNavigation.launchRecommendation(context, rec);
   }
 }

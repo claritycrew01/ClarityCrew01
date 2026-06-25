@@ -9,7 +9,9 @@ import '../../models/interaction_event.dart';
 import '../../services/content/content_repository.dart';
 
 class LearningSessionScreen extends StatefulWidget {
-  const LearningSessionScreen({super.key});
+  final String? initialLessonId;
+
+  const LearningSessionScreen({super.key, this.initialLessonId});
 
   @override
   State<LearningSessionScreen> createState() => _LearningSessionScreenState();
@@ -18,6 +20,7 @@ class LearningSessionScreen extends StatefulWidget {
 class _LearningSessionScreenState extends State<LearningSessionScreen> {
   final _contentLibrary = <ContentItem>[];
   bool _isInitialized = false;
+  bool _sessionInitialized = false;
   bool _showSummary = false;
   bool _useSimplified = false;
   String? _simplifiedBody;
@@ -25,12 +28,20 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
   @override
   void initState() {
     super.initState();
-    _initializeContent();
-  }
-
-  void _initializeContent() {
     _contentLibrary.addAll(ContentRepository.getAll());
     _isInitialized = true;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_sessionInitialized) {
+      context.read<SessionState>().setActiveContent(
+            _contentLibrary,
+            startContentId: widget.initialLessonId,
+          );
+      _sessionInitialized = true;
+    }
   }
 
   @override
@@ -353,7 +364,7 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
         automaticallyImplyLeading: false,
       ),
       body: SafeArea(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

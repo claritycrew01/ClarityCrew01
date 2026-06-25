@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SubjectData {
+  final String id;
   final String name;
   final IconData icon;
   final Color color;
@@ -9,6 +10,7 @@ class SubjectData {
   final int videoCount;
 
   const SubjectData({
+    this.id = '',
     required this.name,
     required this.icon,
     required this.color,

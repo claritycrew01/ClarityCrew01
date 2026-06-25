@@ -21,4 +21,6 @@ class AppConstants {
   static const String prefAppSettings = 'app_settings';
   static const String prefSessionHistory = 'session_history';
   static const String prefAccessibility = 'accessibility_settings';
+  static const String prefTutorConversation = 'tutor_conversation';
+  static const String prefVideoProgress = 'video_progress';
 }

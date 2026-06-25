@@ -7,10 +7,7 @@ import '../../state/session_state.dart';
 import '../../models/learner_profile.dart';
 import '../../models/subject_data.dart';
 import '../../services/content/content_repository.dart';
-import '../focus/focus_mode_screen.dart';
-import '../learning/learning_session_screen.dart';
-import '../quiz/quiz_screen.dart';
-import '../flashcards/flashcard_screen.dart';
+import '../../services/study_navigation.dart';
 import '../video/video_screen.dart';
 import '../progress/progress_screen.dart';
 import '../settings/settings_screen.dart';
@@ -184,7 +181,7 @@ class HomeScreen extends StatelessWidget {
       button: true,
       label: 'Recommended: ${rec.title}',
       child: GestureDetector(
-        onTap: () => _launchMode(context, rec.recommendedMode),
+        onTap: () => StudyNavigation.launchRecommendation(context, rec),
         child: Container(
           width: double.infinity,
           padding: const EdgeInsets.all(20),
@@ -321,7 +318,7 @@ class HomeScreen extends StatelessWidget {
               button: true,
               label: 'Start ${mode.title}',
               child: GestureDetector(
-                onTap: () => _launchMode(context, mode.mode),
+                onTap: () => StudyNavigation.launchMode(context, mode.mode),
                 child: Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
@@ -431,7 +428,7 @@ class HomeScreen extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         SizedBox(
-          height: 120,
+          height: 132,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: subjects.length,
@@ -483,6 +480,8 @@ class HomeScreen extends StatelessWidget {
                               .textTheme
                               .titleMedium
                               ?.copyWith(fontWeight: FontWeight.w600),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
                         const SizedBox(height: 2),
                         Text(
@@ -573,25 +572,10 @@ class HomeScreen extends StatelessWidget {
                             trailing: const Icon(Icons.arrow_forward_rounded),
                             onTap: () {
                               Navigator.pop(context);
-                              Navigator.push(
+                              StudyNavigation.launchMode(
                                 context,
-                                MaterialPageRoute(
-                                  builder: (_) => Scaffold(
-                                    appBar: AppBar(title: Text(lesson.title)),
-                                    body: Padding(
-                                      padding: const EdgeInsets.all(20),
-                                      child: SingleChildScrollView(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(lesson.body),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                                LearningMode.microLesson,
+                                contentId: lesson.id,
                               );
                             },
                           ),
@@ -618,7 +602,11 @@ class HomeScreen extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (_) => const VideoScreen()),
+                                  builder: (_) => VideoScreen(
+                                    videoId: video.id,
+                                    lessonId: video.linkedLessonId,
+                                  ),
+                                ),
                               );
                             },
                           ),
@@ -665,27 +653,7 @@ class HomeScreen extends StatelessWidget {
   }
 
   void _launchMode(BuildContext context, LearningMode mode) {
-    switch (mode) {
-      case LearningMode.quiz:
-        Navigator.push(
-            context, MaterialPageRoute(builder: (_) => const QuizScreen()));
-      case LearningMode.video:
-        Navigator.push(
-            context, MaterialPageRoute(builder: (_) => const VideoScreen()));
-      case LearningMode.flashcard:
-        Navigator.push(context,
-            MaterialPageRoute(builder: (_) => const FlashcardScreen()));
-      case LearningMode.guidedPractice:
-      case LearningMode.microLesson:
-      case LearningMode.visualSummary:
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (_) => const LearningSessionScreen()));
-      case LearningMode.focusSprint:
-        Navigator.push(context,
-            MaterialPageRoute(builder: (_) => const FocusModeScreen()));
-    }
+    StudyNavigation.launchMode(context, mode);
   }
 }
 

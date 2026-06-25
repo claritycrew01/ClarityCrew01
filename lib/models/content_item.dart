@@ -11,6 +11,8 @@ class ContentItem {
   final String body;
   final String subject;
   final String chapter;
+  final String? chapterId;
+  final String? videoId;
   final Map<String, String> metadata;
   final List<String> quizOptions;
   final int? correctOptionIndex;
@@ -27,6 +29,8 @@ class ContentItem {
     this.body = '',
     this.subject = '',
     this.chapter = '',
+    this.chapterId,
+    this.videoId,
     this.metadata = const {},
     this.quizOptions = const [],
     this.correctOptionIndex,
@@ -44,6 +48,8 @@ class ContentItem {
     String? body,
     String? subject,
     String? chapter,
+    String? chapterId,
+    String? videoId,
     Map<String, String>? metadata,
     List<String>? quizOptions,
     int? correctOptionIndex,
@@ -61,6 +67,8 @@ class ContentItem {
       body: body ?? this.body,
       subject: subject ?? this.subject,
       chapter: chapter ?? this.chapter,
+      chapterId: chapterId ?? this.chapterId,
+      videoId: videoId ?? this.videoId,
       metadata: metadata ?? this.metadata,
       quizOptions: quizOptions ?? this.quizOptions,
       correctOptionIndex: correctOptionIndex ?? this.correctOptionIndex,
@@ -79,6 +87,8 @@ class ContentItem {
         'body': body,
         'subject': subject,
         'chapter': chapter,
+        'chapterId': chapterId,
+        'videoId': videoId,
         'metadata': metadata,
         'quizOptions': quizOptions,
         'correctOptionIndex': correctOptionIndex,
@@ -98,6 +108,8 @@ class ContentItem {
       body: json['body'] as String? ?? '',
       subject: json['subject'] as String? ?? '',
       chapter: json['chapter'] as String? ?? '',
+      chapterId: json['chapterId'] as String?,
+      videoId: json['videoId'] as String?,
       metadata: (json['metadata'] as Map<String, dynamic>?)
               ?.map((k, v) => MapEntry(k, v as String)) ??
           {},
