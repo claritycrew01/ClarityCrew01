@@ -259,19 +259,22 @@ class _FocusModeScreenState extends State<FocusModeScreen>
               ),
         ),
         const SizedBox(height: 12),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _buildDurationOption(5),
-            const SizedBox(width: 12),
-            _buildDurationOption(15),
-            const SizedBox(width: 12),
-            _buildDurationOption(25, isDefault: true),
-            const SizedBox(width: 12),
-            _buildDurationOption(45),
-            const SizedBox(width: 12),
-            _buildDurationOption(60),
-          ],
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _buildDurationOption(5),
+              const SizedBox(width: 12),
+              _buildDurationOption(15),
+              const SizedBox(width: 12),
+              _buildDurationOption(25, isDefault: true),
+              const SizedBox(width: 12),
+              _buildDurationOption(45),
+              const SizedBox(width: 12),
+              _buildDurationOption(60),
+            ],
+          ),
         ),
       ],
     );

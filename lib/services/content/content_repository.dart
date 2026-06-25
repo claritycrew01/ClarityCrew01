@@ -2,14 +2,14 @@ import '../../models/content_item.dart';
 
 class ContentRepository {
   static final List<ContentItem> _lessons = [
-    _focusBasics(),
-    _chunkingDeepDive(),
-    _visualNoteTaking(),
-    _memoryTechniques(),
-    _pomodoroMastery(),
-    _mindMapping(),
-    _activeRecall(),
-    _growthMindset(),
+    _algebraLinearEquations(),
+    _biologyCellStructure(),
+    _historyRenaissance(),
+    _englishPartsOfSpeech(),
+    _chemistryPeriodicTable(),
+    _geometryTriangles(),
+    _historyConstitution(),
+    _englishEssayStructure(),
   ];
 
   static List<ContentItem> getAll() => _lessons;
@@ -27,285 +27,327 @@ class ContentRepository {
   static List<ContentItem> getByType(String contentType) =>
       _lessons.where((l) => l.contentType == contentType).toList();
 
-  static ContentItem _focusBasics() => ContentItem(
-        id: 'focus_basics',
-        title: 'Focus Fundamentals',
-        description: 'Build your focus muscle with simple, proven techniques.',
+  static List<ContentItem> getBySubject(String subject) =>
+      _lessons.where((l) => l.subject == subject).toList();
+
+  static List<String> getAllSubjects() =>
+      _lessons.map((l) => l.subject).toSet().toList()..sort();
+
+  static List<String> getChaptersForSubject(String subject) =>
+      _lessons
+          .where((l) => l.subject == subject)
+          .map((l) => l.chapter)
+          .toSet()
+          .toList();
+
+  static ContentItem _algebraLinearEquations() => ContentItem(
+        id: 'algebra_linear_eq',
+        title: 'Solving Linear Equations',
+        description:
+            'Learn to solve equations like 2x + 5 = 13 step by step.',
         contentType: 'micro_lesson',
         difficulty: 'beginner',
-        estimatedDurationSeconds: 300,
-        tags: ['focus', 'adhd', 'beginner'],
-        body:
-            'Focus is like a muscle — the more you train it, the stronger it gets. For neurodivergent learners, traditional "just concentrate" advice often falls short.\n\nStart with the 2-Minute Rule: commit to just two minutes of focused work. This lowers the barrier to starting. After two minutes, decide if you want to continue.\n\nUse external anchors: a visual timer, background noise (brown noise works well for ADHD), or a physical object on your desk that signals "focus time."\n\nReduce decision fatigue: keep only what you need for the current task visible. Hide your phone, close extra tabs, and use a single window.\n\nYour brain craves novelty, so rotate between 2-3 tasks in a session rather than forcing yourself to do only one thing.',
-        quizOptions: [
-          'Focus is a muscle that can be trained',
-          'You either have focus or you do not',
-          'Multitasking improves focus',
-          'ADHD means you cannot focus at all',
-        ],
-        correctOptionIndex: 0,
-        flashcards: [
-          ContentItem(
-            id: 'fc_focus_1',
-            title: '2-Minute Rule',
-            contentType: 'flashcard',
-            body: 'Commit to just two minutes of focused work to overcome the barrier to starting.',
-          ),
-          ContentItem(
-            id: 'fc_focus_2',
-            title: 'External Anchors',
-            contentType: 'flashcard',
-            body: 'Visual timers, brown noise, and physical objects that signal "focus time."',
-          ),
-          ContentItem(
-            id: 'fc_focus_3',
-            title: 'Task Rotation',
-            contentType: 'flashcard',
-            body: 'Rotate between 2-3 tasks in a session to satisfy your brain\'s need for novelty.',
-          ),
-        ],
-      );
-
-  static ContentItem _chunkingDeepDive() => ContentItem(
-        id: 'chunking_deep',
-        title: 'Chunking Deep Dive',
-        description:
-            'Master the art of breaking complex topics into learnable pieces.',
-        contentType: 'micro_lesson',
-        difficulty: 'intermediate',
         estimatedDurationSeconds: 420,
-        tags: ['chunking', 'organization', 'executive-function'],
+        subject: 'Algebra',
+        chapter: 'Linear Equations',
+        tags: ['algebra', 'equations', 'solving', 'math'],
         body:
-            'Chunking is the most powerful learning technique for neurodivergent minds. It works with your brain\'s natural pattern-recognition ability instead of against it.\n\nWhy chunking works: Your working memory can hold about 3-5 items at once. By grouping information into chunks, each chunk becomes one "slot" in working memory. This reduces cognitive load by up to 80%.\n\nThe Chunking Method:\n1. Scan the material and identify 3-5 main categories\n2. Group related details under each category\n3. Give each chunk a memorable name or image\n4. Practice recalling chunks in order\n5. Connect chunks into a story\n\nFor ADHD learners: use colorful sticky notes (physical or digital) for each chunk. Move them around. The physical act of organizing helps encode the information.\n\nFor autistic learners: create clear hierarchical outlines. Each chunk should have a logical, predictable relationship to the others.',
+            'A linear equation is an equation where the variable has an exponent of 1. The standard form is ax + b = c, where x is the variable, and a, b, and c are constants.\n\nTo solve a linear equation, the goal is to isolate the variable on one side of the equals sign. Whatever you do to one side, you must do to the other — this keeps the equation balanced.\n\nStep-by-step method:\n1. Simplify both sides of the equation separately (combine like terms, remove parentheses)\n2. Move all terms with the variable to one side (use addition or subtraction)\n3. Move all constant terms to the other side\n4. Divide both sides by the coefficient of the variable\n\nExample: Solve 2x + 5 = 13\nStep 1: Subtract 5 from both sides → 2x = 8\nStep 2: Divide both sides by 2 → x = 4\nCheck: 2(4) + 5 = 8 + 5 = 13 ✓\n\nExample: Solve 3x - 7 = 2x + 5\nStep 1: Subtract 2x from both sides → x - 7 = 5\nStep 2: Add 7 to both sides → x = 12\nCheck: 3(12) - 7 = 36 - 7 = 29 and 2(12) + 5 = 24 + 5 = 29 ✓\n\nVisual tip: Draw the equation as a balance scale. Each side of the equation is a pan on the scale. Adding or removing the same weight from both pans keeps it balanced.',
         quizOptions: [
-          'Reduces cognitive load by up to 80%',
-          'Makes information more complex',
-          'Only works for math problems',
-          'Requires a tutor',
+          'Subtract 5 from both sides, then divide by 2',
+          'Add 5 to both sides, then multiply by 2',
+          'Divide by 5 on both sides',
+          'Subtract 2 from both sides',
         ],
         correctOptionIndex: 0,
         flashcards: [
           ContentItem(
-            id: 'fc_chunk_1',
-            title: 'Working Memory Limit',
+            id: 'fc_algebra_1',
+            title: 'Golden Rule of Equations',
             contentType: 'flashcard',
-            body: 'Working memory holds about 3-5 items at once.',
+            body: 'Whatever you do to one side, you must do to the other to keep the equation balanced.',
           ),
           ContentItem(
-            id: 'fc_chunk_2',
-            title: 'The Chunking Method',
+            id: 'fc_algebra_2',
+            title: 'Goal of Solving',
             contentType: 'flashcard',
-            body: 'Scan, group, name, practice, connect — five steps to master any topic.',
+            body: 'Isolate the variable on one side of the equals sign.',
+          ),
+          ContentItem(
+            id: 'fc_algebra_3',
+            title: 'Check Your Answer',
+            contentType: 'flashcard',
+            body: 'Plug the solution back into the original equation to verify both sides are equal.',
           ),
         ],
       );
 
-  static ContentItem _visualNoteTaking() => ContentItem(
-        id: 'visual_notes',
-        title: 'Visual Note-Taking',
+  static ContentItem _biologyCellStructure() => ContentItem(
+        id: 'biology_cell',
+        title: 'Cell Structure and Function',
         description:
-            'Use drawings, diagrams, and color to make information stick.',
-        contentType: 'visual_summary',
+            'Explore the basic building blocks of all living organisms.',
+        contentType: 'micro_lesson',
         difficulty: 'beginner',
-        estimatedDurationSeconds: 360,
-        tags: ['visual', 'creativity', 'memory', 'dyslexia'],
+        estimatedDurationSeconds: 480,
+        subject: 'Biology',
+        chapter: 'Cell Biology',
+        tags: ['biology', 'cells', 'science', 'organelles'],
         body:
-            'Visual note-taking is a game-changer for neurodivergent learners. It uses multiple areas of the brain simultaneously — spatial, visual, kinesthetic, and verbal — creating stronger memory traces.\n\nCore techniques:\n• Mind Maps: Start with a central idea, branch out. Uses radial thinking which matches how your brain naturally works.\n• Sketchnotes: Combine handwriting with simple drawings (icons, arrows, containers). No artistic talent needed.\n• Flowcharts: Perfect for processes, sequences, and decision trees.\n• Color Coding: Assign colors to themes. Red for definitions, blue for examples, green for action items.\n\nFor dyslexic learners: Use diagrams instead of long text. Draw relationships instead of describing them. Color helps with visual tracking and reduces letter confusion.\n\nFor ADHD learners: The act of drawing while listening gives your hands a job, which helps your brain focus on the audio. It channels fidgeting into learning.',
+            'The cell is the basic unit of life. All living organisms are made of cells — some have just one (unicellular), others have trillions (multicellular).\n\nTwo main cell types:\n1. Prokaryotic cells: Simple, no nucleus. Bacteria are prokaryotes. DNA floats freely in the cytoplasm.\n2. Eukaryotic cells: Complex, have a nucleus that holds DNA. Plants, animals, fungi, and protists are eukaryotes.\n\nKey organelles in animal cells:\n• Nucleus: The control center. Contains DNA and directs cell activities.\n• Mitochondria: The power plant. Converts glucose into ATP (energy) through cellular respiration.\n• Ribosomes: Protein factories. Read RNA instructions to build proteins.\n• Endoplasmic Reticulum (ER): Transportation network. Rough ER has ribosomes (makes proteins), Smooth ER makes lipids.\n• Golgi Apparatus: The shipping center. Packages proteins and sends them where they are needed.\n• Cell Membrane: The gatekeeper. A phospholipid bilayer that controls what enters and exits the cell.\n\nMemory trick: "Nick's Mighty Red Eagle Guards Cells" — Nucleus, Mitochondria, Ribosomes, Endoplasmic Reticulum, Golgi, Cell membrane.',
         quizOptions: [
-          'Drawings, diagrams, and color coding',
-          'Writing everything in one color',
-          'Typing notes without looking',
-          'Recording and transcribing later',
+          'Mitochondria — they convert glucose into energy (ATP)',
+          'Nucleus — it controls everything including energy',
+          'Ribosomes — they build energy molecules',
+          'Cell membrane — it creates energy at the surface',
         ],
         correctOptionIndex: 0,
         flashcards: [
           ContentItem(
-            id: 'fc_visual_1',
-            title: 'Mind Maps',
+            id: 'fc_bio_1',
+            title: 'Prokaryotic vs Eukaryotic',
             contentType: 'flashcard',
-            body: 'A central idea with branching connections — matches your brain\'s natural thinking.',
+            body: 'Prokaryotes: no nucleus, simple, bacteria. Eukaryotes: have a nucleus, complex, plants and animals.',
           ),
           ContentItem(
-            id: 'fc_visual_2',
-            title: 'Sketchnotes',
+            id: 'fc_bio_2',
+            title: 'Nucleus Function',
             contentType: 'flashcard',
-            body: 'Handwriting + simple drawings. No artistic talent required.',
+            body: 'The control center of the cell. Contains DNA and directs all cellular activities.',
+          ),
+          ContentItem(
+            id: 'fc_bio_3',
+            title: 'Mitochondria Function',
+            contentType: 'flashcard',
+            body: 'The power plant of the cell. Converts glucose into ATP through cellular respiration.',
           ),
         ],
       );
 
-  static ContentItem _memoryTechniques() => ContentItem(
-        id: 'memory_tech',
-        title: 'Memory Techniques That Work',
+  static ContentItem _historyRenaissance() => ContentItem(
+        id: 'history_renaissance',
+        title: 'The Renaissance: A Rebirth of Ideas',
         description:
-            'Evidence-based memory strategies designed for neurodivergent brains.',
+            'Discover how Europe emerged from the Middle Ages into an age of art, science, and discovery.',
         contentType: 'visual_summary',
         difficulty: 'intermediate',
         estimatedDurationSeconds: 480,
-        tags: ['memory', 'study-skills', 'executive-function'],
+        subject: 'World History',
+        chapter: 'The Renaissance',
+        tags: ['history', 'renaissance', 'europe', 'art', 'culture'],
         body:
-            'Forget traditional memorization. These techniques are built for how your brain actually works.\n\nActive Recall: The single most effective learning technique. After studying, close the book and try to remember what you learned. Every attempt to retrieve strengthens the memory. Use flashcards, cover-and-recall, or teach someone else.\n\nSpaced Repetition: Review information at increasing intervals — 1 day, 3 days, 1 week, 2 weeks, 1 month. Your brain strengthens memories just before they would be forgotten.\n\nMemory Palace (Method of Loci): Associate each item with a location in a familiar place (your home, your route to school). Walk through the location mentally to retrieve items. Works especially well for visual thinkers.\n\nInterleaving: Mix different topics in one study session. It feels harder but produces better long-term learning. Your brain has to discriminate between concepts, which deepens understanding.',
+            'The Renaissance (1400-1600 CE) was a period of cultural, artistic, and intellectual rebirth in Europe after the Middle Ages. It began in Italy and spread across the continent.\n\nWhat sparked the Renaissance?\n• The fall of Constantinople (1453) sent Greek scholars to Italy with ancient texts\n• Increased trade with Asia brought wealth to Italian city-states like Florence and Venice\n• The printing press (Gutenberg, ~1440) made books available to more people\n• A shift from religious focus to humanism — the study of human potential and achievement\n\nKey figures:\n• Leonardo da Vinci (1452-1519): Artist, inventor, scientist. Painted the Mona Lisa and The Last Supper. Filled notebooks with anatomical studies and flying machine designs.\n• Michelangelo (1475-1564): Sculptor and painter. Created David and painted the Sistine Chapel ceiling.\n• Galileo Galilei (1564-1642): Scientist who improved the telescope and supported the idea that the Earth orbits the Sun.\n• William Shakespeare (1564-1616): English playwright who wrote Hamlet, Romeo and Juliet, and Macbeth.\n\nVisual overview:\n[Art] → Realism, perspective, human emotion in paintings\n[Science] → Observation, experimentation, challenging old ideas\n[Exploration] → Columbus, Magellan, new trade routes\n[Literature] → Vernacular languages replacing Latin',
         quizOptions: [
-          'Testing yourself to strengthen memory',
-          'Reading the same material multiple times',
-          'Highlighting key sentences',
-          'Listening to recordings while sleeping',
+          'Humanism — a focus on human potential and achievement',
+          'Feudalism — a return to medieval social structures',
+          'The Crusades — religious wars that shaped Europe',
+          'The Inquisition — religious authority and control',
         ],
         correctOptionIndex: 0,
         flashcards: [
           ContentItem(
-            id: 'fc_mem_1',
-            title: 'Active Recall',
+            id: 'fc_hist_1',
+            title: 'What does Renaissance mean?',
             contentType: 'flashcard',
-            body: 'Close the book and try to remember — every retrieval strengthens the memory.',
+            body: '"Rebirth" — a period of cultural and intellectual revival in Europe from 1400-1600.',
           ),
           ContentItem(
-            id: 'fc_mem_2',
-            title: 'Spaced Repetition',
+            id: 'fc_hist_2',
+            title: 'Why Italy?',
             contentType: 'flashcard',
-            body: 'Review at increasing intervals: 1 day, 3 days, 1 week, 2 weeks, 1 month.',
-          ),
-          ContentItem(
-            id: 'fc_mem_3',
-            title: 'Interleaving',
-            contentType: 'flashcard',
-            body: 'Mix different topics in one session. Feels harder but works better.',
+            body: 'Italian city-states like Florence grew wealthy from trade, funding artists and thinkers.',
           ),
         ],
       );
 
-  static ContentItem _pomodoroMastery() => ContentItem(
-        id: 'pomodoro_mastery',
-        title: 'Focus Sprints: Pomodoro Mastery',
+  static ContentItem _englishPartsOfSpeech() => ContentItem(
+        id: 'english_grammar',
+        title: 'Parts of Speech',
         description:
-            'Adapt the Pomodoro Technique for ADHD, autism, and varying energy levels.',
-        contentType: 'guided_practice',
-        difficulty: 'beginner',
-        estimatedDurationSeconds: 300,
-        tags: ['focus', 'adhd', 'autism', 'time-management'],
-        body:
-            'The Pomodoro Technique is perfect for neurodivergent learners — but you need to adapt it.\n\nStandard Pomodoro: 25 min work, 5 min break. But that doesn\'t work for everyone.\n\nADHD Adaptation: Start with 10-minute sprints. The key is starting, not duration. Once you\'re in flow, extend naturally. Use a visual timer (not a phone — too distracting).\n\nAutism Adaptation: Predictability matters. Keep the same break routine every time. Same drink, same activity, same duration. Routine reduces transition anxiety.\n\nDyslexia Adaptation: During breaks, rest your eyes. Look at something 20 feet away for 20 seconds. Avoid screens during breaks to reduce visual fatigue.\n\nGeneral Rule: Your focus duration will vary day to day. That\'s normal. The goal is not perfection — it\'s showing up.',
-        quizOptions: [
-          'Adapt the timing to your needs',
-          'Always do exactly 25 minutes',
-          'Never take breaks',
-          'Only use it for homework',
-        ],
-        correctOptionIndex: 0,
-        flashcards: [
-          ContentItem(
-            id: 'fc_pom_1',
-            title: 'ADHD Pomodoro',
-            contentType: 'flashcard',
-            body: 'Start with 10-minute sprints. Focus on starting, not duration.',
-          ),
-          ContentItem(
-            id: 'fc_pom_2',
-            title: 'Autism Pomodoro',
-            contentType: 'flashcard',
-            body: 'Keep the same break routine every time. Predictability reduces transition anxiety.',
-          ),
-        ],
-      );
-
-  static ContentItem _mindMapping() => ContentItem(
-        id: 'mind_mapping',
-        title: 'Mind Mapping for Complex Topics',
-        description:
-            'Turn overwhelming information into clear, connected visual maps.',
-        contentType: 'visual_summary',
-        difficulty: 'intermediate',
-        estimatedDurationSeconds: 420,
-        tags: ['visual', 'organization', 'creativity', 'executive-function'],
-        body:
-            'When a topic feels overwhelming, a mind map turns chaos into clarity.\n\nHow to build a mind map:\n1. Start with the main topic in the center of the page\n2. Draw thick branches for main subtopics (use different colors)\n3. Add thinner branches for supporting details\n4. Use single words or short phrases — not sentences\n5. Add images or symbols for key concepts\n\nWhy it works for neurodivergent brains:\n• Non-linear: matches how your brain actually connects ideas\n• Visual hierarchy: shows what\'s important at a glance\n• Reduces overwhelm: breaks big topics into visible pieces\n• Engages creativity: making it pretty helps memory\n\nTip for ADHD: Use mind maps as a "brain dump" tool. When your mind is racing, put everything on the map. The physical act of organizing thoughts is calming.\n\nTip for autism: Use mind maps to plan routines and visualize sequences. Seeing the whole structure reduces anxiety about what comes next.',
-        quizOptions: [
-          'A visual map of connected ideas around a central topic',
-          'A list of facts in order',
-          'A detailed written outline',
-          'A diagram of a process',
-        ],
-        correctOptionIndex: 0,
-        flashcards: [
-          ContentItem(
-            id: 'fc_map_1',
-            title: 'Mind Map Structure',
-            contentType: 'flashcard',
-            body: 'Center topic → thick branches (subtopics) → thin branches (details) → images/symbols.',
-          ),
-          ContentItem(
-            id: 'fc_map_2',
-            title: 'Brain Dump',
-            contentType: 'flashcard',
-            body: 'When your mind is racing, put everything on a mind map. Organizing thoughts visually is calming.',
-          ),
-        ],
-      );
-
-  static ContentItem _activeRecall() => ContentItem(
-        id: 'active_recall',
-        title: 'Active Recall Practice',
-        description:
-            'A guided practice session to build your active recall skill.',
-        contentType: 'guided_practice',
+            'Master the eight building blocks of English sentences.',
+        contentType: 'quiz',
         difficulty: 'beginner',
         estimatedDurationSeconds: 360,
-        tags: ['memory', 'study-skills', 'practice'],
+        subject: 'English',
+        chapter: 'Grammar',
+        tags: ['english', 'grammar', 'writing', 'parts-of-speech'],
         body:
-            'Let us practice active recall together. This is the #1 most effective learning technique.\n\nStep 1: Pick a topic you studied recently (even something from 5 minutes ago).\n\nStep 2: Close your eyes or look away. Try to remember everything about it. Say it out loud if you can — speaking uses different neural pathways than thinking.\n\nStep 3: Check what you missed. That gap? That\'s where learning happens. The struggle to remember IS the learning.\n\nStep 4: Try again. You will remember more this time.\n\nStep 5: Repeat the next day. Each recall attempt strengthens the neural pathway.\n\nRemember: Forgetting is not failure. Forgetting and remembering again is how your brain builds lasting memories. Every time you recall, the memory gets stronger.',
+            'Every word in English belongs to one of eight categories called parts of speech. Understanding these helps you write clearly and analyze sentences.\n\n1. Noun: A person, place, thing, or idea. Examples: dog, freedom, Paris, teacher.\n2. Pronoun: Replaces a noun. Examples: she, they, it, who, everyone.\n3. Verb: Describes an action or state of being. Examples: run, is, believe, create.\n4. Adjective: Describes a noun. Examples: blue, tall, exciting, ancient.\n5. Adverb: Describes a verb, adjective, or other adverb. Often ends in -ly. Examples: quickly, very, quite, silently.\n6. Preposition: Shows relationship between a noun/pronoun and another word. Examples: in, on, at, by, with, under, between.\n7. Conjunction: Connects words, phrases, or clauses. Examples: and, but, or, because, although.\n8. Interjection: Expresses emotion. Examples: wow!, oops!, hey!, oh!\n\nQuick test: In the sentence "The tall student quickly finished her homework," can you identify each part?\n• The = article (type of adjective)\n• tall = adjective (describes student)\n• student = noun (person)\n• quickly = adverb (describes finished)\n• finished = verb (action)\n• her = pronoun (replaces a name)\n• homework = noun (thing)',
         quizOptions: [
-          'The struggle to remember IS the learning',
-          'If you forget, you are bad at studying',
-          'Only smart people can use active recall',
-          'Reading is better than recalling',
+          'Adverb — it describes the verb "finished"',
+          'Adjective — it describes the student',
+          'Verb — it shows the action of finishing',
+          'Noun — it is a thing called quickly',
         ],
         correctOptionIndex: 0,
         flashcards: [
           ContentItem(
-            id: 'fc_recall_1',
-            title: 'Active Recall',
+            id: 'fc_eng_1',
+            title: 'Noun vs Verb',
             contentType: 'flashcard',
-            body: 'The #1 most effective learning technique. Close the material and try to remember.',
+            body: 'A noun is a person, place, thing, or idea. A verb is an action or state of being.',
           ),
           ContentItem(
-            id: 'fc_recall_2',
-            title: 'Forgetting is Learning',
+            id: 'fc_eng_2',
+            title: 'Adjective vs Adverb',
             contentType: 'flashcard',
-            body: 'Forgetting and remembering again builds lasting memories. Every recall strengthens the pathway.',
+            body: 'An adjective describes a noun. An adverb describes a verb, adjective, or other adverb (often -ly).',
           ),
         ],
       );
 
-  static ContentItem _growthMindset() => ContentItem(
-        id: 'growth_mindset',
-        title: 'Learning with a Growth Mindset',
+  static ContentItem _chemistryPeriodicTable() => ContentItem(
+        id: 'chem_periodic',
+        title: 'The Periodic Table: Elements and Organization',
         description:
-            'Reframe challenges as opportunities. Built for neurodivergent learners.',
+            'Understand how 118 elements are arranged and why that matters.',
         contentType: 'micro_lesson',
-        difficulty: 'beginner',
-        estimatedDurationSeconds: 300,
-        tags: ['mindset', 'motivation', 'wellbeing'],
+        difficulty: 'intermediate',
+        estimatedDurationSeconds: 540,
+        subject: 'Chemistry',
+        chapter: 'Periodic Table',
+        tags: ['chemistry', 'elements', 'periodic-table', 'science'],
         body:
-            'A growth mindset is the belief that your abilities can develop through effort and learning. For neurodivergent learners, this mindset is essential.\n\nThe Trap of "Fixed" Thinking:\n• "I\'m not good at this" → You haven\'t learned it yet\n• "This is too hard" → This is where growth happens\n• "I made a mistake" → Mistakes are data for learning\n\nReframe for Your Brain:\n• Instead of "I can\'t focus" → "My focus works differently, and I\'m learning how to use it"\n• Instead of "I\'m bad at tests" → "I need to find a test format that works for me"\n• Instead of "Everyone else finds this easy" → "Everyone struggles with something"\n\nPractical exercise: When you catch yourself thinking "I can\'t do this," add the word "yet." I can\'t do this yet. This small change opens the door to possibility.',
+            'The periodic table organizes all known chemical elements by their atomic number (number of protons). It was developed by Dmitri Mendeleev in 1869, who famously left gaps for elements that had not yet been discovered.\n\nHow to read the table:\n• Rows are called periods (7 total). Elements in the same period have the same number of electron shells.\n• Columns are called groups (18 total). Elements in the same group have the same number of valence electrons and similar chemical properties.\n\nKey groups:\n• Group 1 — Alkali Metals (Li, Na, K): Highly reactive, 1 valence electron. React violently with water.\n• Group 2 — Alkaline Earth Metals (Mg, Ca): Reactive, 2 valence electrons.\n• Group 17 — Halogens (F, Cl, I): Very reactive nonmetals, 7 valence electrons. Need 1 more to fill their outer shell.\n• Group 18 — Noble Gases (He, Ne, Ar): Unreactive, full outer shell. They do not form compounds naturally.\n\nImportant trends (periodic trends):\n• Atomic radius: Increases as you go down a group (more electron shells). Decreases as you go right across a period (more protons pull electrons in tighter).\n• Electronegativity: The ability to attract electrons. Increases going right and up. Fluorine is the most electronegative element.\n\nMemory tip for the first 20 elements: "Happy Henry Likes Berries Better, Can Not Obtain Food Neutrons" — H, He, Li, Be, B, C, N, O, F, Ne.',
         quizOptions: [
-          'Abilities can develop through effort and learning',
-          'You are either good at something or you are not',
-          'Mistakes mean you should give up',
-          'Only some people can learn new things',
+          'They have the same number of valence electrons',
+          'They have the same atomic mass',
+          'They are all metals',
+          'They were discovered at the same time',
         ],
         correctOptionIndex: 0,
         flashcards: [
           ContentItem(
-            id: 'fc_growth_1',
-            title: 'Fixed vs Growth',
+            id: 'fc_chem_1',
+            title: 'Periods vs Groups',
             contentType: 'flashcard',
-            body: '"I can\'t do this" becomes "I can\'t do this YET." A small word that opens possibility.',
+            body: 'Periods are rows (same electron shells). Groups are columns (same valence electrons, similar properties).',
           ),
           ContentItem(
-            id: 'fc_growth_2',
-            title: 'Mistakes are Data',
+            id: 'fc_chem_2',
+            title: 'Noble Gases',
             contentType: 'flashcard',
-            body: 'Mistakes are not failures — they are information about what to try next.',
+            body: 'Group 18. Full outer electron shell. Very stable and unreactive. He, Ne, Ar, Kr, Xe, Rn.',
+          ),
+          ContentItem(
+            id: 'fc_chem_3',
+            title: 'Electronegativity Trend',
+            contentType: 'flashcard',
+            body: 'Increases going right and up. Fluorine is the most electronegative element.',
+          ),
+        ],
+      );
+
+  static ContentItem _geometryTriangles() => ContentItem(
+        id: 'geometry_triangles',
+        title: 'Triangles: Types, Theorems, and Proofs',
+        description:
+            'Learn to classify triangles and use key theorems to solve problems.',
+        contentType: 'visual_summary',
+        difficulty: 'intermediate',
+        estimatedDurationSeconds: 480,
+        subject: 'Geometry',
+        chapter: 'Triangles',
+        tags: ['geometry', 'triangles', 'math', 'angles'],
+        body:
+            'A triangle is a three-sided polygon. It is the simplest closed shape in geometry and the most fundamental. Understanding triangles unlocks trigonometry, engineering, and physics.\n\nClassified by sides:\n• Equilateral: All 3 sides equal, all 3 angles 60°\n• Isosceles: 2 sides equal, base angles are equal\n• Scalene: No sides equal, no angles equal\n\nClassified by angles:\n• Acute: All angles < 90°\n• Right: One angle = 90°\n• Obtuse: One angle > 90°\n\nKey theorems:\n• Triangle Sum Theorem: The three interior angles always add up to 180°.\n  Proof: Draw a line parallel to one side through the opposite vertex. Alternate interior angles show the three angles form a straight line (180°).\n\n• Pythagorean Theorem (right triangles only): a² + b² = c², where c is the hypotenuse (the side opposite the right angle).\n  Example: A right triangle has legs of 3 and 4. What is the hypotenuse?\n  3² + 4² = 9 + 16 = 25. √25 = 5. The hypotenuse is 5.\n\n• Triangle Inequality Theorem: The sum of any two sides must be greater than the third side.\n  Example: Can sides of 2, 3, and 6 form a triangle? 2 + 3 = 5, which is NOT > 6. No triangle.\n\nVisual: Draw a triangle and label vertices A, B, C. The side opposite angle A is side a, opposite B is side b, opposite C is side c.',
+        quizOptions: [
+          '5 — from the Pythagorean theorem: 3² + 4² = 9 + 16 = 25, √25 = 5',
+          '6 — just add 3 and 4 and subtract 1',
+          '7 — add the two legs together',
+          '25 — square the legs and add them',
+        ],
+        correctOptionIndex: 0,
+        flashcards: [
+          ContentItem(
+            id: 'fc_geo_1',
+            title: 'Triangle Sum Theorem',
+            contentType: 'flashcard',
+            body: 'The three interior angles of any triangle add up to 180°.',
+          ),
+          ContentItem(
+            id: 'fc_geo_2',
+            title: 'Pythagorean Theorem',
+            contentType: 'flashcard',
+            body: 'a² + b² = c² for right triangles. c is the hypotenuse opposite the right angle.',
+          ),
+          ContentItem(
+            id: 'fc_geo_3',
+            title: 'Triangle Inequality',
+            contentType: 'flashcard',
+            body: 'The sum of any two sides must be greater than the third side for a triangle to exist.',
+          ),
+        ],
+      );
+
+  static ContentItem _historyConstitution() => ContentItem(
+        id: 'us_history_constitution',
+        title: 'The US Constitution',
+        description:
+            'Understand the framework of American government and your rights.',
+        contentType: 'micro_lesson',
+        difficulty: 'intermediate',
+        estimatedDurationSeconds: 540,
+        subject: 'US History',
+        chapter: 'The Constitution',
+        tags: ['history', 'constitution', 'government', 'civics'],
+        body:
+            'The US Constitution, signed in 1787, is the supreme law of the United States. It replaced the Articles of Confederation, which created a weak central government. The Constitution established a stronger federal government with three branches.\n\nThe Preamble: "We the People of the United States, in Order to form a more perfect Union, establish Justice, insure domestic Tranquility, provide for the common defence, promote the general Welfare, and secure the Blessings of Liberty to ourselves and our Posterity, do ordain and establish this Constitution for the United States of America."\n\nThe Three Branches (Separation of Powers):\n• Legislative (Article I): Congress — makes laws. Bicameral: House of Representatives (based on population) and Senate (2 per state).\n• Executive (Article II): President — enforces laws. Includes the President, Vice President, and Cabinet.\n• Judicial (Article III): Supreme Court — interprets laws. Justices serve lifetime appointments.\n\nChecks and Balances: Each branch has power to limit the others.\n• President can veto laws passed by Congress\n• Congress can override a veto with a 2/3 vote\n• Supreme Court can declare laws unconstitutional (judicial review, established in Marbury v. Madison, 1803)\n\nThe Bill of Rights: The first 10 amendments, added in 1791.\n• 1st: Freedom of speech, religion, press, assembly, petition\n• 2nd: Right to bear arms\n• 4th: Protection from unreasonable searches\n• 5th: Right to remain silent, due process\n• 8th: Protection from cruel and unusual punishment',
+        quizOptions: [
+          'To create a stronger federal government with checks and balances',
+          'To give all power to the President',
+          'To eliminate state governments',
+          'To establish a monarchy',
+        ],
+        correctOptionIndex: 0,
+        flashcards: [
+          ContentItem(
+            id: 'fc_us_1',
+            title: 'Three Branches',
+            contentType: 'flashcard',
+            body: 'Legislative (Congress — makes laws), Executive (President — enforces laws), Judicial (Supreme Court — interprets laws).',
+          ),
+          ContentItem(
+            id: 'fc_us_2',
+            title: 'Bill of Rights',
+            contentType: 'flashcard',
+            body: 'First 10 amendments to the Constitution. Includes freedom of speech, right to bear arms, protections against unreasonable searches.',
+          ),
+        ],
+      );
+
+  static ContentItem _englishEssayStructure() => ContentItem(
+        id: 'english_essay',
+        title: 'Essay Structure: Building a Strong Argument',
+        description:
+            'Learn the five-paragraph essay framework and persuasive writing techniques.',
+        contentType: 'guided_practice',
+        difficulty: 'intermediate',
+        estimatedDurationSeconds: 600,
+        subject: 'English',
+        chapter: 'Writing',
+        tags: ['english', 'writing', 'essay', 'argument'],
+        body:
+            'The five-paragraph essay is the standard structure for academic writing. Mastering it gives you a reliable framework for any subject.\n\nStructure overview:\n1. Introduction Paragraph\n2. Body Paragraph 1 (First main point)\n3. Body Paragraph 2 (Second main point)\n4. Body Paragraph 3 (Third main point)\n5. Conclusion Paragraph\n\nIntroduction (3-4 sentences):\n• Hook: Grab the reader\'s attention with a question, fact, or quote\n• Background: Give 1-2 sentences of context\n• Thesis statement: Your main argument in one clear sentence. This is the most important sentence of your essay.\n\nBody Paragraphs (5-7 sentences each):\n• Topic sentence: States the main idea of this paragraph\n• Evidence: Facts, quotes, or examples that support your point\n• Analysis: Explain how the evidence supports your thesis\n• Concluding/transition sentence: Wrap up the point and lead to the next paragraph\n\nConclusion (3-4 sentences):\n• Restate your thesis in different words\n• Summarize your three main points\n• Leave the reader with a final thought or call to action\n\nPractice exercise: Pick a topic (e.g., "Why exercise is important" or "The best book I have read"). Write a thesis statement using this formula:\n"Although [counterargument], [your position] because [reason 1], [reason 2], and [reason 3]."\n\nExample: "Although some say exercise takes too much time, regular physical activity is essential because it improves physical health, boosts mental wellbeing, and builds discipline."',
+        quizOptions: [
+          'To state your main argument clearly in one sentence',
+          'To introduce the first body paragraph',
+          'To ask the reader a question',
+          'To summarize the entire essay',
+        ],
+        correctOptionIndex: 0,
+        flashcards: [
+          ContentItem(
+            id: 'fc_essay_1',
+            title: 'Five-Paragraph Essay',
+            contentType: 'flashcard',
+            body: 'Introduction, Body 1, Body 2, Body 3, Conclusion. A reliable framework for academic writing.',
+          ),
+          ContentItem(
+            id: 'fc_essay_2',
+            title: 'Thesis Statement Formula',
+            contentType: 'flashcard',
+            body: '"Although [counterargument], [your position] because [reason 1], [reason 2], and [reason 3]."',
           ),
         ],
       );

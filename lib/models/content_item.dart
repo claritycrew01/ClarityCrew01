@@ -9,6 +9,8 @@ class ContentItem {
   final int estimatedDurationSeconds;
   final List<String> tags;
   final String body;
+  final String subject;
+  final String chapter;
   final Map<String, String> metadata;
   final List<String> quizOptions;
   final int? correctOptionIndex;
@@ -23,6 +25,8 @@ class ContentItem {
     this.estimatedDurationSeconds = 300,
     this.tags = const [],
     this.body = '',
+    this.subject = '',
+    this.chapter = '',
     this.metadata = const {},
     this.quizOptions = const [],
     this.correctOptionIndex,
@@ -38,6 +42,8 @@ class ContentItem {
     int? estimatedDurationSeconds,
     List<String>? tags,
     String? body,
+    String? subject,
+    String? chapter,
     Map<String, String>? metadata,
     List<String>? quizOptions,
     int? correctOptionIndex,
@@ -53,6 +59,8 @@ class ContentItem {
           estimatedDurationSeconds ?? this.estimatedDurationSeconds,
       tags: tags ?? this.tags,
       body: body ?? this.body,
+      subject: subject ?? this.subject,
+      chapter: chapter ?? this.chapter,
       metadata: metadata ?? this.metadata,
       quizOptions: quizOptions ?? this.quizOptions,
       correctOptionIndex: correctOptionIndex ?? this.correctOptionIndex,
@@ -69,6 +77,8 @@ class ContentItem {
         'estimatedDurationSeconds': estimatedDurationSeconds,
         'tags': tags,
         'body': body,
+        'subject': subject,
+        'chapter': chapter,
         'metadata': metadata,
         'quizOptions': quizOptions,
         'correctOptionIndex': correctOptionIndex,
@@ -86,6 +96,8 @@ class ContentItem {
           json['estimatedDurationSeconds'] as int? ?? 300,
       tags: (json['tags'] as List<dynamic>?)?.cast<String>() ?? [],
       body: json['body'] as String? ?? '',
+      subject: json['subject'] as String? ?? '',
+      chapter: json['chapter'] as String? ?? '',
       metadata: (json['metadata'] as Map<String, dynamic>?)
               ?.map((k, v) => MapEntry(k, v as String)) ??
           {},

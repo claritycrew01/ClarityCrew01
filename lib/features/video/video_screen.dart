@@ -1,6 +1,28 @@
 import 'package:flutter/material.dart';
 import '../../core/theme/colors.dart';
 
+class VideoContent {
+  final String id;
+  final String title;
+  final String description;
+  final String duration;
+  final String subject;
+  final String chapter;
+  final List<String> keyPoints;
+  final List<String> chapters;
+
+  const VideoContent({
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.duration,
+    required this.subject,
+    required this.chapter,
+    required this.keyPoints,
+    required this.chapters,
+  });
+}
+
 class VideoScreen extends StatefulWidget {
   const VideoScreen({super.key});
 
@@ -8,74 +30,61 @@ class VideoScreen extends StatefulWidget {
   State<VideoScreen> createState() => _VideoScreenState();
 }
 
-class _VideoScreenState extends State<VideoScreen>
-    with SingleTickerProviderStateMixin {
+class _VideoScreenState extends State<VideoScreen> {
   int _currentVideoIndex = 0;
-  bool _isPlaying = false;
-  double _progress = 0.0;
-  late AnimationController _animController;
+  bool _isWatched = false;
 
   final _videos = [
-    _VideoContent(
-      title: 'How Chunking Works',
-      description: 'A visual explanation of chunking for better learning.',
-      duration: '2:30',
-      steps: [
-        'Your brain processes information in groups',
-        'Chunking reduces cognitive load',
-        'Group related concepts together',
-        'Take breaks between chunks',
+    VideoContent(
+      id: 'vid_algebra_1',
+      title: 'Solving Linear Equations Visually',
+      description:
+          'Watch step-by-step solutions to linear equations using a balance scale approach.',
+      duration: '4:30',
+      subject: 'Algebra',
+      chapter: 'Linear Equations',
+      keyPoints: [
+        'Isolate the variable by undoing operations in reverse order',
+        'Whatever you do to one side, do to the other',
+        'Check your answer by plugging it back into the original equation',
+        'Use inverse operations: addition undoes subtraction, division undoes multiplication',
+      ],
+      chapters: [
+        '0:00 — What is a linear equation?',
+        '0:45 — The balance scale method',
+        '1:30 — Example 1: 2x + 5 = 13',
+        '2:15 — Example 2: 3x - 7 = 2x + 5',
+        '3:00 — Equations with fractions',
+        '3:45 — Checking your answer',
       ],
     ),
-    _VideoContent(
-      title: 'Visual Learning Techniques',
-      description: 'Discover how to use visuals to boost memory.',
-      duration: '3:00',
-      steps: [
-        'Mind maps connect ideas visually',
-        'Color coding helps categorization',
-        'Sketchnotes engage creative thinking',
-        'Diagrams simplify complex topics',
+    VideoContent(
+      id: 'vid_bio_1',
+      title: 'Cell Organelles: A Tour Inside the Cell',
+      description:
+          'Explore the internal structure of animal and plant cells through detailed diagrams.',
+      duration: '5:00',
+      subject: 'Biology',
+      chapter: 'Cell Biology',
+      keyPoints: [
+        'The nucleus contains DNA and controls the cell',
+        'Mitochondria produce ATP energy through cellular respiration',
+        'Ribosomes build proteins from amino acids',
+        'The cell membrane regulates what enters and exits',
+        'Plant cells have cell walls and chloroplasts that animal cells lack',
+      ],
+      chapters: [
+        '0:00 — Overview of cell types',
+        '0:40 — The nucleus and DNA',
+        '1:20 — Mitochondria: power plant',
+        '2:00 — Ribosomes and protein synthesis',
+        '2:40 — Endoplasmic Reticulum and Golgi',
+        '3:20 — Cell membrane structure',
+        '4:00 — Plant vs animal cells',
+        '4:30 — Summary diagram',
       ],
     ),
   ];
-
-  @override
-  void initState() {
-    super.initState();
-    _animController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 1),
-    );
-  }
-
-  @override
-  void dispose() {
-    _animController.dispose();
-    super.dispose();
-  }
-
-  void _togglePlay() {
-    setState(() => _isPlaying = !_isPlaying);
-    if (_isPlaying) {
-      _simulatePlayback();
-    }
-  }
-
-  void _simulatePlayback() {
-    if (!_isPlaying || _progress >= 1.0) return;
-    Future.delayed(const Duration(milliseconds: 300), () {
-      if (!mounted || !_isPlaying) return;
-      setState(() {
-        _progress = (_progress + 0.05).clamp(0.0, 1.0);
-      });
-      if (_progress < 1.0) {
-        _simulatePlayback();
-      } else {
-        setState(() => _isPlaying = false);
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,13 +101,18 @@ class _VideoScreenState extends State<VideoScreen>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildVideoPlayer(video),
+              _buildVideoHeader(video),
               const SizedBox(height: 20),
-              _buildVideoInfo(video),
+              _buildVideoDetails(video),
               const SizedBox(height: 20),
-              _buildStepList(video.steps),
+              _buildChapterList(video.chapters),
+              const SizedBox(height: 20),
+              _buildKeyPoints(video),
+              const SizedBox(height: 20),
+              if (_isWatched) _buildWatchedBadge(),
               const SizedBox(height: 24),
-              _buildNavButtons(),
+              _buildNavButtons(video),
+              const SizedBox(height: 16),
             ],
           ),
         ),
@@ -106,90 +120,154 @@ class _VideoScreenState extends State<VideoScreen>
     );
   }
 
-  Widget _buildVideoPlayer(_VideoContent video) {
+  Widget _buildVideoHeader(VideoContent video) {
     return Semantics(
       label: 'Video: ${video.title}',
-      child: GestureDetector(
-        onTap: _togglePlay,
-        child: Container(
-          height: 220,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            gradient: LinearGradient(
-              colors: [
-                AppColors.sereneBlue.withValues(alpha: 0.3),
-                AppColors.softPurple.withValues(alpha: 0.2),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(24),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          gradient: LinearGradient(
+            colors: [
+              AppColors.sereneBlue.withValues(alpha: 0.2),
+              AppColors.softPurple.withValues(alpha: 0.1),
+            ],
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: AppColors.sereneBlue.withValues(alpha: 0.15),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Icon(
+                    Icons.play_circle_fill_rounded,
+                    size: 32,
+                    color: AppColors.sereneBlue,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        video.title,
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleLarge
+                            ?.copyWith(fontWeight: FontWeight.w700),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        '${video.subject} · ${video.chapter}',
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelMedium
+                            ?.copyWith(color: AppColors.textSecondary),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
-          ),
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+            const SizedBox(height: 16),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              decoration: BoxDecoration(
+                color: Colors.black.withValues(alpha: 0.05),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Row(
                 children: [
-                  Icon(
-                    _isPlaying ? Icons.play_circle_fill : Icons.play_circle_outline,
-                    size: 64,
-                    color: Colors.white.withValues(alpha: 0.8),
-                  ),
-                  const SizedBox(height: 8),
+                  const Icon(Icons.schedule_outlined,
+                      size: 16, color: AppColors.textSecondary),
+                  const SizedBox(width: 6),
                   Text(
                     video.duration,
-                    style: const TextStyle(
-                      color: Colors.white70,
-                      fontSize: 14,
-                    ),
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: AppColors.textSecondary,
+                        ),
+                  ),
+                  const Spacer(),
+                  const Icon(Icons.subtitles_outlined,
+                      size: 16, color: AppColors.textSecondary),
+                  const SizedBox(width: 6),
+                  Text(
+                    '${video.chapters.length} chapters',
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: AppColors.textSecondary,
+                        ),
                   ),
                 ],
               ),
-              Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20),
-                  ),
-                  child: LinearProgressIndicator(
-                    value: _progress,
-                    minHeight: 4,
-                    backgroundColor: Colors.white24,
-                    color: AppColors.calmTeal,
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  Widget _buildVideoInfo(_VideoContent video) {
+  Widget _buildVideoDetails(VideoContent video) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          video.title,
-          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.w700,
-              ),
-        ),
-        const SizedBox(height: 8),
         Text(
           video.description,
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 color: AppColors.textSecondary,
               ),
         ),
+        const SizedBox(height: 12),
+        Row(
+          children: [
+            Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              decoration: BoxDecoration(
+                color: AppColors.sereneBlue.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Text(
+                video.subject,
+                style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                      color: AppColors.sereneBlue,
+                      fontWeight: FontWeight.w600,
+                    ),
+              ),
+            ),
+            const SizedBox(width: 8),
+            Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              decoration: BoxDecoration(
+                color: AppColors.softPurple.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Text(
+                video.chapter,
+                style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                      color: AppColors.softPurple,
+                      fontWeight: FontWeight.w600,
+                    ),
+              ),
+            ),
+          ],
+        ),
       ],
     );
   }
 
-  Widget _buildStepList(List<String> steps) {
+  Widget _buildChapterList(List<String> chapters) {
     return Container(
+      width: double.infinity,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: AppColors.cardLight,
@@ -200,65 +278,126 @@ class _VideoScreenState extends State<VideoScreen>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Key Takeaways',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+            'Video Chapters',
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
           ),
-          const SizedBox(height: 16),
-          ...steps.asMap().entries.map((entry) {
+          const SizedBox(height: 12),
+          ...chapters.asMap().entries.map((entry) {
             return Padding(
-              padding: const EdgeInsets.only(bottom: 12),
+              padding: const EdgeInsets.only(bottom: 8),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    width: 28,
-                    height: 28,
-                    decoration: BoxDecoration(
-                      color: AppColors.sereneBlue.withValues(alpha: 0.12),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Center(
-                      child: Text(
-                        '${entry.key + 1}',
-                        style: TextStyle(
-                          color: AppColors.sereneBlue,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 12),
+                  Icon(Icons.play_circle_outline,
+                      size: 18, color: AppColors.sereneBlue),
+                  const SizedBox(width: 10),
                   Expanded(
                     child: Text(
                       entry.value,
-                      style: Theme.of(context).textTheme.bodyLarge,
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ),
                 ],
               ),
             );
           }),
-          const SizedBox(height: 8),
-          Semantics(
-            button: true,
-            label: 'Mark video as watched',
-            child: SizedBox(
-              width: double.infinity,
+        ],
+      ),
+    );
+  }
+
+  Widget _buildKeyPoints(VideoContent video) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: AppColors.calmTeal.withValues(alpha: 0.06),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: AppColors.calmTeal.withValues(alpha: 0.15),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Icon(Icons.lightbulb_outline,
+                  size: 20, color: AppColors.calmTeal),
+              const SizedBox(width: 8),
+              Text(
+                'Key Takeaways',
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          ...video.keyPoints.asMap().entries.map((entry) {
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 22,
+                    height: 22,
+                    decoration: BoxDecoration(
+                      color: AppColors.calmTeal.withValues(alpha: 0.15),
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: Center(
+                      child: Text(
+                        '${entry.key + 1}',
+                        style: TextStyle(
+                          color: AppColors.calmTeal,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 11,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      entry.value,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }),
+          const SizedBox(height: 12),
+          SizedBox(
+            width: double.infinity,
+            child: Semantics(
+              button: true,
+              label: _isWatched ? 'Watched' : 'Mark as watched',
               child: OutlinedButton.icon(
                 onPressed: () {
-                  setState(() => _progress = 1.0);
+                  setState(() => _isWatched = !_isWatched);
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Marked as watched!'),
+                    SnackBar(
+                      content: Text(_isWatched
+                          ? 'Marked as watched'
+                          : 'Marked as not watched'),
                       behavior: SnackBarBehavior.floating,
+                      duration: const Duration(seconds: 1),
                     ),
                   );
                 },
-                icon: const Icon(Icons.check_rounded),
-                label: const Text('Mark as Watched'),
+                icon: Icon(
+                  _isWatched ? Icons.check_circle : Icons.check_circle_outline,
+                  color: _isWatched ? AppColors.success : null,
+                ),
+                label: Text(_isWatched ? 'Watched' : 'Mark as Watched'),
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: _isWatched ? AppColors.success : null,
+                ),
               ),
             ),
           ),
@@ -267,7 +406,32 @@ class _VideoScreenState extends State<VideoScreen>
     );
   }
 
-  Widget _buildNavButtons() {
+  Widget _buildWatchedBadge() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      decoration: BoxDecoration(
+        color: AppColors.success.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppColors.success.withValues(alpha: 0.2)),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(Icons.check_circle, color: AppColors.success, size: 20),
+          const SizedBox(width: 8),
+          Text(
+            'You watched this video',
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: AppColors.success,
+                  fontWeight: FontWeight.w600,
+                ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildNavButtons(VideoContent video) {
     return Row(
       children: [
         if (_currentVideoIndex > 0)
@@ -279,8 +443,7 @@ class _VideoScreenState extends State<VideoScreen>
                 onPressed: () {
                   setState(() {
                     _currentVideoIndex--;
-                    _progress = 0.0;
-                    _isPlaying = false;
+                    _isWatched = false;
                   });
                 },
                 icon: const Icon(Icons.arrow_back_rounded),
@@ -300,8 +463,7 @@ class _VideoScreenState extends State<VideoScreen>
                 if (_currentVideoIndex < _videos.length - 1) {
                   setState(() {
                     _currentVideoIndex++;
-                    _progress = 0.0;
-                    _isPlaying = false;
+                    _isWatched = false;
                   });
                 } else {
                   Navigator.pop(context);
@@ -319,18 +481,4 @@ class _VideoScreenState extends State<VideoScreen>
       ],
     );
   }
-}
-
-class _VideoContent {
-  final String title;
-  final String description;
-  final String duration;
-  final List<String> steps;
-
-  const _VideoContent({
-    required this.title,
-    required this.description,
-    required this.duration,
-    required this.steps,
-  });
 }

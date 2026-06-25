@@ -78,7 +78,7 @@ class _QuizScreenState extends State<QuizScreen>
         centerTitle: true,
       ),
       body: SafeArea(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,8 +88,9 @@ class _QuizScreenState extends State<QuizScreen>
               _buildQuestionCard(question),
               const SizedBox(height: 24),
               if (_showResult) _buildResultFeedback(question),
-              const Spacer(),
+              const SizedBox(height: 24),
               _buildNextButton(),
+              const SizedBox(height: 16),
             ],
           ),
         ),
