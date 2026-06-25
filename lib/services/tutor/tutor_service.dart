@@ -1,9 +1,9 @@
-import '../models/content_item.dart';
-import '../models/learner_profile.dart';
-import '../models/learning_recommendation.dart';
-import '../models/tutor_message.dart';
-import '../models/video_content.dart';
-import 'content/content_repository.dart';
+import '../../models/content_item.dart';
+import '../../models/learner_profile.dart';
+import '../../models/learning_recommendation.dart';
+import '../../models/tutor_message.dart';
+import '../../models/video_content.dart';
+import '../content/content_repository.dart';
 
 enum TutorIntent {
   explain,
@@ -23,10 +23,11 @@ class TutorService {
   }) {
     final intent = _detectIntent(userMessage);
     final lesson =
-        contentId != null ? ContentRepository.findById(contentId) : null;
-    final video = contentId != null
-        ? ContentRepository.getVideoForLesson(contentId)
-        : null;
+        contentId != null ? ContentRepository.getById(contentId) : null;
+    final videos = lesson != null
+        ? ContentRepository.getVideosForSubject(lesson.subject)
+        : <VideoContent>[];
+    final video = videos.isNotEmpty ? videos.first : null;
     final text = _buildResponse(
       intent: intent,
       message: userMessage,
@@ -130,7 +131,7 @@ class TutorService {
     LearnerProfile profile,
   ) {
     if (lesson == null) {
-      return '${_feedbackTone(profile)}Pick a lesson from Recommendations or ask me about a subject like Algebra, Biology, or English. $_pacingHint(profile)';
+      return '${_feedbackTone(profile)}Pick a lesson from Recommendations or ask me about a subject like Algebra, Biology, or English. ${_pacingHint(profile)}';
     }
 
     final excerpt = _firstParagraph(lesson.body);
@@ -138,7 +139,7 @@ class TutorService {
         ? ' There is also a video lesson "${video.title}" you can watch offline.'
         : '';
 
-    return '${_feedbackTone(profile)}For "${lesson.title}": $excerpt$videoHint $_pacingHint(profile)';
+    return '${_feedbackTone(profile)}For "${lesson.title}": $excerpt$videoHint ${_pacingHint(profile)}';
   }
 
   String _simplifyResponse(ContentItem? lesson, LearnerProfile profile) {
@@ -173,13 +174,13 @@ class TutorService {
     }
 
     final lesson = recommendation.contentId != null
-        ? ContentRepository.findById(recommendation.contentId!)
+        ? ContentRepository.getById(recommendation.contentId!)
         : null;
     final lessonLine = lesson != null
         ? ' I picked "${lesson.title}" because it matches your current study flow.'
         : '';
 
-    return '${_feedbackTone(profile)}${recommendation.reason}.${lessonLine} Confidence: ${(recommendation.confidence * 100).round()}%.';
+    return '${_feedbackTone(profile)}${recommendation.reason}.$lessonLine Confidence: ${(recommendation.confidence * 100).round()}%.';
   }
 
   String _whatNext(
@@ -194,11 +195,11 @@ class TutorService {
               .key
               .name
               .replaceAll('_', ' ');
-      return '${_feedbackTone(profile)}Try $mode next to build momentum. $_pacingHint(profile)';
+      return '${_feedbackTone(profile)}Try $mode next to build momentum. ${_pacingHint(profile)}';
     }
 
     final lesson = recommendation.contentId != null
-        ? ContentRepository.findById(recommendation.contentId!)
+        ? ContentRepository.getById(recommendation.contentId!)
         : null;
     final target = lesson?.title ?? recommendation.title;
     return '${_feedbackTone(profile)}Next up: $target — ${recommendation.description}';
@@ -210,8 +211,9 @@ class TutorService {
     String message,
   ) {
     if (lesson != null) {
-      return _explainResponse(lesson, ContentRepository.getVideoForLesson(lesson.id),
-          message, profile);
+      final videos = ContentRepository.getVideosForSubject(lesson.subject);
+      final video = videos.isNotEmpty ? videos.first : null;
+      return _explainResponse(lesson, video, message, profile);
     }
     return '${_feedbackTone(profile)}I can explain lesson content, simplify ideas, go deeper, or tell you what to study next. Try asking "Explain linear equations" or "What should I study next?"';
   }
