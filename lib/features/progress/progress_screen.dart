@@ -97,7 +97,7 @@ class ProgressScreen extends StatelessWidget {
                 Icons.trending_up_rounded,
                 AppColors.warmCoral,
                 showBar: true,
-                value: avgEngagement,
+                barValue: avgEngagement,
               ),
             ),
             const SizedBox(width: 12),
@@ -109,7 +109,7 @@ class ProgressScreen extends StatelessWidget {
                 Icons.psychology_outlined,
                 AppColors.softPurple,
                 showBar: true,
-                value: avgComprehension,
+                barValue: avgComprehension,
               ),
             ),
           ],
@@ -121,11 +121,11 @@ class ProgressScreen extends StatelessWidget {
   Widget _buildMetricCard(
     BuildContext context,
     String label,
-    String value,
+    String displayValue,
     IconData icon,
     Color color, {
     bool showBar = false,
-    double value = 0.0,
+    double barValue = 0.0,
   }) {
     return Container(
       padding: const EdgeInsets.all(16),
@@ -150,7 +150,7 @@ class ProgressScreen extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            value,
+            displayValue,
             style: Theme.of(context).textTheme.displayMedium?.copyWith(
                   fontWeight: FontWeight.w700,
                   color: color,
@@ -161,7 +161,7 @@ class ProgressScreen extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(4),
               child: LinearProgressIndicator(
-                value: value.clamp(0.0, 1.0),
+                value: barValue.clamp(0.0, 1.0),
                 minHeight: 4,
                 backgroundColor: Colors.grey.withValues(alpha: 0.15),
                 color: color,
@@ -387,24 +387,28 @@ class ProgressScreen extends StatelessWidget {
           child: Column(
             children: [
               _buildProfileRow(
+                context,
                 Icons.speed_outlined,
                 'Pacing',
                 profile.pacing.name,
               ),
               const Divider(height: 24),
               _buildProfileRow(
+                context,
                 Icons.tune_outlined,
                 'Depth',
                 '${(profile.depthPreference * 100).round()}%',
               ),
               const Divider(height: 24),
               _buildProfileRow(
+                context,
                 Icons.feedback_outlined,
                 'Feedback',
                 profile.preferredFeedback.name,
               ),
               const Divider(height: 24),
               _buildProfileRow(
+                context,
                 Icons.timer_outlined,
                 'Focus Threshold',
                 '${(profile.focusThreshold * 100).round()}%',
@@ -416,7 +420,7 @@ class ProgressScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildProfileRow(IconData icon, String label, String value) {
+  Widget _buildProfileRow(BuildContext context, IconData icon, String label, String value) {
     return Row(
       children: [
         Icon(icon, size: 20, color: AppColors.textSecondary),

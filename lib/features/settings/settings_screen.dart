@@ -248,11 +248,11 @@ class SettingsScreen extends StatelessWidget {
           ),
           child: Column(
             children: [
-              _buildAboutRow('Version', '1.0.0'),
+              _buildAboutRow(context, 'Version', '1.0.0'),
               const Divider(height: 16),
-              _buildAboutRow('Data', 'Stored locally only'),
+              _buildAboutRow(context, 'Data', 'Stored locally only'),
               const Divider(height: 16),
-              _buildAboutRow('AI Engine', 'Adaptive v1'),
+              _buildAboutRow(context, 'AI Engine', 'Adaptive v1'),
             ],
           ),
         ),
@@ -260,7 +260,7 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildAboutRow(String label, String value) {
+  Widget _buildAboutRow(BuildContext context, String label, String value) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

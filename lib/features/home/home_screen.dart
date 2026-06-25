@@ -32,15 +32,15 @@ class HomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 24),
-              _buildHeader(profile),
+              _buildHeader(context, profile),
               const SizedBox(height: 20),
-              _buildGreeting(profile),
+              _buildGreeting(context, profile),
               const SizedBox(height: 24),
               if (rec != null) _buildRecommendedCard(context, rec),
               const SizedBox(height: 24),
               _buildModeGrid(context),
               const SizedBox(height: 24),
-              _buildQuickStats(sessionState),
+              _buildQuickStats(context, sessionState),
               const SizedBox(height: 32),
             ],
           ),
@@ -49,7 +49,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader(LearnerProfile profile) {
+  Widget _buildHeader(BuildContext context, LearnerProfile profile) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -122,7 +122,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildGreeting(LearnerProfile profile) {
+  Widget _buildGreeting(BuildContext context, LearnerProfile profile) {
     final greeting = _getGreeting();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -342,7 +342,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildQuickStats(SessionState sessionState) {
+  Widget _buildQuickStats(BuildContext context, SessionState sessionState) {
     final sessionCount = sessionState.sessions.length;
     final avgEngagement = sessionState.averageEngagement;
 
@@ -360,6 +360,7 @@ class HomeScreen extends StatelessWidget {
           children: [
             Expanded(
               child: _buildStatCard(
+                context,
                 'Sessions',
                 '$sessionCount',
                 Icons.menu_book_rounded,
@@ -369,6 +370,7 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(width: 12),
             Expanded(
               child: _buildStatCard(
+                context,
                 'Engagement',
                 '${(avgEngagement * 100).round()}%',
                 Icons.trending_up_rounded,
@@ -378,6 +380,7 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(width: 12),
             Expanded(
               child: _buildStatCard(
+                context,
                 'Focus',
                 sessionState.isInSession ? 'Active' : 'Ready',
                 Icons.timer_outlined,
@@ -391,7 +394,7 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _buildStatCard(
-      String label, String value, IconData icon, Color color) {
+      BuildContext context, String label, String value, IconData icon, Color color) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(

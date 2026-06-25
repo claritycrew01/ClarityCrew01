@@ -14,7 +14,7 @@ class InteractionEvent {
   final Map<String, dynamic> metadata;
   final DateTime timestamp;
 
-  const InteractionEvent({
+  InteractionEvent({
     required this.id,
     required this.sessionId,
     required this.learnerId,

@@ -78,7 +78,7 @@ class AppTheme {
         surface: AppColors.surfaceDark,
       ),
       scaffoldBackgroundColor: AppColors.surfaceDark,
-      textTheme: const TextTheme(
+      textTheme: TextTheme(
         displayLarge: AppTypography.displayLarge.copyWith(
           color: AppColors.textOnDark,
         ),

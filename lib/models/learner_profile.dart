@@ -54,7 +54,7 @@ class LearnerProfile {
   final DateTime createdAt;
   final DateTime lastUpdated;
 
-  const LearnerProfile({
+  LearnerProfile({
     required this.id,
     this.name = '',
     this.isNewUser = true,

@@ -14,7 +14,7 @@ class LearningRecommendation {
   final bool isUrgent;
   final DateTime generatedAt;
 
-  const LearningRecommendation({
+  LearningRecommendation({
     required this.id,
     required this.learnerId,
     required this.recommendedMode,
