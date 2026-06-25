@@ -1,0 +1,86 @@
+import 'package:flutter/foundation.dart';
+import '../models/learner_profile.dart';
+import '../models/session_record.dart';
+import '../models/interaction_event.dart';
+import '../persistence/local_storage_repository.dart';
+
+class LearnerState extends ChangeNotifier {
+  final LocalStorageRepository _repo = LocalStorageRepository();
+
+  LearnerProfile _profile = LearnerProfile(id: 'default');
+  bool _isLoading = true;
+
+  LearnerProfile get profile => _profile;
+  bool get isLoading => _isLoading;
+  bool get isNewUser => _profile.isNewUser;
+
+  LearnerState() {
+    _initialize();
+  }
+
+  Future<void> _initialize() async {
+    final saved = await _repo.loadLearnerProfile();
+    if (saved != null) {
+      _profile = saved;
+    }
+    _isLoading = false;
+    notifyListeners();
+  }
+
+  Future<void> updateProfile(LearnerProfile updated) async {
+    _profile = updated;
+    await _repo.saveLearnerProfile(_profile);
+    notifyListeners();
+  }
+
+  Future<void> completeOnboarding(String name, List<String> traits) async {
+    _profile = _profile.copyWith(
+      name: name,
+      neurodivergentTraits: traits,
+      isNewUser: false,
+      lastUpdated: DateTime.now(),
+    );
+    await _repo.saveLearnerProfile(_profile);
+    notifyListeners();
+  }
+
+  Future<void> updateName(String name) async {
+    _profile = _profile.copyWith(name: name, lastUpdated: DateTime.now());
+    await _repo.saveLearnerProfile(_profile);
+    notifyListeners();
+  }
+
+  Future<void> updateModeWeights(Map<String, double> weights) async {
+    final modeWeights = <LearningMode, double>{};
+    for (final entry in weights.entries) {
+      final mode = LearningMode.values.byName(entry.key);
+      modeWeights[mode] = entry.value;
+    }
+    _profile = _profile.copyWith(
+      modeWeights: modeWeights,
+      lastUpdated: DateTime.now(),
+    );
+    await _repo.saveLearnerProfile(_profile);
+    notifyListeners();
+  }
+
+  Future<void> updateAccessibility({
+    bool? reducedMotion,
+    bool? reducedVisuals,
+    double? fontSizeMultiplier,
+  }) async {
+    _profile = _profile.copyWith(
+      prefersReducedMotion: reducedMotion ?? _profile.prefersReducedMotion,
+      prefersReducedVisuals: reducedVisuals ?? _profile.prefersReducedVisuals,
+      fontSizeMultiplier: fontSizeMultiplier ?? _profile.fontSizeMultiplier,
+      lastUpdated: DateTime.now(),
+    );
+    await _repo.saveLearnerProfile(_profile);
+    notifyListeners();
+  }
+
+  void setProfile(LearnerProfile profile) {
+    _profile = profile;
+    notifyListeners();
+  }
+}

@@ -1,0 +1,89 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
+import '../models/learner_profile.dart';
+import '../models/learning_recommendation.dart';
+import '../models/interaction_event.dart';
+import '../services/adaptive_ai_engine.dart';
+import '../services/content_mode_selector.dart';
+import '../services/recommendation_engine.dart';
+import '../services/session_analyzer.dart';
+import '../services/progress_tracker.dart';
+import '../services/focus_support_service.dart';
+import '../services/accessibility_service.dart';
+
+class AppState extends ChangeNotifier {
+  final AdaptiveAIEngine aiEngine = AdaptiveAIEngine();
+  final ContentModeSelector modeSelector = ContentModeSelector();
+  final RecommendationEngine recommendationEngine = RecommendationEngine();
+  final SessionAnalyzer sessionAnalyzer = SessionAnalyzer();
+  final ProgressTracker progressTracker = ProgressTracker();
+  final FocusSupportService focusService = FocusSupportService();
+  final AccessibilityService accessibilityService = AccessibilityService();
+
+  LearningRecommendation? _currentRecommendation;
+  List<LearningRecommendation> _recommendations = [];
+  bool _isDarkMode = false;
+  bool _isProcessing = false;
+
+  LearningRecommendation? get currentRecommendation => _currentRecommendation;
+  List<LearningRecommendation> get recommendations => _recommendations;
+  bool get isDarkMode => _isDarkMode;
+  bool get isProcessing => _isProcessing;
+
+  Future<LearnerProfile> processInteraction({
+    required LearnerProfile profile,
+    required String contentType,
+    required String interactionType,
+    bool wasSuccessful = true,
+    int? score,
+    double durationSeconds = 0,
+    String sessionId = '',
+    String contentId = '',
+  }) async {
+    _isProcessing = true;
+    notifyListeners();
+
+    final event = InteractionEvent(
+      id: UniqueKey().toString(),
+      sessionId: sessionId,
+      learnerId: profile.id,
+      contentType: contentType,
+      contentId: contentId,
+      interactionType: interactionType,
+      wasSuccessful: wasSuccessful,
+      score: score,
+      durationSeconds: durationSeconds,
+    );
+
+    final updatedProfile = aiEngine.updateFromInteraction(profile, event);
+    _currentRecommendation =
+        recommendationEngine.generateRecommendation(updatedProfile, []);
+
+    _isProcessing = false;
+    notifyListeners();
+    return updatedProfile;
+  }
+
+  void generateNewRecommendations(LearnerProfile profile) {
+    _recommendations =
+        recommendationEngine.generateMultipleRecommendations(profile, []);
+    _currentRecommendation = _recommendations.isNotEmpty
+        ? _recommendations.first
+        : null;
+    notifyListeners();
+  }
+
+  void setDarkMode(bool value) {
+    _isDarkMode = value;
+    notifyListeners();
+  }
+
+  void toggleDarkMode() {
+    _isDarkMode = !_isDarkMode;
+    notifyListeners();
+  }
+
+  LearningMode predictBestMode(LearnerProfile profile) {
+    return modeSelector.predictBestMode(profile);
+  }
+}
