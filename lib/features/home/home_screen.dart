@@ -585,7 +585,7 @@ class HomeScreen extends StatelessWidget {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Text(lesson.bodyText),
+                                            Text(lesson.body),
                                           ],
                                         ),
                                       ),
