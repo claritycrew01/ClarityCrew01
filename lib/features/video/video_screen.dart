@@ -1,27 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../core/theme/colors.dart';
-
-class VideoContent {
-  final String id;
-  final String title;
-  final String description;
-  final String duration;
-  final String subject;
-  final String chapter;
-  final List<String> keyPoints;
-  final List<String> chapters;
-
-  const VideoContent({
-    required this.id,
-    required this.title,
-    required this.description,
-    required this.duration,
-    required this.subject,
-    required this.chapter,
-    required this.keyPoints,
-    required this.chapters,
-  });
-}
+import '../../models/video_content.dart';
+import '../../services/content/content_repository.dart';
 
 class VideoScreen extends StatefulWidget {
   const VideoScreen({super.key});
@@ -33,61 +13,45 @@ class VideoScreen extends StatefulWidget {
 class _VideoScreenState extends State<VideoScreen> {
   int _currentVideoIndex = 0;
   bool _isWatched = false;
+  late List<VideoContent> _videos;
 
-  final _videos = [
-    VideoContent(
-      id: 'vid_algebra_1',
-      title: 'Solving Linear Equations Visually',
-      description:
-          'Watch step-by-step solutions to linear equations using a balance scale approach.',
-      duration: '4:30',
-      subject: 'Algebra',
-      chapter: 'Linear Equations',
-      keyPoints: [
-        'Isolate the variable by undoing operations in reverse order',
-        'Whatever you do to one side, do to the other',
-        'Check your answer by plugging it back into the original equation',
-        'Use inverse operations: addition undoes subtraction, division undoes multiplication',
-      ],
-      chapters: [
-        '0:00 — What is a linear equation?',
-        '0:45 — The balance scale method',
-        '1:30 — Example 1: 2x + 5 = 13',
-        '2:15 — Example 2: 3x - 7 = 2x + 5',
-        '3:00 — Equations with fractions',
-        '3:45 — Checking your answer',
-      ],
-    ),
-    VideoContent(
-      id: 'vid_bio_1',
-      title: 'Cell Organelles: A Tour Inside the Cell',
-      description:
-          'Explore the internal structure of animal and plant cells through detailed diagrams.',
-      duration: '5:00',
-      subject: 'Biology',
-      chapter: 'Cell Biology',
-      keyPoints: [
-        'The nucleus contains DNA and controls the cell',
-        'Mitochondria produce ATP energy through cellular respiration',
-        'Ribosomes build proteins from amino acids',
-        'The cell membrane regulates what enters and exits',
-        'Plant cells have cell walls and chloroplasts that animal cells lack',
-      ],
-      chapters: [
-        '0:00 — Overview of cell types',
-        '0:40 — The nucleus and DNA',
-        '1:20 — Mitochondria: power plant',
-        '2:00 — Ribosomes and protein synthesis',
-        '2:40 — Endoplasmic Reticulum and Golgi',
-        '3:20 — Cell membrane structure',
-        '4:00 — Plant vs animal cells',
-        '4:30 — Summary diagram',
-      ],
-    ),
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _videos = ContentRepository.getAllVideos();
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (_videos.isEmpty) {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text('Watch & Learn'),
+          centerTitle: true,
+        ),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(32),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.videocam_off_outlined,
+                    size: 64, color: AppColors.textSecondary.withValues(alpha: 0.3)),
+                const SizedBox(height: 16),
+                Text(
+                  'No videos available yet.',
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        color: AppColors.textSecondary,
+                      ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
+    _currentVideoIndex = _currentVideoIndex.clamp(0, _videos.length - 1);
     final video = _videos[_currentVideoIndex];
 
     return Scaffold(
@@ -101,9 +65,9 @@ class _VideoScreenState extends State<VideoScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildVideoHeader(video),
+              _buildSubjectHeader(video),
               const SizedBox(height: 20),
-              _buildVideoDetails(video),
+              _buildVideoHeader(video),
               const SizedBox(height: 20),
               _buildChapterList(video.chapters),
               const SizedBox(height: 20),
@@ -111,12 +75,55 @@ class _VideoScreenState extends State<VideoScreen> {
               const SizedBox(height: 20),
               if (_isWatched) _buildWatchedBadge(),
               const SizedBox(height: 24),
-              _buildNavButtons(video),
+              _buildNavButtons(),
               const SizedBox(height: 16),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildSubjectHeader(VideoContent video) {
+    return Row(
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+          decoration: BoxDecoration(
+            color: AppColors.sereneBlue.withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Text(
+            video.subject,
+            style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                  color: AppColors.sereneBlue,
+                  fontWeight: FontWeight.w600,
+                ),
+          ),
+        ),
+        const SizedBox(width: 8),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+          decoration: BoxDecoration(
+            color: AppColors.softPurple.withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Text(
+            video.chapter,
+            style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                  color: AppColors.softPurple,
+                  fontWeight: FontWeight.w600,
+                ),
+          ),
+        ),
+        const Spacer(),
+        Text(
+          '${_currentVideoIndex + 1} of ${_videos.length}',
+          style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                color: AppColors.textSecondary,
+              ),
+        ),
+      ],
     );
   }
 
@@ -180,7 +187,8 @@ class _VideoScreenState extends State<VideoScreen> {
             const SizedBox(height: 16),
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
                 color: Colors.black.withValues(alpha: 0.05),
                 borderRadius: BorderRadius.circular(10),
@@ -212,56 +220,6 @@ class _VideoScreenState extends State<VideoScreen> {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildVideoDetails(VideoContent video) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          video.description,
-          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: AppColors.textSecondary,
-              ),
-        ),
-        const SizedBox(height: 12),
-        Row(
-          children: [
-            Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-              decoration: BoxDecoration(
-                color: AppColors.sereneBlue.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Text(
-                video.subject,
-                style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                      color: AppColors.sereneBlue,
-                      fontWeight: FontWeight.w600,
-                    ),
-              ),
-            ),
-            const SizedBox(width: 8),
-            Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-              decoration: BoxDecoration(
-                color: AppColors.softPurple.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Text(
-                video.chapter,
-                style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                      color: AppColors.softPurple,
-                      fontWeight: FontWeight.w600,
-                    ),
-              ),
-            ),
-          ],
-        ),
-      ],
     );
   }
 
@@ -391,7 +349,9 @@ class _VideoScreenState extends State<VideoScreen> {
                   );
                 },
                 icon: Icon(
-                  _isWatched ? Icons.check_circle : Icons.check_circle_outline,
+                  _isWatched
+                      ? Icons.check_circle
+                      : Icons.check_circle_outline,
                   color: _isWatched ? AppColors.success : null,
                 ),
                 label: Text(_isWatched ? 'Watched' : 'Mark as Watched'),
@@ -431,7 +391,7 @@ class _VideoScreenState extends State<VideoScreen> {
     );
   }
 
-  Widget _buildNavButtons(VideoContent video) {
+  Widget _buildNavButtons() {
     return Row(
       children: [
         if (_currentVideoIndex > 0)

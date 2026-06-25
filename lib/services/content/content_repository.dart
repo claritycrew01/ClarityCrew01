@@ -1,4 +1,7 @@
+import 'package:flutter/material.dart';
 import '../../models/content_item.dart';
+import '../../models/video_content.dart';
+import '../../models/subject_data.dart';
 
 class ContentRepository {
   static final List<ContentItem> _lessons = [
@@ -10,6 +13,11 @@ class ContentRepository {
     _geometryTriangles(),
     _historyConstitution(),
     _englishEssayStructure(),
+  ];
+
+  static final List<VideoContent> _videos = [
+    _algebraVideo(),
+    _biologyVideo(),
   ];
 
   static List<ContentItem> getAll() => _lessons;
@@ -30,7 +38,7 @@ class ContentRepository {
   static List<ContentItem> getBySubject(String subject) =>
       _lessons.where((l) => l.subject == subject).toList();
 
-  static List<String> getAllSubjects() =>
+  static List<String> getAllSubjectNames() =>
       _lessons.map((l) => l.subject).toSet().toList()..sort();
 
   static List<String> getChaptersForSubject(String subject) =>
@@ -39,6 +47,21 @@ class ContentRepository {
           .map((l) => l.chapter)
           .toSet()
           .toList();
+
+  static List<VideoContent> getVideosForSubject(String subject) =>
+      _videos.where((v) => v.subject == subject).toList();
+
+  static List<VideoContent> getAllVideos() => List.unmodifiable(_videos);
+
+  static List<SubjectData> getSubjects() => [
+        _subjectAlgebra(),
+        _subjectBiology(),
+        _subjectWorldHistory(),
+        _subjectEnglish(),
+        _subjectChemistry(),
+        _subjectGeometry(),
+        _subjectUSHistory(),
+      ];
 
   static ContentItem _algebraLinearEquations() => ContentItem(
         id: 'algebra_linear_eq',
@@ -350,5 +373,123 @@ class ContentRepository {
             body: '"Although [counterargument], [your position] because [reason 1], [reason 2], and [reason 3]."',
           ),
         ],
+      );
+
+  static VideoContent _algebraVideo() => VideoContent(
+        id: 'vid_algebra_1',
+        title: 'Solving Linear Equations Visually',
+        description:
+            'Watch step-by-step solutions to linear equations using a balance scale approach.',
+        duration: '4:30',
+        subject: 'Algebra',
+        chapter: 'Linear Equations',
+        difficulty: 'beginner',
+        source: 'Local media asset — animated diagrams',
+        keyPoints: [
+          'Isolate the variable by undoing operations in reverse order',
+          'Whatever you do to one side, do to the other',
+          'Check your answer by plugging it back into the original equation',
+          'Use inverse operations: addition undoes subtraction, division undoes multiplication',
+        ],
+        chapters: [
+          '0:00 — What is a linear equation?',
+          '0:45 — The balance scale method',
+          '1:30 — Example 1: 2x + 5 = 13',
+          '2:15 — Example 2: 3x - 7 = 2x + 5',
+          '3:00 — Equations with fractions',
+          '3:45 — Checking your answer',
+        ],
+      );
+
+  static VideoContent _biologyVideo() => VideoContent(
+        id: 'vid_bio_1',
+        title: 'Cell Organelles: A Tour Inside the Cell',
+        description:
+            'Explore the internal structure of animal and plant cells through detailed diagrams.',
+        duration: '5:00',
+        subject: 'Biology',
+        chapter: 'Cell Biology',
+        difficulty: 'beginner',
+        source: 'Local media asset — animated diagrams',
+        keyPoints: [
+          'The nucleus contains DNA and controls the cell',
+          'Mitochondria produce ATP energy through cellular respiration',
+          'Ribosomes build proteins from amino acids',
+          'The cell membrane regulates what enters and exits',
+          'Plant cells have cell walls and chloroplasts that animal cells lack',
+        ],
+        chapters: [
+          '0:00 — Overview of cell types',
+          '0:40 — The nucleus and DNA',
+          '1:20 — Mitochondria: power plant',
+          '2:00 — Ribosomes and protein synthesis',
+          '2:40 — Endoplasmic Reticulum and Golgi',
+          '3:20 — Cell membrane structure',
+          '4:00 — Plant vs animal cells',
+          '4:30 — Summary diagram',
+        ],
+      );
+
+  static SubjectData _subjectAlgebra() => const SubjectData(
+        name: 'Algebra',
+        icon: Icons.calculate_outlined,
+        color: Color(0xFF4CAF50),
+        chapters: ['Linear Equations'],
+        lessonCount: 1,
+        videoCount: 1,
+      );
+
+  static SubjectData _subjectBiology() => const SubjectData(
+        name: 'Biology',
+        icon: Icons.biotech_outlined,
+        color: Color(0xFF2196F3),
+        chapters: ['Cell Biology'],
+        lessonCount: 1,
+        videoCount: 1,
+      );
+
+  static SubjectData _subjectWorldHistory() => const SubjectData(
+        name: 'World History',
+        icon: Icons.public_outlined,
+        color: Color(0xFFFF9800),
+        chapters: ['The Renaissance'],
+        lessonCount: 1,
+        videoCount: 0,
+      );
+
+  static SubjectData _subjectEnglish() => const SubjectData(
+        name: 'English',
+        icon: Icons.menu_book_outlined,
+        color: Color(0xFF9C27B0),
+        chapters: ['Grammar', 'Writing'],
+        lessonCount: 2,
+        videoCount: 0,
+      );
+
+  static SubjectData _subjectChemistry() => const SubjectData(
+        name: 'Chemistry',
+        icon: Icons.science_outlined,
+        color: Color(0xFFE91E63),
+        chapters: ['Periodic Table'],
+        lessonCount: 1,
+        videoCount: 0,
+      );
+
+  static SubjectData _subjectGeometry() => const SubjectData(
+        name: 'Geometry',
+        icon: Icons.category_outlined,
+        color: Color(0xFF00BCD4),
+        chapters: ['Triangles'],
+        lessonCount: 1,
+        videoCount: 0,
+      );
+
+  static SubjectData _subjectUSHistory() => const SubjectData(
+        name: 'US History',
+        icon: Icons.flag_outlined,
+        color: Color(0xFF795548),
+        chapters: ['The Constitution'],
+        lessonCount: 1,
+        videoCount: 0,
       );
 }

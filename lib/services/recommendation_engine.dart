@@ -5,6 +5,7 @@ import '../models/session_record.dart';
 import '../models/content_item.dart';
 import 'adaptive_ai_engine.dart';
 import 'content_mode_selector.dart';
+import 'content/content_repository.dart';
 
 class RecommendationEngine {
   final AdaptiveAIEngine _aiEngine = AdaptiveAIEngine();
@@ -96,32 +97,55 @@ class RecommendationEngine {
   }
 
   String _generateTitle(LearningMode mode, LearnerProfile profile) {
+    final subjects = ContentRepository.getAllSubjectNames();
+    final subject =
+        subjects.isNotEmpty ? subjects[_random.nextInt(subjects.length)] : null;
+    final subjectPrefix = subject != null ? '$subject ' : '';
+
     switch (mode) {
       case LearningMode.quiz:
-        return 'Quick Challenge';
+        return '${subjectPrefix}Challenge';
       case LearningMode.video:
-        return 'Watch & Learn';
+        return 'Watch $subjectPrefix& Learn';
       case LearningMode.flashcard:
-        return 'Memory Boost';
+        return '${subjectPrefix}Memory Boost';
       case LearningMode.guidedPractice:
-        return 'Guided Practice';
+        return '${subjectPrefix}Guided Practice';
       case LearningMode.microLesson:
-        return 'Bite-Sized Lesson';
+        return '${subjectPrefix}Bite-Sized Lesson';
       case LearningMode.visualSummary:
-        return 'Visual Overview';
+        return '${subjectPrefix}Visual Overview';
       case LearningMode.focusSprint:
-        return 'Focus Sprint';
+        return '${subjectPrefix}Focus Sprint';
     }
   }
 
   String _generateDescription(LearningMode mode, double confidence) {
+    final lessons = ContentRepository.getByType(_modeToContentType(mode));
+    final lessonHint =
+        lessons.isNotEmpty ? ' Try "${lessons.first.title}".' : '';
     final base = _baseDescription(mode);
+    final suffix = lessonHint;
+
     if (confidence > 0.7) {
-      return '$base — a great fit for how you learn best';
+      return '$base$suffix — a great fit for how you learn best';
     } else if (confidence > 0.4) {
-      return '$base — a solid option for today';
+      return '$base$suffix — a solid option for today';
     } else {
-      return '$base — something new to try';
+      return '$base$suffix — something new to try';
+    }
+  }
+
+  String _modeToContentType(LearningMode mode) {
+    switch (mode) {
+      case LearningMode.quiz:
+        return 'quiz';
+      case LearningMode.video:
+        return 'video';
+      case LearningMode.flashcard:
+        return 'flashcard';
+      default:
+        return 'lesson';
     }
   }
 

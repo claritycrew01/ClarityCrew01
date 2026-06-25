@@ -5,6 +5,8 @@ import '../../state/learner_state.dart';
 import '../../state/app_state.dart';
 import '../../state/session_state.dart';
 import '../../models/learner_profile.dart';
+import '../../models/subject_data.dart';
+import '../../services/content/content_repository.dart';
 import '../focus/focus_mode_screen.dart';
 import '../learning/learning_session_screen.dart';
 import '../quiz/quiz_screen.dart';
@@ -41,6 +43,8 @@ class HomeScreen extends StatelessWidget {
               if (rec != null) _buildRecommendedCard(context, rec),
               const SizedBox(height: 24),
               _buildModeGrid(context),
+              const SizedBox(height: 28),
+              _buildSubjectsSection(context),
               const SizedBox(height: 24),
               _buildQuickStats(context, sessionState),
               const SizedBox(height: 32),
@@ -406,6 +410,226 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ],
+    );
+  }
+
+  Widget _buildSubjectsSection(BuildContext context) {
+    final subjects = ContentRepository.getSubjects();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Subjects',
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        SizedBox(
+          height: 120,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: subjects.length,
+            separatorBuilder: (_, __) => const SizedBox(width: 12),
+            itemBuilder: (context, index) {
+              final subject = subjects[index];
+              return Semantics(
+                button: true,
+                label: 'Study ${subject.name}',
+                child: GestureDetector(
+                  onTap: () => _showSubjectContent(context, subject),
+                  child: Container(
+                    width: 160,
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: subject.color.withValues(alpha: 0.08),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                        color: subject.color.withValues(alpha: 0.15),
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                              width: 36,
+                              height: 36,
+                              decoration: BoxDecoration(
+                                color: subject.color.withValues(alpha: 0.15),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Icon(subject.icon,
+                                  color: subject.color, size: 20),
+                            ),
+                            const Spacer(),
+                            if (subject.videoCount > 0)
+                              Icon(Icons.play_circle_outline,
+                                  size: 14,
+                                  color: subject.color.withValues(alpha: 0.5)),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          subject.name,
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium
+                              ?.copyWith(fontWeight: FontWeight.w600),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          '${subject.lessonCount} lesson${subject.lessonCount == 1 ? '' : 's'}',
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelSmall
+                              ?.copyWith(color: AppColors.textSecondary),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  void _showSubjectContent(BuildContext context, SubjectData subject) {
+    final lessons = ContentRepository.getBySubject(subject.name);
+    final videos = ContentRepository.getVideosForSubject(subject.name);
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (ctx) {
+        return DraggableScrollableSheet(
+          initialChildSize: 0.55,
+          maxChildSize: 0.85,
+          minChildSize: 0.35,
+          expand: false,
+          builder: (ctx, scrollController) {
+            return Padding(
+              padding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
+              child: ListView(
+                controller: scrollController,
+                children: [
+                  Center(
+                    child: Container(
+                      width: 40,
+                      height: 4,
+                      decoration: BoxDecoration(
+                        color: Colors.grey.withValues(alpha: 0.3),
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      Icon(subject.icon, color: subject.color, size: 28),
+                      const SizedBox(width: 12),
+                      Text(
+                        subject.name,
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleLarge
+                            ?.copyWith(fontWeight: FontWeight.w700),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    subject.chapters.join(' · '),
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: AppColors.textSecondary,
+                        ),
+                  ),
+                  const SizedBox(height: 20),
+                  if (lessons.isNotEmpty) ...[
+                    Text(
+                      'Lessons',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
+                    ),
+                    const SizedBox(height: 8),
+                    ...lessons.map((lesson) => Card(
+                          margin: const EdgeInsets.only(bottom: 8),
+                          child: ListTile(
+                            title: Text(lesson.title),
+                            subtitle: Text('${lesson.difficulty} · ${lesson.chapter}'),
+                            trailing: const Icon(Icons.arrow_forward_rounded),
+                            onTap: () {
+                              Navigator.pop(context);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => Scaffold(
+                                    appBar: AppBar(title: Text(lesson.title)),
+                                    body: Padding(
+                                      padding: const EdgeInsets.all(20),
+                                      child: SingleChildScrollView(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(lesson.bodyText),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        )),
+                  ],
+                  if (videos.isNotEmpty) ...[
+                    const SizedBox(height: 16),
+                    Text(
+                      'Videos',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
+                    ),
+                    const SizedBox(height: 8),
+                    ...videos.map((video) => Card(
+                          margin: const EdgeInsets.only(bottom: 8),
+                          child: ListTile(
+                            title: Text(video.title),
+                            subtitle: Text('${video.duration} · ${video.difficulty}'),
+                            leading: const Icon(Icons.play_circle_outline,
+                                color: AppColors.sereneBlue),
+                            onTap: () {
+                              Navigator.pop(context);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => const VideoScreen()),
+                              );
+                            },
+                          ),
+                        )),
+                  ],
+                ],
+              ),
+            );
+          },
+        );
+      },
     );
   }
 
