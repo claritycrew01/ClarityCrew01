@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import '../models/learner_profile.dart';
 import '../models/learning_recommendation.dart';
 import '../models/interaction_event.dart';
+import '../models/session_record.dart';
 import '../services/adaptive_ai_engine.dart';
 import '../services/content_mode_selector.dart';
 import '../services/recommendation_engine.dart';
@@ -24,6 +25,11 @@ class AppState extends ChangeNotifier {
   List<LearningRecommendation> _recommendations = [];
   bool _isDarkMode = false;
   bool _isProcessing = false;
+  List<SessionRecord> _recentSessions = [];
+
+  void updateSessionData(List<SessionRecord> sessions) {
+    _recentSessions = sessions;
+  }
 
   LearningRecommendation? get currentRecommendation => _currentRecommendation;
   List<LearningRecommendation> get recommendations => _recommendations;
@@ -57,7 +63,7 @@ class AppState extends ChangeNotifier {
 
     final updatedProfile = aiEngine.updateFromInteraction(profile, event);
     _currentRecommendation =
-        recommendationEngine.generateRecommendation(updatedProfile, []);
+        recommendationEngine.generateRecommendation(updatedProfile, _recentSessions);
 
     _isProcessing = false;
     notifyListeners();
@@ -65,8 +71,8 @@ class AppState extends ChangeNotifier {
   }
 
   void generateNewRecommendations(LearnerProfile profile) {
-    _recommendations =
-        recommendationEngine.generateMultipleRecommendations(profile, []);
+    _recommendations = recommendationEngine
+        .generateMultipleRecommendations(profile, _recentSessions);
     _currentRecommendation = _recommendations.isNotEmpty
         ? _recommendations.first
         : null;

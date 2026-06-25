@@ -14,8 +14,6 @@ class AccessibilitySettingsScreen extends StatefulWidget {
 class _AccessibilitySettingsScreenState
     extends State<AccessibilitySettingsScreen> {
   bool _simplifiedText = false;
-  bool _highContrast = false;
-  double _lineSpacing = 1.5;
 
   @override
   Widget build(BuildContext context) {
@@ -146,9 +144,9 @@ class _AccessibilitySettingsScreenState
                   subtitle: const Text(
                     'Increase contrast for better readability',
                   ),
-                  value: _highContrast,
+                  value: profile.prefersHighContrast,
                   onChanged: (value) {
-                    setState(() => _highContrast = value);
+                    learnerState.updateAccessibility(highContrast: value);
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(value
@@ -165,29 +163,25 @@ class _AccessibilitySettingsScreenState
                 ListTile(
                   contentPadding: EdgeInsets.zero,
                   title: const Text('Line Spacing'),
-                  subtitle: Text('Current: $_lineSpacing'),
+                  subtitle: Text('Current: ${profile.lineSpacing}'),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(
                         icon: const Icon(Icons.remove_circle_outline),
                         onPressed: () {
-                          if (_lineSpacing > 1.0) {
-                            setState(() =>
-                                _lineSpacing = (_lineSpacing - 0.25)
-                                    .clamp(1.0, 3.0));
-                          }
+                          final newVal =
+                              (profile.lineSpacing - 0.25).clamp(1.0, 3.0);
+                          learnerState.updateAccessibility(lineSpacing: newVal);
                         },
                       ),
-                      Text('$_lineSpacing'),
+                      Text('${profile.lineSpacing}'),
                       IconButton(
                         icon: const Icon(Icons.add_circle_outline),
                         onPressed: () {
-                          if (_lineSpacing < 3.0) {
-                            setState(() =>
-                                _lineSpacing = (_lineSpacing + 0.25)
-                                    .clamp(1.0, 3.0));
-                          }
+                          final newVal =
+                              (profile.lineSpacing + 0.25).clamp(1.0, 3.0);
+                          learnerState.updateAccessibility(lineSpacing: newVal);
                         },
                       ),
                     ],

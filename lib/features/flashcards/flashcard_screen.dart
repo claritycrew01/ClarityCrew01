@@ -7,6 +7,7 @@ import '../../state/session_state.dart';
 import '../../state/app_state.dart';
 import '../../models/content_item.dart';
 import '../../models/interaction_event.dart';
+import '../../services/content/content_repository.dart';
 
 class FlashcardScreen extends StatefulWidget {
   const FlashcardScreen({super.key});
@@ -46,44 +47,9 @@ class _FlashcardScreenState extends State<FlashcardScreen>
   }
 
   void _initializeCards() {
-    _cards.addAll([
-      ContentItem(
-        id: 'fc_1',
-        title: 'Chunking',
-        contentType: 'flashcard',
-        body: 'Breaking information into smaller, manageable groups to reduce cognitive load.',
-      ),
-      ContentItem(
-        id: 'fc_2',
-        title: 'Visual Note-Taking',
-        contentType: 'flashcard',
-        body: 'Using drawings, diagrams, and symbols to capture and remember information.',
-      ),
-      ContentItem(
-        id: 'fc_3',
-        title: 'Mind Map',
-        contentType: 'flashcard',
-        body: 'A diagram that organizes information visually around a central concept.',
-      ),
-      ContentItem(
-        id: 'fc_4',
-        title: 'Pomodoro Technique',
-        contentType: 'flashcard',
-        body: 'Working in focused 25-minute intervals followed by 5-minute breaks.',
-      ),
-      ContentItem(
-        id: 'fc_5',
-        title: 'Cognitive Load',
-        contentType: 'flashcard',
-        body: 'The total amount of mental effort being used in working memory.',
-      ),
-      ContentItem(
-        id: 'fc_6',
-        title: 'Sketchnoting',
-        contentType: 'flashcard',
-        body: 'A form of visual note-taking that combines handwriting, drawings, and typography.',
-      ),
-    ]);
+    for (final lesson in ContentRepository.getAll()) {
+      _cards.addAll(lesson.flashcards);
+    }
     _initialized = true;
   }
 

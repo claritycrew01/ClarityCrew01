@@ -7,6 +7,7 @@ import '../../state/session_state.dart';
 import '../../state/app_state.dart';
 import '../../models/content_item.dart';
 import '../../models/interaction_event.dart';
+import '../../services/content/content_repository.dart';
 
 class QuizScreen extends StatefulWidget {
   const QuizScreen({super.key});
@@ -44,68 +45,18 @@ class _QuizScreenState extends State<QuizScreen>
   }
 
   void _generateQuestions() {
-    _questions.addAll([
-      ContentItem(
-        id: 'q1',
-        title: 'What is chunking?',
+    _questions.addAll(ContentRepository.getAll().map((lesson) {
+      return ContentItem(
+        id: 'q_${lesson.id}',
+        title: lesson.title,
         contentType: 'quiz',
-        quizOptions: [
-          'Breaking information into smaller groups',
-          'Making information more complex',
-          'Ignoring difficult topics',
-          'Working on everything at once',
-        ],
-        correctOptionIndex: 0,
-        body: 'Let us test your understanding of learning techniques.',
-      ),
-      ContentItem(
-        id: 'q2',
-        title: 'Visual note-taking uses:',
-        contentType: 'quiz',
-        quizOptions: [
-          'Only written text',
-          'Drawings, diagrams, and symbols',
-          'Audio recordings',
-          'Nothing special',
-        ],
-        correctOptionIndex: 1,
-        body: 'Testing your knowledge of visual learning methods.',
-      ),
-      ContentItem(
-        id: 'q3',
-        title: 'How many subtopics per chunk?',
-        contentType: 'quiz',
-        quizOptions: ['10-15', '1-2', '3-5', 'As many as possible'],
-        correctOptionIndex: 2,
-        body: 'Can you recall the recommended chunk size?',
-      ),
-      ContentItem(
-        id: 'q4',
-        title: 'What helps with focus?',
-        contentType: 'quiz',
-        quizOptions: [
-          'Multitasking',
-          'Taking breaks between chunks',
-          'Working for hours nonstop',
-          'Ignoring your energy levels',
-        ],
-        correctOptionIndex: 1,
-        body: 'Think about what supports focus best.',
-      ),
-      ContentItem(
-        id: 'q5',
-        title: 'Mind maps are good for:',
-        contentType: 'quiz',
-        quizOptions: [
-          'Exploring ideas visually',
-          'Writing essays only',
-          'Solving math problems',
-          'Listening to music',
-        ],
-        correctOptionIndex: 0,
-        body: 'One more question about visual techniques.',
-      ),
-    ]);
+        body: lesson.body.length > 100
+            ? lesson.body.substring(0, 100) + '...'
+            : lesson.body,
+        quizOptions: lesson.quizOptions,
+        correctOptionIndex: lesson.correctOptionIndex,
+      );
+    }));
     _initialized = true;
   }
 

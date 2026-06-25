@@ -6,6 +6,7 @@ import '../../state/session_state.dart';
 import '../../state/app_state.dart';
 import '../../models/content_item.dart';
 import '../../models/interaction_event.dart';
+import '../../services/content/content_repository.dart';
 
 class LearningSessionScreen extends StatefulWidget {
   const LearningSessionScreen({super.key});
@@ -28,80 +29,7 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
   }
 
   void _initializeContent() {
-    _contentLibrary.addAll([
-      ContentItem(
-        id: 'micro_1',
-        title: 'Chunking Information',
-        description:
-            'Learn how to break complex topics into manageable pieces.',
-        contentType: 'micro_lesson',
-        body:
-            'Chunking is a technique where you break large amounts of information into smaller, manageable groups. Our brains naturally look for patterns and groupings. For neurodivergent learners, chunking reduces cognitive load and makes learning feel less overwhelming.\n\nStart by identifying the main topic. Then break it into 3-5 subtopics. Focus on one subtopic at a time. Take short breaks between chunks.',
-        difficulty: 'beginner',
-        estimatedDurationSeconds: 300,
-        tags: ['focus', 'organization', 'executive-function'],
-        flashcards: [
-          ContentItem(
-            id: 'fc_1',
-            title: 'What is chunking?',
-            contentType: 'flashcard',
-            body: 'Breaking information into smaller, manageable groups',
-          ),
-          ContentItem(
-            id: 'fc_2',
-            title: 'How many subtopics?',
-            contentType: 'flashcard',
-            body: '3-5 subtopics per main topic',
-          ),
-        ],
-        quizOptions: [
-          'Breaking information into smaller groups',
-          'Making information more complex',
-          'Ignoring patterns',
-          'Working on everything at once',
-        ],
-        correctOptionIndex: 0,
-      ),
-      ContentItem(
-        id: 'micro_2',
-        title: 'Visual Note-Taking',
-        description:
-            'Use sketches and diagrams to capture ideas visually.',
-        contentType: 'visual_summary',
-        body:
-            'Visual note-taking uses drawings, diagrams, and symbols to capture information. It engages different parts of your brain and helps with memory retention.\n\nTry mind maps for exploring ideas. Use flowcharts for processes. Draw simple icons for key concepts. Color-code related ideas.',
-        difficulty: 'beginner',
-        estimatedDurationSeconds: 240,
-        tags: ['visual', 'creativity', 'memory'],
-        flashcards: [
-          ContentItem(
-            id: 'fc_3',
-            title: 'Visual note-taking uses',
-            contentType: 'flashcard',
-            body: 'Drawings, diagrams, and symbols to capture ideas',
-          ),
-        ],
-        quizOptions: [
-          'Only text',
-          'Drawings, diagrams, and symbols',
-          'Audio recordings only',
-          'Nothing at all',
-        ],
-        correctOptionIndex: 1,
-      ),
-      ContentItem(
-        id: 'guided_1',
-        title: 'Focus Flow Practice',
-        description:
-            'A step-by-step guided practice for entering a focused state.',
-        contentType: 'guided_practice',
-        body:
-          'Let us practice entering a focused state together.\n\nStep 1: Find a comfortable position. Sit or stand however feels good.\n\nStep 2: Take three slow breaths. Breathe in for 4 counts, hold for 4, breathe out for 4.\n\nStep 3: Choose one thing to focus on. It can be anything - a sound, a sensation, or your breath.\n\nStep 4: When your mind wanders, gently bring it back. No judgment.\n\nStep 5: After 2 minutes, notice how you feel.',
-        difficulty: 'beginner',
-        estimatedDurationSeconds: 180,
-        tags: ['focus', 'mindfulness', 'regulation'],
-      ),
-    ]);
+    _contentLibrary.addAll(ContentRepository.getAll());
     _isInitialized = true;
   }
 

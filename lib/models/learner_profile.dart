@@ -49,6 +49,8 @@ class LearnerProfile {
   final double focusThreshold;
   final bool prefersReducedMotion;
   final bool prefersReducedVisuals;
+  final bool prefersHighContrast;
+  final double lineSpacing;
   final double fontSizeMultiplier;
   final Map<String, double> engagementHistory;
   final DateTime createdAt;
@@ -66,6 +68,8 @@ class LearnerProfile {
     this.focusThreshold = 0.6,
     this.prefersReducedMotion = false,
     this.prefersReducedVisuals = false,
+    this.prefersHighContrast = false,
+    this.lineSpacing = 1.5,
     this.fontSizeMultiplier = 1.0,
     this.engagementHistory = const {},
     DateTime? createdAt,
@@ -85,6 +89,8 @@ class LearnerProfile {
     double? focusThreshold,
     bool? prefersReducedMotion,
     bool? prefersReducedVisuals,
+    bool? prefersHighContrast,
+    double? lineSpacing,
     double? fontSizeMultiplier,
     Map<String, double>? engagementHistory,
     DateTime? createdAt,
@@ -102,6 +108,8 @@ class LearnerProfile {
       focusThreshold: focusThreshold ?? this.focusThreshold,
       prefersReducedMotion: prefersReducedMotion ?? this.prefersReducedMotion,
       prefersReducedVisuals: prefersReducedVisuals ?? this.prefersReducedVisuals,
+      prefersHighContrast: prefersHighContrast ?? this.prefersHighContrast,
+      lineSpacing: lineSpacing ?? this.lineSpacing,
       fontSizeMultiplier: fontSizeMultiplier ?? this.fontSizeMultiplier,
       engagementHistory: engagementHistory ?? this.engagementHistory,
       createdAt: createdAt ?? this.createdAt,
@@ -121,6 +129,8 @@ class LearnerProfile {
         'focusThreshold': focusThreshold,
         'prefersReducedMotion': prefersReducedMotion,
         'prefersReducedVisuals': prefersReducedVisuals,
+        'prefersHighContrast': prefersHighContrast,
+        'lineSpacing': lineSpacing,
         'fontSizeMultiplier': fontSizeMultiplier,
         'engagementHistory': engagementHistory,
         'createdAt': createdAt.toIso8601String(),
@@ -149,6 +159,8 @@ class LearnerProfile {
       focusThreshold: (json['focusThreshold'] as num?)?.toDouble() ?? 0.6,
       prefersReducedMotion: json['prefersReducedMotion'] as bool? ?? false,
       prefersReducedVisuals: json['prefersReducedVisuals'] as bool? ?? false,
+      prefersHighContrast: json['prefersHighContrast'] as bool? ?? false,
+      lineSpacing: (json['lineSpacing'] as num?)?.toDouble() ?? 1.5,
       fontSizeMultiplier: (json['fontSizeMultiplier'] as num?)?.toDouble() ?? 1.0,
       engagementHistory: (json['engagementHistory'] as Map<String, dynamic>?)
               ?.map((k, v) => MapEntry(k, (v as num).toDouble())) ??

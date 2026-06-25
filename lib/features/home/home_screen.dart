@@ -12,6 +12,7 @@ import '../flashcards/flashcard_screen.dart';
 import '../video/video_screen.dart';
 import '../progress/progress_screen.dart';
 import '../settings/settings_screen.dart';
+import '../ai_tutor/ai_tutor_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -23,6 +24,7 @@ class HomeScreen extends StatelessWidget {
     final sessionState = context.watch<SessionState>();
     final profile = learnerState.profile;
     final rec = appState.currentRecommendation;
+    appState.updateSessionData(sessionState.sessions);
 
     return Scaffold(
       body: SafeArea(
@@ -90,6 +92,20 @@ class HomeScreen extends StatelessWidget {
         ),
         Row(
           children: [
+            Semantics(
+              button: true,
+              label: 'AI Tutor insights',
+              child: IconButton(
+                icon: const Icon(Icons.auto_awesome_rounded),
+                color: AppColors.calmTeal,
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const AiTutorScreen(),
+                  ),
+                ),
+              ),
+            ),
             Semantics(
               button: true,
               label: 'Progress insights',
