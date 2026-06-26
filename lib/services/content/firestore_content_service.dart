@@ -53,7 +53,7 @@ class FirestoreContentService {
 
   Future<bool> _loadFromFirestore() async {
     try {
-      final firestore = FirebaseFirestore.instance;
+      final firestore = FirebaseFirestore.instanceFor(databaseId: 'claritycrew');
 
       final subjectsSnapshot = await firestore.collection('subjects').get();
       final chaptersSnapshot = await firestore.collection('chapters').get();
@@ -118,7 +118,7 @@ class FirestoreContentService {
     if (!_firestoreAvailable) return;
 
     await _loadFromBundle();
-    final firestore = FirebaseFirestore.instance;
+    final firestore = FirebaseFirestore.instanceFor(databaseId: 'claritycrew');
 
     final batch = firestore.batch();
 

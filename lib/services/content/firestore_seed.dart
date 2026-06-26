@@ -17,7 +17,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  final firestore = FirebaseFirestore.instance;
+  final firestore = FirebaseFirestore.instanceFor(databaseId: 'claritycrew');
 
   await _seed(firestore, 'subjects', 'assets/content/subjects.json');
   await _seed(firestore, 'chapters', 'assets/content/chapters.json');

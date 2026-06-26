@@ -47,7 +47,7 @@ async function runImport() {
     credential: admin.credential.cert(sa),
     projectId: sa.project_id,
   });
-  const db = admin.firestore();
+  const db = admin.firestore('claritycrew');
   db.settings({ preferRest: true });
 
   // Probe: list collections to verify connectivity
