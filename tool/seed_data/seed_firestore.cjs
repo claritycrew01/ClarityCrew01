@@ -9,8 +9,25 @@ async function main() {
   }
 
   const sa = JSON.parse(saJson);
-  admin.initializeApp({ credential: admin.credential.cert(sa) });
+  console.log('Project ID from service account:', sa.project_id);
+  console.log('Client email:', sa.client_email);
+
+  admin.initializeApp({
+    credential: admin.credential.cert(sa),
+    projectId: sa.project_id,
+  });
   const db = admin.firestore();
+  db.settings({ preferRest: true });
+
+  // Probe: list collections to verify connectivity
+  try {
+    const collections = await db.listCollections();
+    console.log('Firestore connected. Collections:', collections.map((c) => c.id).join(', ') || '(none)');
+  } catch (probeErr) {
+    console.error('Firestore probe failed:', probeErr.message);
+    console.error('Full:', probeErr);
+    process.exit(1);
+  }
 
   const raw = readFileSync('tool/seed_data/topic_mappings.json', 'utf8');
   const mappings = JSON.parse(raw);
