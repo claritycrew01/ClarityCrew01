@@ -4,7 +4,7 @@ const http = require('http');
 async function fetchJson(url, timeoutMs = 30000) {
   const proto = url.startsWith('https') ? https : http;
   return new Promise((resolve, reject) => {
-    const req = proto.get(url, { timeout: timeoutMs }, (res) => {
+    const req = proto.get(url, { timeout: timeoutMs, headers: { 'Accept': 'application/json' } }, (res) => {
       let data = '';
       res.on('data', (chunk) => (data += chunk));
       res.on('end', () => {

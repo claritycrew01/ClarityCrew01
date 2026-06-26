@@ -1,4 +1,4 @@
-name: Seed Firestore Content
+name: Seed Content to Firestore
 
 on:
   workflow_dispatch:
@@ -8,20 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-
       - run: npm install firebase-admin
         working-directory: tool/seed_data
-
-      - name: Seed topic mappings
-        run: node tool/seed_data/seed_firestore.cjs
-        env:
-          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-
-      - name: Seed subjects, chapters, lessons, videos
-        run: node tool/seed_data/seed_content.cjs
+      - run: node tool/seed_data/seed_content.cjs
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
