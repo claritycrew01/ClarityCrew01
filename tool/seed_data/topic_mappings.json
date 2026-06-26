@@ -1,0 +1,252 @@
+[
+  {
+    "id": "algebra_linear_equations",
+    "subject": "Algebra",
+    "chapter": "Linear Equations",
+    "searchQueries": ["linear equations algebra", "solving equations algebra", "algebra basics"],
+    "difficulty": "beginner",
+    "enabled": true,
+    "iconKey": "calculate_outlined",
+    "color": "#6C63FF"
+  },
+  {
+    "id": "algebra_linear_equations_intermediate",
+    "subject": "Algebra",
+    "chapter": "Linear Equations",
+    "searchQueries": ["systems of equations", "graphing linear equations"],
+    "difficulty": "intermediate",
+    "enabled": true,
+    "iconKey": "calculate_outlined",
+    "color": "#6C63FF"
+  },
+  {
+    "id": "algebra_polynomials",
+    "subject": "Algebra",
+    "chapter": "Polynomials",
+    "searchQueries": ["polynomials algebra", "factoring polynomials", "quadratic equations"],
+    "difficulty": "intermediate",
+    "enabled": true,
+    "iconKey": "calculate_outlined",
+    "color": "#6C63FF"
+  },
+  {
+    "id": "biology_cell_structure",
+    "subject": "Biology",
+    "chapter": "Cell Structure",
+    "searchQueries": ["cell biology structure", "cell organelles", "cell division mitosis"],
+    "difficulty": "beginner",
+    "enabled": true,
+    "iconKey": "biotech_outlined",
+    "color": "#4CAF50"
+  },
+  {
+    "id": "biology_genetics",
+    "subject": "Biology",
+    "chapter": "Genetics",
+    "searchQueries": ["genetics biology", "DNA structure function", "inheritance patterns"],
+    "difficulty": "intermediate",
+    "enabled": true,
+    "iconKey": "biotech_outlined",
+    "color": "#4CAF50"
+  },
+  {
+    "id": "biology_ecology",
+    "subject": "Biology",
+    "chapter": "Ecology",
+    "searchQueries": ["ecology ecosystems", "food chains webs", "biodiversity"],
+    "difficulty": "beginner",
+    "enabled": true,
+    "iconKey": "biotech_outlined",
+    "color": "#4CAF50"
+  },
+  {
+    "id": "world_history_renaissance",
+    "subject": "World History",
+    "chapter": "The Renaissance",
+    "searchQueries": ["renaissance history", "italian renaissance art"],
+    "difficulty": "beginner",
+    "enabled": true,
+    "iconKey": "public_outlined",
+    "color": "#FF9800"
+  },
+  {
+    "id": "world_history_ancient_civilizations",
+    "subject": "World History",
+    "chapter": "Ancient Civilizations",
+    "searchQueries": ["ancient civilizations", "ancient rome history", "ancient greece"],
+    "difficulty": "beginner",
+    "enabled": true,
+    "iconKey": "public_outlined",
+    "color": "#FF9800"
+  },
+  {
+    "id": "world_history_world_wars",
+    "subject": "World History",
+    "chapter": "World Wars",
+    "searchQueries": ["world war 1 history", "world war 2 history", "causes world war"],
+    "difficulty": "intermediate",
+    "enabled": true,
+    "iconKey": "public_outlined",
+    "color": "#FF9800"
+  },
+  {
+    "id": "english_grammar",
+    "subject": "English",
+    "chapter": "Grammar",
+    "searchQueries": ["english grammar parts of speech", "sentence structure grammar", "punctuation grammar"],
+    "difficulty": "beginner",
+    "enabled": true,
+    "iconKey": "menu_book_outlined",
+    "color": "#2196F3"
+  },
+  {
+    "id": "english_writing",
+    "subject": "English",
+    "chapter": "Writing",
+    "searchQueries": ["essay writing structure", "paragraph writing", "creative writing"],
+    "difficulty": "beginner",
+    "enabled": true,
+    "iconKey": "menu_book_outlined",
+    "color": "#2196F3"
+  },
+  {
+    "id": "english_literature",
+    "subject": "English",
+    "chapter": "Literature",
+    "searchQueries": ["literary analysis", "poetry analysis", "reading comprehension"],
+    "difficulty": "intermediate",
+    "enabled": true,
+    "iconKey": "menu_book_outlined",
+    "color": "#2196F3"
+  },
+  {
+    "id": "chemistry_periodic_table",
+    "subject": "Chemistry",
+    "chapter": "Periodic Table",
+    "searchQueries": ["periodic table elements", "atoms elements chemistry", "chemical bonding"],
+    "difficulty": "beginner",
+    "enabled": true,
+    "iconKey": "science_outlined",
+    "color": "#9C27B0"
+  },
+  {
+    "id": "chemistry_reactions",
+    "subject": "Chemistry",
+    "chapter": "Chemical Reactions",
+    "searchQueries": ["chemical reactions equations", "balancing equations chemistry", "stoichiometry chemistry"],
+    "difficulty": "intermediate",
+    "enabled": true,
+    "iconKey": "science_outlined",
+    "color": "#9C27B0"
+  },
+  {
+    "id": "geometry_triangles",
+    "subject": "Geometry",
+    "chapter": "Triangles",
+    "searchQueries": ["geometry triangles", "pythagorean theorem", "congruent triangles"],
+    "difficulty": "beginner",
+    "enabled": true,
+    "iconKey": "category_outlined",
+    "color": "#00BCD4"
+  },
+  {
+    "id": "geometry_circles",
+    "subject": "Geometry",
+    "chapter": "Circles",
+    "searchQueries": ["geometry circles", "circle theorems", "area circumference circle"],
+    "difficulty": "beginner",
+    "enabled": true,
+    "iconKey": "category_outlined",
+    "color": "#00BCD4"
+  },
+  {
+    "id": "us_history_constitution",
+    "subject": "US History",
+    "chapter": "Constitution",
+    "searchQueries": ["us constitution history", "founding fathers constitution", "bill of rights"],
+    "difficulty": "beginner",
+    "enabled": true,
+    "iconKey": "flag_outlined",
+    "color": "#F44336"
+  },
+  {
+    "id": "us_history_civil_war",
+    "subject": "US History",
+    "chapter": "Civil War",
+    "searchQueries": ["american civil war", "causes civil war us", "reconstruction era"],
+    "difficulty": "intermediate",
+    "enabled": true,
+    "iconKey": "flag_outlined",
+    "color": "#F44336"
+  },
+  {
+    "id": "us_history_civil_rights",
+    "subject": "US History",
+    "chapter": "Civil Rights",
+    "searchQueries": ["civil rights movement", "martin luther king", "brown vs board education"],
+    "difficulty": "intermediate",
+    "enabled": true,
+    "iconKey": "flag_outlined",
+    "color": "#F44336"
+  },
+  {
+    "id": "physics_newtons_laws",
+    "subject": "Physics",
+    "chapter": "Newton's Laws",
+    "searchQueries": ["newton laws motion physics", "forces physics", "gravity physics"],
+    "difficulty": "beginner",
+    "enabled": true,
+    "iconKey": "science_outlined",
+    "color": "#E53935"
+  },
+  {
+    "id": "physics_energy",
+    "subject": "Physics",
+    "chapter": "Energy",
+    "searchQueries": ["energy physics", "kinetic potential energy", "conservation of energy"],
+    "difficulty": "intermediate",
+    "enabled": true,
+    "iconKey": "science_outlined",
+    "color": "#E53935"
+  },
+  {
+    "id": "physics_thermodynamics",
+    "subject": "Physics",
+    "chapter": "Thermodynamics",
+    "searchQueries": ["thermodynamics physics", "heat transfer", "laws of thermodynamics"],
+    "difficulty": "intermediate",
+    "enabled": true,
+    "iconKey": "science_outlined",
+    "color": "#E53935"
+  },
+  {
+    "id": "psychology_learning_memory",
+    "subject": "Psychology",
+    "chapter": "Learning & Memory",
+    "searchQueries": ["learning psychology", "memory cognitive psychology", "classical conditioning"],
+    "difficulty": "beginner",
+    "enabled": true,
+    "iconKey": "psychology_outlined",
+    "color": "#7B1FA2"
+  },
+  {
+    "id": "psychology_development",
+    "subject": "Psychology",
+    "chapter": "Development",
+    "searchQueries": ["child development psychology", "piaget cognitive development", "attachment theory"],
+    "difficulty": "beginner",
+    "enabled": true,
+    "iconKey": "psychology_outlined",
+    "color": "#7B1FA2"
+  },
+  {
+    "id": "psychology_brain",
+    "subject": "Psychology",
+    "chapter": "Brain & Behavior",
+    "searchQueries": ["brain structure function", "neurons nervous system", "neurotransmitters"],
+    "difficulty": "intermediate",
+    "enabled": true,
+    "iconKey": "psychology_outlined",
+    "color": "#7B1FA2"
+  }
+]
