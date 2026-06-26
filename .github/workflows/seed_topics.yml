@@ -1,0 +1,23 @@
+name: Seed Topic Mappings
+
+on:
+  workflow_dispatch:
+
+jobs:
+  seed:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: npm install firebase-admin
+
+      - name: Seed topic mappings to Firestore
+        run: node tool/seed_data/seed_firestore.cjs
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+
+      - run: echo "Topic mappings seeded successfully."
