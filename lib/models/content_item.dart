@@ -17,6 +17,8 @@ class ContentItem {
   final List<String> quizOptions;
   final int? correctOptionIndex;
   final List<ContentItem> flashcards;
+  final String? sourceId;
+  final String? sourceSystem;
 
   const ContentItem({
     required this.id,
@@ -35,6 +37,8 @@ class ContentItem {
     this.quizOptions = const [],
     this.correctOptionIndex,
     this.flashcards = const [],
+    this.sourceId,
+    this.sourceSystem,
   });
 
   ContentItem copyWith({
@@ -54,6 +58,8 @@ class ContentItem {
     List<String>? quizOptions,
     int? correctOptionIndex,
     List<ContentItem>? flashcards,
+    String? sourceId,
+    String? sourceSystem,
   }) {
     return ContentItem(
       id: id ?? this.id,
@@ -73,6 +79,8 @@ class ContentItem {
       quizOptions: quizOptions ?? this.quizOptions,
       correctOptionIndex: correctOptionIndex ?? this.correctOptionIndex,
       flashcards: flashcards ?? this.flashcards,
+      sourceId: sourceId ?? this.sourceId,
+      sourceSystem: sourceSystem ?? this.sourceSystem,
     );
   }
 
@@ -93,6 +101,8 @@ class ContentItem {
         'quizOptions': quizOptions,
         'correctOptionIndex': correctOptionIndex,
         'flashcards': flashcards.map((f) => f.toJson()).toList(),
+        if (sourceId != null) 'sourceId': sourceId,
+        if (sourceSystem != null) 'sourceSystem': sourceSystem,
       };
 
   factory ContentItem.fromJson(Map<String, dynamic> json) {
@@ -120,6 +130,8 @@ class ContentItem {
               ?.map((e) => ContentItem.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
+      sourceId: json['sourceId'] as String?,
+      sourceSystem: json['sourceSystem'] as String?,
     );
   }
 

@@ -15,7 +15,12 @@ class SubjectIconRegistry {
       _icons[iconKey] ?? Icons.school_outlined;
 
   static Color colorFromHex(String hex) {
-    final value = hex.replaceFirst('#', '');
-    return Color(int.parse('FF$value', radix: 16));
+    try {
+      final value = hex.replaceFirst('#', '');
+      if (value.length == 6) {
+        return Color(int.parse('FF$value', radix: 16));
+      }
+    } catch (_) {}
+    return Colors.grey.shade700;
   }
 }

@@ -13,6 +13,8 @@ class VideoContent {
   final String difficulty;
   final String assetPath;
   final String linkedLessonId;
+  final String? sourceId;
+  final String? sourceSystem;
 
   const VideoContent({
     required this.id,
@@ -27,6 +29,8 @@ class VideoContent {
     this.difficulty = 'beginner',
     required this.assetPath,
     this.linkedLessonId = '',
+    this.sourceId,
+    this.sourceSystem,
   });
 
   VideoContent copyWith({
@@ -42,6 +46,8 @@ class VideoContent {
     String? difficulty,
     String? assetPath,
     String? linkedLessonId,
+    String? sourceId,
+    String? sourceSystem,
   }) {
     return VideoContent(
       id: id ?? this.id,
@@ -56,6 +62,8 @@ class VideoContent {
       difficulty: difficulty ?? this.difficulty,
       assetPath: assetPath ?? this.assetPath,
       linkedLessonId: linkedLessonId ?? this.linkedLessonId,
+      sourceId: sourceId ?? this.sourceId,
+      sourceSystem: sourceSystem ?? this.sourceSystem,
     );
   }
 
@@ -72,6 +80,8 @@ class VideoContent {
         'difficulty': difficulty,
         'assetPath': assetPath,
         'linkedLessonId': linkedLessonId,
+        if (sourceId != null) 'sourceId': sourceId,
+        if (sourceSystem != null) 'sourceSystem': sourceSystem,
       };
 
   factory VideoContent.fromJson(Map<String, dynamic> json) {
@@ -90,6 +100,8 @@ class VideoContent {
       difficulty: json['difficulty'] as String? ?? 'beginner',
       assetPath: json['assetPath'] as String? ?? '',
       linkedLessonId: json['linkedLessonId'] as String? ?? '',
+      sourceId: json['sourceId'] as String?,
+      sourceSystem: json['sourceSystem'] as String?,
     );
   }
 
