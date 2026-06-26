@@ -24,6 +24,13 @@ async function main() {
   const raw = readFileSync('tool/seed_data/topic_mappings.json', 'utf8');
   const mappings = JSON.parse(raw);
 
+  const sampleVideos = [
+    { url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4', duration: '0:15', seconds: 15, label: 'Intro' },
+    { url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4', duration: '0:15', seconds: 15, label: 'Overview' },
+    { url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4', duration: '0:30', seconds: 30, label: 'Deep Dive' },
+    { url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4', duration: '0:15', seconds: 15, label: 'Explainer' },
+  ];
+
   const subjects = {};
   const chapters = [];
   const lessons = [];
@@ -74,18 +81,20 @@ async function main() {
         sourceSystem: 'generated',
       });
 
+      const i = videos.length % sampleVideos.length;
+      const sample = sampleVideos[i];
       videos.push({
         id: `gen_video_${qSlug}`,
-        title: `Video: ${sq.charAt(0).toUpperCase() + sq.slice(1)}`,
+        title: `${sample.label}: ${sq.charAt(0).toUpperCase() + sq.slice(1)}`,
         description: `An overview of ${sq}`,
-        duration: '5:00',
-        durationSeconds: 300,
+        duration: sample.duration,
+        durationSeconds: sample.seconds,
         subject: m.subject,
         chapter: m.chapter || '',
         keyPoints: [],
         chapters: [],
         difficulty: m.difficulty || 'beginner',
-        assetPath: '',
+        assetPath: sample.url,
         linkedLessonId: lessonId,
         sourceId: qSlug,
         sourceSystem: 'generated',

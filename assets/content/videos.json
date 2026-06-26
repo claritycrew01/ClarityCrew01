@@ -9,7 +9,7 @@
     "subject": "Algebra",
     "chapter": "Linear Equations",
     "difficulty": "beginner",
-    "assetPath": "https://www.youtube.com/watch?v=Ft2_QtXAnh8",
+    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
     "keyPoints": [
       "Isolate the variable by undoing operations in reverse order",
       "Whatever you do to one side, do to the other",
@@ -35,7 +35,7 @@
     "subject": "Biology",
     "chapter": "Cell Biology",
     "difficulty": "beginner",
-    "assetPath": "assets/videos/biology_cell.mp4",
+    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
     "keyPoints": [
       "The nucleus contains DNA and controls the cell",
       "Mitochondria produce ATP energy through cellular respiration",
@@ -64,7 +64,7 @@
     "subject": "World History",
     "chapter": "The Renaissance",
     "difficulty": "intermediate",
-    "assetPath": "assets/videos/history_renaissance.mp4",
+    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
     "keyPoints": [
       "Renaissance means rebirth of classical ideas",
       "Humanism shifted focus to human achievement",
@@ -89,7 +89,7 @@
     "subject": "English",
     "chapter": "Grammar",
     "difficulty": "beginner",
-    "assetPath": "assets/videos/english_grammar.mp4",
+    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
     "keyPoints": [
       "Every English word fits one of eight parts of speech",
       "Nouns name people, places, things, or ideas",
@@ -113,7 +113,7 @@
     "subject": "Chemistry",
     "chapter": "Periodic Table",
     "difficulty": "intermediate",
-    "assetPath": "https://www.youtube.com/watch?v=okolv1y6IlE",
+    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
     "keyPoints": [
       "Atomic number equals proton count",
       "Groups share valence electrons",
@@ -137,7 +137,7 @@
     "subject": "Geometry",
     "chapter": "Triangles",
     "difficulty": "intermediate",
-    "assetPath": "assets/videos/geometry_triangles.mp4",
+    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     "keyPoints": [
       "Interior angles always sum to 180 degrees",
       "Right triangles follow a² + b² = c²",
@@ -161,7 +161,7 @@
     "subject": "US History",
     "chapter": "The Constitution",
     "difficulty": "intermediate",
-    "assetPath": "https://www.khanacademy.org/humanities/us-history/road-to-revolution/creating-a-nation/v/the-us-constitution",
+    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
     "keyPoints": [
       "The Constitution is the supreme law of the US",
       "Three branches separate powers",
@@ -186,7 +186,7 @@
     "subject": "English",
     "chapter": "Writing",
     "difficulty": "intermediate",
-    "assetPath": "https://www.youtube.com/watch?v=t0mmmghmcXg",
+    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
     "keyPoints": [
       "Introduction includes hook, context, and thesis",
       "Each body paragraph supports one main point",
