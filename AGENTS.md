@@ -27,6 +27,8 @@ ClarityCrew is an academic study app for neurodivergent learners. It is not a di
 - Seed missing content with actual example data.
 - Persist learner state locally.
 - Do not rely on demo values for core flows.
+- Content data (subjects, chapters, lessons, videos) is loaded from Firestore when Firebase is configured, falling back to bundled JSON assets in `assets/content/`.
+- Video sources are stored in the `assetPath` field of each video document/record. URLs starting with `http` are played via `VideoPlayerController.networkUrl()`, local paths via `VideoPlayerController.asset()`.
 
 ## Layout rules
 - Fix bottom overflow issues.
