@@ -26,7 +26,7 @@ jobs:
             printf '%s' "$GS_JSON" > android/app/google-services.json
           else
             echo "WARNING: GOOGLE_SERVICES_JSON secret not set. Creating placeholder for build."
-            printf '%s' '{"project_info":{"project_number":"123456789012","project_id":"placeholder-project"},"client":[{"client_info":{"mobilesdk_app_id":"1:123456789012:android:abcdef1234567890","android_client_info":{"package_name":"com.example.claritycrew"}},"api_key":[{"current_key":"AIzaSyPlaceholder0000000000000000000000000"}],"services":{"appinvite_service":{"other_platform_oauth_client":[]}}}]}' > android/app/google-services.json
+            printf '%s' '{"project_info":{"project_number":"123456789012","project_id":"placeholder-project"},"client":[{"client_info":{"mobilesdk_app_id":"1:123456789012:android:abcdef1234567890","android_client_info":{"package_name":"com.claritycrew"}},"api_key":[{"current_key":"AIzaSyPlaceholder0000000000000000000000000"}],"services":{"appinvite_service":{"other_platform_oauth_client":[]}}}]}' > android/app/google-services.json
           fi
 
       - run: flutter pub get

@@ -1,4 +1,4 @@
-package com.example.claritycrew
+package com.claritycrew
 
 import io.flutter.embedding.android.FlutterActivity
 
