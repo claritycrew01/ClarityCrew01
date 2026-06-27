@@ -56,6 +56,12 @@ ClarityCrew is an academic study app for neurodivergent learners. It is not a di
 - The website URL will be `https://claritycrew01.github.io/ClarityCrew01/`.
 - To trigger a manual deploy, go to Actions > Deploy Website > Run workflow.
 
+### Initial GitHub Pages setup (one-time)
+1. Go to repo Settings → Pages
+2. Under "Build and deployment" → "Source", select **"GitHub Actions"**
+3. No branch config needed — the `deploy_web.yml` workflow handles it
+4. Push to `master` (or run workflow manually) to trigger the first deploy
+
 ## Web-specific notes
 - Flutter web platform files live in `web/` directory.
 - `kIsWeb` is used to guard platform-specific code (e.g., `HapticFeedback`).

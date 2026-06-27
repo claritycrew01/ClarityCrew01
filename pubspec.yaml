@@ -17,6 +17,10 @@ dependencies:
   cloud_firestore: ^5.6.5
   http: ^1.2.2
 
+  # Web platform auto-resolves:
+  #   shared_preferences_web, video_player_web,
+  #   firebase_core_web, cloud_firestore_web
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
