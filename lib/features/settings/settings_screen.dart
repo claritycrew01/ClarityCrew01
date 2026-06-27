@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -146,7 +147,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 value: _soundEnabled,
                 onChanged: (value) {
                   setState(() => _soundEnabled = value);
-                  if (_hapticEnabled) {
+                  if (_hapticEnabled && !kIsWeb) {
                     HapticFeedback.lightImpact();
                   }
                 },
@@ -160,7 +161,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 value: _hapticEnabled,
                 onChanged: (value) {
                   setState(() => _hapticEnabled = value);
-                  if (value) {
+                  if (value && !kIsWeb) {
                     HapticFeedback.mediumImpact();
                   }
                 },

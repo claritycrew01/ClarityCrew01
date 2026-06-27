@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
@@ -72,9 +73,7 @@ class _VideoScreenState extends State<VideoScreen> {
     _isWatched = progress?['watched'] as bool? ?? false;
 
     try {
-      final controller = video.assetPath.startsWith('http')
-          ? VideoPlayerController.networkUrl(Uri.parse(video.assetPath))
-          : VideoPlayerController.asset(video.assetPath);
+      final controller = _createVideoController(video);
       await controller.initialize();
       final positionMs = progress?['positionMs'] as int? ?? 0;
       if (positionMs > 0) {
@@ -96,6 +95,18 @@ class _VideoScreenState extends State<VideoScreen> {
         _loadError = 'Could not load ${video.title}.';
       });
     }
+  }
+
+  VideoPlayerController _createVideoController(VideoContent video) {
+    if (video.assetPath.startsWith('http')) {
+      return VideoPlayerController.networkUrl(Uri.parse(video.assetPath));
+    }
+    if (kIsWeb) {
+      return VideoPlayerController.networkUrl(
+        Uri.parse(video.assetPath),
+      );
+    }
+    return VideoPlayerController.asset(video.assetPath);
   }
 
   void _handlePlaybackProgress() {

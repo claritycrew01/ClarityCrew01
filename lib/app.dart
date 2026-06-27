@@ -7,6 +7,7 @@ import 'state/app_state.dart';
 import 'features/onboarding/onboarding_screen.dart';
 import 'features/home/home_screen.dart';
 import 'services/content/content_repository.dart';
+import 'widgets/responsive_wrapper.dart';
 
 class ClarityCrewApp extends StatelessWidget {
   const ClarityCrewApp({super.key});
@@ -28,6 +29,7 @@ class ClarityCrewApp extends StatelessWidget {
             darkTheme: AppTheme.dark,
             themeMode: appState.isDarkMode ? ThemeMode.dark : ThemeMode.light,
             home: _buildHome(context, learnerState),
+            builder: (context, child) => ResponsiveWrapper(child: child!),
           );
         },
       ),

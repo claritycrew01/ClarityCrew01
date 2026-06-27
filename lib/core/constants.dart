@@ -5,6 +5,7 @@ class AppConstants {
   static const String appTagline = 'Learn your way';
 
   static const double maxContentWidth = 480;
+  static const double breakpointTablet = 600;
   static const double cardBorderRadius = 20;
   static const double buttonBorderRadius = 16;
   static const double smallBorderRadius = 12;

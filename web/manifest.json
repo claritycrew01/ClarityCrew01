@@ -1,0 +1,10 @@
+{
+  "name": "ClarityCrew",
+  "short_name": "ClarityCrew",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#F8F9FA",
+  "theme_color": "#2A9D8F",
+  "description": "An adaptive learning companion for neurodivergent learners.",
+  "orientation": "portrait-primary"
+}
