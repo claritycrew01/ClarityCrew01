@@ -15,10 +15,19 @@
     #loading span { font-size: 16px; }
     @keyframes spin { to { transform: rotate(360deg); } }
   </style>
+</head>
+<body>
+  <div id="loading">
+    <div class="spinner"></div>
+    <span>Loading ClarityCrew…</span>
+  </div>
+  <script src="flutter.js"></script>
   <script>
     window.addEventListener('load', function () {
-      _flutter.loader.loadEntryPoint({
-        serviceWorkerSettings: { serviceWorkerVersion: _flutter.loader.serviceWorkerVersion },
+      _flutter.loader.load({
+        serviceWorkerSettings: {
+          serviceWorkerVersion: _flutter.loader.serviceWorkerVersion,
+        },
         onEntryPointLoaded: function(engineInitializer) {
           engineInitializer.initializeEngine().then(function(appRunner) {
             appRunner.runApp();
@@ -27,12 +36,5 @@
       });
     });
   </script>
-  <script src="flutter.js" defer></script>
-</head>
-<body>
-  <div id="loading">
-    <div class="spinner"></div>
-    <span>Loading ClarityCrew…</span>
-  </div>
 </body>
 </html>
