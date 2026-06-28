@@ -4,7 +4,7 @@ class AppConstants {
   static const String appName = 'ClarityCrew';
   static const String appTagline = 'Learn your way';
 
-  static const double maxContentWidth = 480;
+  static const double maxContentWidth = 1200;
   static const double breakpointTablet = 600;
   static const double cardBorderRadius = 20;
   static const double buttonBorderRadius = 16;

@@ -9,15 +9,16 @@ class ResponsiveWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        if (constraints.maxWidth <= AppConstants.breakpointTablet) {
-          return child;
-        }
         final theme = Theme.of(context);
         return ColoredBox(
           color: theme.scaffoldBackgroundColor,
           child: Center(
-            child: SizedBox(
-              width: AppConstants.maxContentWidth,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                maxWidth: constraints.maxWidth <= AppConstants.breakpointTablet
+                    ? double.infinity
+                    : AppConstants.maxContentWidth,
+              ),
               child: child,
             ),
           ),
