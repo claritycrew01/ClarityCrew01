@@ -40,5 +40,17 @@
     "name": "US History",
     "iconKey": "flag_outlined",
     "color": "#795548"
+  },
+  {
+    "id": "physics",
+    "name": "Physics",
+    "iconKey": "bolt_outlined",
+    "color": "#FF5722"
+  },
+  {
+    "id": "psychology",
+    "name": "Psychology",
+    "iconKey": "psychology_outlined",
+    "color": "#9C27B0"
   }
 ]
