@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../core/constants.dart';
 import '../../core/theme/colors.dart';
 import '../../state/learner_state.dart';
 import '../../state/app_state.dart';
@@ -53,22 +54,23 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _buildHeader(BuildContext context, LearnerProfile profile) {
+    final isDesktop = MediaQuery.of(context).size.width >= AppConstants.breakpointDesktop;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Row(
           children: [
             Container(
-              width: 48,
-              height: 48,
+              width: isDesktop ? 42 : 48,
+              height: isDesktop ? 42 : 48,
               decoration: BoxDecoration(
                 color: AppColors.calmTeal.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(16),
               ),
-              child: const Icon(
+              child: Icon(
                 Icons.auto_awesome_rounded,
                 color: AppColors.calmTeal,
-                size: 24,
+                size: isDesktop ? 20 : 24,
               ),
             ),
             const SizedBox(width: 12),
@@ -275,6 +277,7 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _buildModeGrid(BuildContext context) {
+    final isDesktop = MediaQuery.of(context).size.width >= AppConstants.breakpointDesktop;
     final modes = [
       _ModeInfo('Quiz', Icons.quiz_outlined, AppColors.warmCoral,
           LearningMode.quiz),
@@ -305,11 +308,11 @@ class HomeScreen extends StatelessWidget {
         GridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 1.1,
-            crossAxisSpacing: 12,
-            mainAxisSpacing: 12,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: isDesktop ? 3 : 2,
+            childAspectRatio: isDesktop ? 1.2 : 1.1,
+            crossAxisSpacing: isDesktop ? 16 : 12,
+            mainAxisSpacing: isDesktop ? 16 : 12,
           ),
           itemCount: modes.length,
           itemBuilder: (context, index) {

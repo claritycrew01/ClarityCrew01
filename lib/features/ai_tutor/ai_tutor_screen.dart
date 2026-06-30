@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../core/constants.dart';
 import '../../core/theme/colors.dart';
 import '../../state/learner_state.dart';
 import '../../state/session_state.dart';
@@ -163,11 +164,12 @@ class _AiTutorScreenState extends State<AiTutorScreen>
         : profile.modeWeights.entries
             .reduce((a, b) => a.value > b.value ? a : b);
 
+    final isDesktop = MediaQuery.of(context).size.width >= AppConstants.breakpointDesktop;
     return AnimatedBuilder(
       animation: _pulseController,
       builder: (context, child) {
         return Container(
-          padding: const EdgeInsets.all(24),
+          padding: EdgeInsets.all(isDesktop ? 20 : 24),
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
@@ -185,8 +187,8 @@ class _AiTutorScreenState extends State<AiTutorScreen>
           child: Row(
             children: [
               Container(
-                width: 56,
-                height: 56,
+                width: isDesktop ? 48 : 56,
+                height: isDesktop ? 48 : 56,
                 decoration: BoxDecoration(
                   color: AppColors.calmTeal.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(18),
@@ -196,7 +198,7 @@ class _AiTutorScreenState extends State<AiTutorScreen>
                   color: AppColors.calmTeal.withValues(
                     alpha: 0.7 + _pulseController.value * 0.3,
                   ),
-                  size: 28,
+                  size: isDesktop ? 24 : 28,
                 ),
               ),
               const SizedBox(width: 16),
@@ -884,12 +886,15 @@ class _AiTutorScreenState extends State<AiTutorScreen>
 
   Widget _buildStatCircle(
       BuildContext context, String value, String label, Color color) {
+    final isDesktop = MediaQuery.of(context).size.width >= AppConstants.breakpointDesktop;
+    final circleSize = isDesktop ? 44.0 : 52.0;
+    final fontSize = isDesktop ? 14.0 : 16.0;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-          width: 52,
-          height: 52,
+          width: circleSize,
+          height: circleSize,
           decoration: BoxDecoration(
             color: color.withValues(alpha: 0.1),
             shape: BoxShape.circle,
@@ -900,7 +905,7 @@ class _AiTutorScreenState extends State<AiTutorScreen>
               style: TextStyle(
                 color: color,
                 fontWeight: FontWeight.w700,
-                fontSize: 16,
+                fontSize: fontSize,
               ),
             ),
           ),

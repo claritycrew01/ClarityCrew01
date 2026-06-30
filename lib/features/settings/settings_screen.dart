@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import '../../core/constants.dart';
 import '../../core/theme/colors.dart';
 import '../../state/learner_state.dart';
 import '../../state/app_state.dart';
@@ -51,6 +52,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Widget _buildProfileSection(BuildContext context, dynamic profile) {
+    final isDesktop = MediaQuery.of(context).size.width >= AppConstants.breakpointDesktop;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -75,15 +77,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 child: ListTile(
                   contentPadding: EdgeInsets.zero,
                   leading: Container(
-                    width: 48,
-                    height: 48,
+                    width: isDesktop ? 42 : 48,
+                    height: isDesktop ? 42 : 48,
                     decoration: BoxDecoration(
                       color: AppColors.calmTeal.withValues(alpha: 0.12),
                       borderRadius: BorderRadius.circular(14),
                     ),
-                    child: const Icon(
+                    child: Icon(
                       Icons.person_outline,
                       color: AppColors.calmTeal,
+                      size: isDesktop ? 20 : 24,
                     ),
                   ),
                   title: Text(
@@ -175,6 +178,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Widget _buildAccessibilitySection(BuildContext context) {
+    final isDesktop = MediaQuery.of(context).size.width >= AppConstants.breakpointDesktop;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -205,15 +209,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
               child: Row(
                 children: [
                   Container(
-                    width: 48,
-                    height: 48,
+                    width: isDesktop ? 42 : 48,
+                    height: isDesktop ? 42 : 48,
                     decoration: BoxDecoration(
                       color: AppColors.softPurple.withValues(alpha: 0.12),
                       borderRadius: BorderRadius.circular(14),
                     ),
-                    child: const Icon(
+                    child: Icon(
                       Icons.accessibility_new_rounded,
                       color: AppColors.softPurple,
+                      size: isDesktop ? 20 : 24,
                     ),
                   ),
                   const SizedBox(width: 16),

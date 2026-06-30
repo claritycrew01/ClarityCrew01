@@ -6,6 +6,7 @@ class AppConstants {
 
   static const double maxContentWidth = 1200;
   static const double breakpointTablet = 600;
+  static const double breakpointDesktop = 900;
   static const double cardBorderRadius = 20;
   static const double buttonBorderRadius = 16;
   static const double smallBorderRadius = 12;

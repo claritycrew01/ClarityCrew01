@@ -10,6 +10,7 @@ class ResponsiveWrapper extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final theme = Theme.of(context);
+        final isDesktop = constraints.maxWidth > AppConstants.breakpointDesktop;
         return ColoredBox(
           color: theme.scaffoldBackgroundColor,
           child: Center(
@@ -19,7 +20,12 @@ class ResponsiveWrapper extends StatelessWidget {
                     ? double.infinity
                     : AppConstants.maxContentWidth,
               ),
-              child: child,
+              child: Padding(
+                padding: isDesktop
+                    ? const EdgeInsets.symmetric(horizontal: 48)
+                    : EdgeInsets.zero,
+                child: child,
+              ),
             ),
           ),
         );
