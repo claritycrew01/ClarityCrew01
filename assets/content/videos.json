@@ -1,1239 +1,1354 @@
 [
   {
     "id": "vid_algebra_linear_eq_1",
-    "linkedLessonId": "algebra_linear_eq_1",
-    "title": "Algebra: Linear Equations — Video 1",
-    "description": "A visual exploration of linear equations concepts in Algebra.",
-    "duration": "4:00",
-    "durationSeconds": 240,
+    "linkedLessonId": "linear_eq_1",
+    "title": "Algebra: Linear Equations — Part 1",
+    "description": "TutorMan explains how to change a linear equation into slope-intercept form step by step.",
+    "duration": "4:10",
+    "durationSeconds": 250,
     "subject": "Algebra",
     "chapter": "Linear Equations",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+    "assetPath": "https://archive.org/download/MathLessonWritingALinearEquationIntoSlopeInterceptForm/video.mp4",
     "keyPoints": [
-      "Simplify both sides of the equation separately (combine like terms, remove parentheses)",
-      "Move all terms with the variable to one side (use addition or subtraction)"
+      "Writing Linear Equations in Slope-Intercept Form",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — A linear equation is an equation where the variabl",
-      "0.5:00 — To solve a linear equation, the goal is to isolate",
-      "1:00 — Simplify both sides of the equation separately (co",
-      "1.5:00 — Move all terms with the variable to one side (use ",
-      "2:00 — Move all constant terms to the other side"
-    ]
+      "0:00 — Introduction to topic",
+      "62:00 — Main concepts covered",
+      "125:00 — Examples and applications",
+      "187:00 — Review and summary"
+    ],
+    "sourceId": "MathLessonWritingALinearEquationIntoSlopeInterceptForm",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_algebra_linear_eq_6",
-    "linkedLessonId": "algebra_linear_eq_6",
-    "title": "Algebra: Linear Equations — Video 2",
-    "description": "A visual exploration of linear equations concepts in Algebra.",
-    "duration": "6:30",
-    "durationSeconds": 300,
+    "linkedLessonId": "linear_eq_6",
+    "title": "Algebra: Linear Equations — Part 2",
+    "description": "Learn how to graph linear equations on the coordinate plane with clear examples.",
+    "duration": "4:30",
+    "durationSeconds": 270,
     "subject": "Algebra",
     "chapter": "Linear Equations",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+    "assetPath": "https://archive.org/download/GraphingLinearEquations/GraphReview_512kb.mp4",
     "keyPoints": [
-      "Example: y > 2x - 3. Draw dashed line y = 2x - 3. Test (0, 0): 0 > -3? Yes. Shade above the line."
+      "Graphing Linear Equations",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — Linear inequalities are like linear equations but ",
-      "0.5:00 — To graph: Draw the boundary line (solid for ≤ or ≥",
-      "1:00 — Example: y > 2x - 3. Draw dashed line y = 2x - 3. "
-    ]
+      "0:00 — Introduction to topic",
+      "67:00 — Main concepts covered",
+      "135:00 — Examples and applications",
+      "202:00 — Review and summary"
+    ],
+    "sourceId": "GraphingLinearEquations",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_algebra_polynomials_1",
-    "linkedLessonId": "algebra_polynomials_1",
-    "title": "Algebra: Polynomials — Video 1",
-    "description": "A visual exploration of polynomials concepts in Algebra.",
-    "duration": "4:00",
-    "durationSeconds": 240,
+    "linkedLessonId": "polynomials_1",
+    "title": "Algebra: Polynomials — Part 1",
+    "description": "A classic instructional video covering polynomial factoring techniques.",
+    "duration": "4:30",
+    "durationSeconds": 270,
     "subject": "Algebra",
     "chapter": "Polynomials",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+    "assetPath": "https://archive.org/download/ClassicAlgebraFactoring_801/29Factoring_512kb.mp4",
     "keyPoints": [
-      "Examples: 3x² + 2x - 5 (quadratic trinomial), 4x⁵ - 2x³ + x - 7 (degree 5 polynomial).",
-      "The degree of a polynomial is the highest exponent. The leading coefficient is the coefficient of the term with the highest degree."
+      "Classic Algebra: Factoring Polynomials",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — A polynomial is an expression with variables and c",
-      "0.5:00 — Examples: 3x² + 2x - 5 (quadratic trinomial), 4x⁵ ",
-      "1:00 — The degree of a polynomial is the highest exponent"
-    ]
+      "0:00 — Introduction to topic",
+      "67:00 — Main concepts covered",
+      "135:00 — Examples and applications",
+      "202:00 — Review and summary"
+    ],
+    "sourceId": "ClassicAlgebraFactoring_801",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_algebra_polynomials_6",
-    "linkedLessonId": "algebra_polynomials_6",
-    "title": "Algebra: Polynomials — Video 2",
-    "description": "A visual exploration of polynomials concepts in Algebra.",
-    "duration": "6:30",
-    "durationSeconds": 300,
+    "linkedLessonId": "polynomials_6",
+    "title": "Algebra: Polynomials — Part 2",
+    "description": "Khan Academy lesson on factoring quadratic polynomials.",
+    "duration": "8:00",
+    "durationSeconds": 480,
     "subject": "Algebra",
     "chapter": "Polynomials",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+    "assetPath": "https://archive.org/download/KA-converted-K5ggNnKTmNM/K5ggNnKTmNM.mp4",
     "keyPoints": [
-      "Special polynomial products are patterns that appear frequently:",
-      "(a + b)² = a² + 2ab + b²",
-      "(a - b)² = a² - 2ab + b²",
-      "(a + b)(a - b) = a² - b²"
+      "Factoring Quadratics",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — Special polynomial products are patterns that appe",
-      "0.5:00 — (a + b)² = a² + 2ab + b²",
-      "1:00 — (a - b)² = a² - 2ab + b²",
-      "1.5:00 — (a + b)(a - b) = a² - b²",
-      "2:00 — Examples: (x + 4)² = x² + 8x + 16. (3x - 2)² = 9x²"
-    ]
+      "0:00 — Introduction to topic",
+      "120:00 — Main concepts covered",
+      "240:00 — Examples and applications",
+      "360:00 — Review and summary"
+    ],
+    "sourceId": "KA-converted-K5ggNnKTmNM",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_algebra_quadratics_1",
-    "linkedLessonId": "algebra_quadratics_1",
-    "title": "Algebra: Quadratic Equations — Video 1",
-    "description": "A visual exploration of quadratic equations concepts in Algebra.",
-    "duration": "4:00",
-    "durationSeconds": 240,
+    "linkedLessonId": "quadratics_1",
+    "title": "Algebra: Quadratic Equations — Part 1",
+    "description": "Khan Academy introduces the quadratic equation, its standard form, and how to identify coefficients.",
+    "duration": "9:00",
+    "durationSeconds": 540,
     "subject": "Algebra",
     "chapter": "Quadratic Equations",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
+    "assetPath": "https://archive.org/download/KA-converted-IWigvJcCAJ0/IWigvJcCAJ0.mp4",
     "keyPoints": [
-      "A quadratic equation has the form ax² + bx + c = 0, where a ≠ 0. The graph of a quadratic function y = ax² + bx + c is a parabola.",
-      "Standard form: ax² + bx + c = 0. Vertex form: a(x - h)² + k = 0, where (h, k) is the vertex.",
-      "The vertex is the highest or lowest point on the parabola. If a > 0, the parabola opens up (minimum). If a < 0, it opens down (maximum)."
+      "Introduction to Quadratic Equations",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — A quadratic equation has the form ax² + bx + c = 0",
-      "0.5:00 — Standard form: ax² + bx + c = 0. Vertex form: a(x ",
-      "1:00 — The vertex is the highest or lowest point on the p"
-    ]
+      "0:00 — Introduction to topic",
+      "135:00 — Main concepts covered",
+      "270:00 — Examples and applications",
+      "405:00 — Review and summary"
+    ],
+    "sourceId": "KA-converted-IWigvJcCAJ0",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_algebra_quadratics_6",
-    "linkedLessonId": "algebra_quadratics_6",
-    "title": "Algebra: Quadratic Equations — Video 2",
-    "description": "A visual exploration of quadratic equations concepts in Algebra.",
-    "duration": "6:30",
-    "durationSeconds": 300,
+    "linkedLessonId": "quadratics_6",
+    "title": "Algebra: Quadratic Equations — Part 2",
+    "description": "Khan Academy demonstrates solving quadratic equations through factoring.",
+    "duration": "7:00",
+    "durationSeconds": 420,
     "subject": "Algebra",
     "chapter": "Quadratic Equations",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    "assetPath": "https://archive.org/download/KA-converted-N30tN9158Kc/N30tN9158Kc.mp4",
     "keyPoints": [
-      "Graphing quadratics: Plot the vertex, axis of symmetry, y-intercept (c), and x-intercepts (roots). The parabola opens up if a > 0, down if a < 0.",
-      "The y-intercept is always (0, c). The x-intercepts are the solutions to ax² + bx + c = 0.",
-      "For a quick sketch: vertex, y-intercept, and one point on each side of the axis."
+      "Solving Quadratic Equations by Factoring",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — Graphing quadratics: Plot the vertex, axis of symm",
-      "0.5:00 — The y-intercept is always (0, c). The x-intercepts",
-      "1:00 — For a quick sketch: vertex, y-intercept, and one p"
-    ]
+      "0:00 — Introduction to topic",
+      "105:00 — Main concepts covered",
+      "210:00 — Examples and applications",
+      "315:00 — Review and summary"
+    ],
+    "sourceId": "KA-converted-N30tN9158Kc",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_biology_cell_1",
-    "linkedLessonId": "biology_cell_1",
-    "title": "Biology: Cell Biology — Video 1",
-    "description": "A visual exploration of cell biology concepts in Biology.",
-    "duration": "4:00",
-    "durationSeconds": 240,
+    "linkedLessonId": "cell_1",
+    "title": "Biology: Cell Biology — Part 1",
+    "description": "An AS-Level biology lesson exploring cell structure, organelles, and their functions.",
+    "duration": "6:30",
+    "durationSeconds": 390,
     "subject": "Biology",
     "chapter": "Cell Biology",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+    "assetPath": "https://archive.org/download/cell_biology2/cellsnew_512kb.mp4",
     "keyPoints": [
-      "The cell is the basic unit of life. All living organisms are made of cells — some have just one (unicellular), others have trillions (multicellular).",
-      "Prokaryotic cells: Simple, no nucleus. Bacteria are prokaryotes. DNA floats freely in the cytoplasm.",
-      "Eukaryotic cells: Complex, have a nucleus that holds DNA. Plants, animals, fungi, and protists are eukaryotes.",
-      "Key organelles in animal cells:"
+      "Cell Biology: The Fundamental Unit of Life",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — The cell is the basic unit of life. All living org",
-      "0.5:00 — Prokaryotic cells: Simple, no nucleus. Bacteria ar",
-      "1:00 — Eukaryotic cells: Complex, have a nucleus that hol",
-      "1.5:00 — Key organelles in animal cells:",
-      "2:00 — Nucleus: The control center. Contains DNA and dire"
-    ]
+      "0:00 — Introduction to topic",
+      "97:00 — Main concepts covered",
+      "195:00 — Examples and applications",
+      "292:00 — Review and summary"
+    ],
+    "sourceId": "cell_biology2",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_biology_cell_6",
-    "linkedLessonId": "biology_cell_6",
-    "title": "Biology: Cell Biology — Video 2",
-    "description": "A visual exploration of cell biology concepts in Biology.",
+    "linkedLessonId": "cell_6",
+    "title": "Biology: Cell Biology — Part 2",
+    "description": "Continuing exploration of cell biology including membrane transport and cellular processes.",
     "duration": "6:30",
-    "durationSeconds": 300,
+    "durationSeconds": 390,
     "subject": "Biology",
     "chapter": "Cell Biology",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+    "assetPath": "https://archive.org/download/cell_biology2/cellsnew_512kb.mp4",
     "keyPoints": [
-      "Meiosis produces sex cells (gametes) with half the chromosome number. It involves two rounds of division: Meiosis I and Meiosis II.",
-      "Meiosis I separates homologous chromosomes. Meiosis II separates sister chromatids."
+      "Cell Structure and Function",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — Meiosis produces sex cells (gametes) with half the",
-      "0.5:00 — Meiosis I separates homologous chromosomes. Meiosi",
-      "1:00 — The result is 4 genetically unique haploid cells. "
-    ]
+      "0:00 — Introduction to topic",
+      "97:00 — Main concepts covered",
+      "195:00 — Examples and applications",
+      "292:00 — Review and summary"
+    ],
+    "sourceId": "cell_biology2",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_biology_genetics_1",
-    "linkedLessonId": "biology_genetics_1",
-    "title": "Biology: Genetics — Video 1",
-    "description": "A visual exploration of genetics concepts in Biology.",
-    "duration": "4:00",
-    "durationSeconds": 240,
+    "linkedLessonId": "genetics_1",
+    "title": "Biology: Genetics — Part 1",
+    "description": "An educational film explaining how DNA carries genetic information.",
+    "duration": "15:00",
+    "durationSeconds": 900,
     "subject": "Biology",
     "chapter": "Genetics",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+    "assetPath": "https://archive.org/download/dnamoleculeofheredity/dnamoleculeofheredity.mp4",
     "keyPoints": [
-      "Gregor Mendel (1822-1884) discovered the basic principles of genetics by experimenting with pea plants. He tracked seven traits across generations.",
-      "Law of Segregation: Each organism has two alleles for each trait, which separate during gamete formation",
-      "Law of Independent Assortment: Genes for different traits separate independently"
+      "DNA: The Molecule of Heredity",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — Genetics is the study of heredity — how traits pas",
-      "0.5:00 — Gregor Mendel (1822-1884) discovered the basic pri",
-      "1:00 — Law of Segregation: Each organism has two alleles ",
-      "1.5:00 — Law of Independent Assortment: Genes for different"
-    ]
+      "0:00 — Introduction to topic",
+      "225:00 — Main concepts covered",
+      "450:00 — Examples and applications",
+      "675:00 — Review and summary"
+    ],
+    "sourceId": "dnamoleculeofheredity",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_biology_genetics_6",
-    "linkedLessonId": "biology_genetics_6",
-    "title": "Biology: Genetics — Video 2",
-    "description": "A visual exploration of genetics concepts in Biology.",
-    "duration": "6:30",
-    "durationSeconds": 300,
+    "linkedLessonId": "genetics_6",
+    "title": "Biology: Genetics — Part 2",
+    "description": "Exploration of human genetics including inheritance patterns, chromosomes, and genetic traits.",
+    "duration": "18:00",
+    "durationSeconds": 1080,
     "subject": "Biology",
     "chapter": "Genetics",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+    "assetPath": "https://archive.org/download/humanheredityrevisededition/humanheredityrevisededition.mp4",
     "keyPoints": [
-      "Punnett squares predict the probability of offspring inheriting specific traits. A monohybrid cross tracks one trait, a dihybrid cross tracks two.",
-      "Dominant alleles (capital letter) mask recessive alleles (lowercase).",
-      "Example: T = tall (dominant), t = short (recessive).",
-      "Tt × Tt: Genotype ratio 1:2:1 (TT, Tt, tt). Phenotype ratio 3:1 (tall:short)."
+      "Human Heredity",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — Punnett squares predict the probability of offspri",
-      "0.5:00 — Dominant alleles (capital letter) mask recessive a",
-      "1:00 — Example: T = tall (dominant), t = short (recessive",
-      "1.5:00 — Tt × Tt: Genotype ratio 1:2:1 (TT, Tt, tt). Phenot",
-      "2:00 — Incomplete dominance: Neither allele is fully domi"
-    ]
+      "0:00 — Introduction to topic",
+      "270:00 — Main concepts covered",
+      "540:00 — Examples and applications",
+      "810:00 — Review and summary"
+    ],
+    "sourceId": "humanheredityrevisededition",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_biology_ecology_1",
-    "linkedLessonId": "biology_ecology_1",
-    "title": "Biology: Ecology — Video 1",
-    "description": "A visual exploration of ecology concepts in Biology.",
-    "duration": "4:00",
-    "durationSeconds": 240,
+    "linkedLessonId": "ecology_1",
+    "title": "Biology: Ecology — Part 1",
+    "description": "An exploration of ecological systems, food webs, and the interconnectedness of living organisms.",
+    "duration": "10:00",
+    "durationSeconds": 600,
     "subject": "Biology",
     "chapter": "Ecology",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+    "assetPath": "https://archive.org/download/EcologyEmergesEvolutionOfEco-activism/EE1_Final_264_512kb.mp4",
     "keyPoints": [
-      "Levels of ecological organization: individual → population → community → ecosystem → biome → biosphere.",
-      "Biotic factors: plants, animals, fungi, bacteria.",
-      "Abiotic factors: sunlight, temperature, water, soil, air."
+      "Ecology: The Web of Life",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — Ecology studies how organisms interact with each o",
-      "0.5:00 — Levels of ecological organization: individual → po",
-      "1:00 — Biotic factors: plants, animals, fungi, bacteria.",
-      "1.5:00 — Abiotic factors: sunlight, temperature, water, soi"
-    ]
+      "0:00 — Introduction to topic",
+      "150:00 — Main concepts covered",
+      "300:00 — Examples and applications",
+      "450:00 — Review and summary"
+    ],
+    "sourceId": "EcologyEmergesEvolutionOfEco-activism",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_biology_ecology_6",
-    "linkedLessonId": "biology_ecology_6",
-    "title": "Biology: Ecology — Video 2",
-    "description": "A visual exploration of ecology concepts in Biology.",
-    "duration": "6:30",
-    "durationSeconds": 300,
+    "linkedLessonId": "ecology_6",
+    "title": "Biology: Ecology — Part 2",
+    "description": "Examining how ecological principles apply in urban settings.",
+    "duration": "10:00",
+    "durationSeconds": 600,
     "subject": "Biology",
     "chapter": "Ecology",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+    "assetPath": "https://archive.org/download/EcologyEmergesNatureInCities/EE3_06_04.30_264_512kb.mp4",
     "keyPoints": [
-      "Biodiversity is the variety of life on Earth. It has three components: genetic diversity, species diversity, and ecosystem diversity.",
-      "Biodiversity is important because it:",
-      "Provides ecosystem services (pollination, water purification)",
-      "Supports food security"
+      "Ecology in Urban Environments",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — Biodiversity is the variety of life on Earth. It h",
-      "0.5:00 — Biodiversity is important because it:",
-      "1:00 — Provides ecosystem services (pollination, water pu",
-      "1.5:00 — Supports food security",
-      "2:00 — Provides medicines and resources"
-    ]
+      "0:00 — Introduction to topic",
+      "150:00 — Main concepts covered",
+      "300:00 — Examples and applications",
+      "450:00 — Review and summary"
+    ],
+    "sourceId": "EcologyEmergesNatureInCities",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_history_renaissance_1",
-    "linkedLessonId": "history_renaissance_1",
-    "title": "World History: The Renaissance — Video 1",
-    "description": "A visual exploration of the renaissance concepts in World History.",
-    "duration": "4:00",
-    "durationSeconds": 240,
+    "linkedLessonId": "renaissance_1",
+    "title": "World History: The Renaissance — Part 1",
+    "description": "An educational film exploring the cultural and intellectual rebirth of the Renaissance.",
+    "duration": "26:00",
+    "durationSeconds": 1560,
     "subject": "World History",
     "chapter": "The Renaissance",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
+    "assetPath": "https://archive.org/download/thespiritoftherenaissance/thespiritoftherenaissance.mp4",
     "keyPoints": [
-      "What sparked the Renaissance?",
-      "The fall of Constantinople (1453) sent Greek scholars to Italy with ancient texts",
-      "Increased trade with Asia brought wealth to Italian city-states"
+      "The Spirit of the Renaissance",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — The Renaissance (1400-1600 CE) was a period of cul",
-      "0.5:00 — What sparked the Renaissance?",
-      "1:00 — The fall of Constantinople (1453) sent Greek schol",
-      "1.5:00 — Increased trade with Asia brought wealth to Italia",
-      "2:00 — The printing press (Gutenberg, ~1440) made books a"
-    ]
+      "0:00 — Introduction to topic",
+      "390:00 — Main concepts covered",
+      "780:00 — Examples and applications",
+      "1170:00 — Review and summary"
+    ],
+    "sourceId": "thespiritoftherenaissance",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_history_renaissance_6",
-    "linkedLessonId": "history_renaissance_6",
-    "title": "World History: The Renaissance — Video 2",
-    "description": "A visual exploration of the renaissance concepts in World History.",
-    "duration": "6:30",
-    "durationSeconds": 300,
+    "linkedLessonId": "renaissance_6",
+    "title": "World History: The Renaissance — Part 2",
+    "description": "Renaissance culture through its secular music, art, and the humanist movement.",
+    "duration": "18:00",
+    "durationSeconds": 1080,
     "subject": "World History",
     "chapter": "The Renaissance",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    "assetPath": "https://archive.org/download/secularmusicoftherenaissance/secularmusicoftherenaissance/secularmusicoftherenaissance.mp4",
     "keyPoints": [
-      "The Scientific Revolution began during the Renaissance as thinkers challenged ancient authorities and emphasized observation and experimentation.",
-      "Nicolaus Copernicus proposed that the Sun (not Earth) is the center of the solar system — a radical idea that challenged Church teaching.",
-      "Galileo Galilei improved the telescope and confirmed Copernicus's model. He was tried by the Church and forced to recant.",
-      "Andreas Vesalius revolutionized anatomy by dissecting human cadavers."
+      "Secular Music of the Renaissance",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — The Scientific Revolution began during the Renaiss",
-      "0.5:00 — Nicolaus Copernicus proposed that the Sun (not Ear",
-      "1:00 — Galileo Galilei improved the telescope and confirm",
-      "1.5:00 — Andreas Vesalius revolutionized anatomy by dissect"
-    ]
+      "0:00 — Introduction to topic",
+      "270:00 — Main concepts covered",
+      "540:00 — Examples and applications",
+      "810:00 — Review and summary"
+    ],
+    "sourceId": "secularmusicoftherenaissance",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_history_ancient_1",
-    "linkedLessonId": "history_ancient_1",
-    "title": "World History: Ancient Civilizations — Video 1",
-    "description": "A visual exploration of ancient civilizations concepts in World History.",
-    "duration": "4:00",
-    "durationSeconds": 240,
+    "linkedLessonId": "ancient_1",
+    "title": "World History: Ancient Civilizations — Part 1",
+    "description": "Journey through the cradle of civilization exploring Sumer, Babylon, and the birth of writing and law.",
+    "duration": "30:00",
+    "durationSeconds": 600,
     "subject": "World History",
     "chapter": "Ancient Civilizations",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+    "assetPath": "https://archive.org/download/FacesOfAncientMesopotamia/Mesopotamia.mp4",
     "keyPoints": [
-      "Writing (cuneiform) — the first writing system",
-      "The wheel — revolutionized transport",
-      "Laws — Code of Hammurabi, one of the first written law codes"
+      "Faces of Ancient Mesopotamia",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — Ancient Mesopotamia, between the Tigris and Euphra",
-      "0.5:00 — Writing (cuneiform) — the first writing system",
-      "1:00 — The wheel — revolutionized transport",
-      "1.5:00 — Laws — Code of Hammurabi, one of the first written",
-      "2:00 — Mathematics — base-60 number system (we still use "
-    ]
+      "0:00 — Introduction to topic",
+      "150:00 — Main concepts covered",
+      "300:00 — Examples and applications",
+      "450:00 — Review and summary"
+    ],
+    "sourceId": "FacesOfAncientMesopotamia",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_history_ancient_6",
-    "linkedLessonId": "history_ancient_6",
-    "title": "World History: Ancient Civilizations — Video 2",
-    "description": "A visual exploration of ancient civilizations concepts in World History.",
-    "duration": "6:30",
-    "durationSeconds": 300,
+    "linkedLessonId": "ancient_6",
+    "title": "World History: Ancient Civilizations — Part 2",
+    "description": "A comprehensive look at Ancient Greek civilization from its city-states to its lasting cultural legacy.",
+    "duration": "22:00",
+    "durationSeconds": 1320,
     "subject": "World History",
     "chapter": "Ancient Civilizations",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+    "assetPath": "https://archive.org/download/ancientgreece_201702/ancientgreece_201702.mp4",
     "keyPoints": [
-      "The Roman Empire (27 BCE - 476 CE) began when Augustus became the first emperor. The Empire stretched from Britain to Egypt.",
-      "Pax Romana: 200 years of peace and prosperity",
-      "Roman law: Foundation for many modern legal systems",
-      "Engineering: Aqueducts, roads, concrete, arches, the Colosseum"
+      "Ancient Greece",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — The Roman Empire (27 BCE - 476 CE) began when Augu",
-      "0.5:00 — Pax Romana: 200 years of peace and prosperity",
-      "1:00 — Roman law: Foundation for many modern legal system",
-      "1.5:00 — Engineering: Aqueducts, roads, concrete, arches, t",
-      "2:00 — Latin: Became the language of law, science, and th"
-    ]
+      "0:00 — Introduction to topic",
+      "330:00 — Main concepts covered",
+      "660:00 — Examples and applications",
+      "990:00 — Review and summary"
+    ],
+    "sourceId": "ancientgreece_201702",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_history_world_wars_1",
-    "linkedLessonId": "history_world_wars_1",
-    "title": "World History: World Wars — Video 1",
-    "description": "A visual exploration of world wars concepts in World History.",
-    "duration": "4:00",
-    "durationSeconds": 240,
+    "linkedLessonId": "world_wars_1",
+    "title": "World History: World Wars — Part 1",
+    "description": "Historical newsreel footage and analysis of World War I, trench warfare, and its global impact.",
+    "duration": "10:00",
+    "durationSeconds": 600,
     "subject": "World History",
     "chapter": "World Wars",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+    "assetPath": "https://archive.org/download/31434WestfrontWWINewsreelRexfer/31434%20Westfront%20WWI%20Newsreel_Rexfer.mp4",
     "keyPoints": [
-      "Underlying causes (MAIN):",
-      "Militarism: Arms race and glorification of military power",
-      "Alliances: Triple Entente (France, UK, Russia) vs Triple Alliance (Germany, Austria-Hungary, Italy)"
+      "World War I: The Western Front",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — World War I (1914-1918) was the first global war, ",
-      "0.5:00 — Underlying causes (MAIN):",
-      "1:00 — Militarism: Arms race and glorification of militar",
-      "1.5:00 — Alliances: Triple Entente (France, UK, Russia) vs ",
-      "2:00 — Imperialism: Competition for colonies"
-    ]
+      "0:00 — Introduction to topic",
+      "150:00 — Main concepts covered",
+      "300:00 — Examples and applications",
+      "450:00 — Review and summary"
+    ],
+    "sourceId": "31434WestfrontWWINewsreelRexfer",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_history_world_wars_6",
-    "linkedLessonId": "history_world_wars_6",
-    "title": "World History: World Wars — Video 2",
-    "description": "A visual exploration of world wars concepts in World History.",
-    "duration": "6:30",
-    "durationSeconds": 300,
+    "linkedLessonId": "world_wars_6",
+    "title": "World History: World Wars — Part 2",
+    "description": "A comprehensive documentary covering WWII from its origins through the major campaigns and aftermath.",
+    "duration": "50:00",
+    "durationSeconds": 600,
     "subject": "World History",
     "chapter": "World Wars",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+    "assetPath": "https://archive.org/download/ApocalypseWWII/1%20Aggression%201933-1939.mp4",
     "keyPoints": [
-      ": Discrimination and segregation (Nuremberg Laws, Kristallnacht)",
-      ": Ghettos and concentration camps",
-      ": Death camps with industrial-scale murder (Auschwitz, Treblinka, Sobibor)"
+      "Apocalypse: The Second World War",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — The Holocaust was the systematic genocide of six m",
-      "0.5:00 — : Discrimination and segregation (Nuremberg Laws, ",
-      "1:00 — : Ghettos and concentration camps",
-      "1.5:00 — : Death camps with industrial-scale murder (Auschw",
-      "2:00 — Liberation: Allied forces liberated camps in 1945,"
-    ]
+      "0:00 — Introduction to topic",
+      "150:00 — Main concepts covered",
+      "300:00 — Examples and applications",
+      "450:00 — Review and summary"
+    ],
+    "sourceId": "ApocalypseWWII",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_english_grammar_1",
-    "linkedLessonId": "english_grammar_1",
-    "title": "English: Grammar — Video 1",
-    "description": "A visual exploration of grammar concepts in English.",
-    "duration": "4:00",
-    "durationSeconds": 240,
+    "linkedLessonId": "grammar_1",
+    "title": "English: Grammar — Part 1",
+    "description": "A study guide covering English sentence structure including subjects, predicates, clauses, and phrases.",
+    "duration": "5:00",
+    "durationSeconds": 300,
     "subject": "English",
     "chapter": "Grammar",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+    "assetPath": "https://archive.org/download/EnglishGrammarSentenceStructureStudyGuide/01.mp4",
     "keyPoints": [
-      "Every word in English belongs to one of eight categories called parts of speech:",
-      "Noun: A person, place, thing, or idea (dog, freedom, Paris)",
-      "Pronoun: Replaces a noun (she, they, it)",
-      "Verb: Action or state of being (run, is, believe)"
+      "English Grammar: Sentence Structure",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — Every word in English belongs to one of eight cate",
-      "0.5:00 — Noun: A person, place, thing, or idea (dog, freedo",
-      "1:00 — Pronoun: Replaces a noun (she, they, it)",
-      "1.5:00 — Verb: Action or state of being (run, is, believe)",
-      "2:00 — Adjective: Describes a noun (blue, tall, exciting)"
-    ]
+      "0:00 — Introduction to topic",
+      "75:00 — Main concepts covered",
+      "150:00 — Examples and applications",
+      "225:00 — Review and summary"
+    ],
+    "sourceId": "EnglishGrammarSentenceStructureStudyGuide",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_english_grammar_6",
-    "linkedLessonId": "english_grammar_6",
-    "title": "English: Grammar — Video 2",
-    "description": "A visual exploration of grammar concepts in English.",
-    "duration": "6:30",
-    "durationSeconds": 300,
+    "linkedLessonId": "grammar_6",
+    "title": "English: Grammar — Part 2",
+    "description": "An educational video covering the eight parts of speech with examples of their use in sentences.",
+    "duration": "15:00",
+    "durationSeconds": 900,
     "subject": "English",
     "chapter": "Grammar",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+    "assetPath": "https://archive.org/download/A2Video_MECC_A746_English_Volume_1_Parts_of_Speech_v15/MECC-A746%20English%20Volume%201%20-%20Parts%20of%20Speech%20v1.5.mp4",
     "keyPoints": [
-      "Pronouns must agree with their antecedent (the word they replace) in number and gender.",
-      "Correct: 'Each student should bring his or her book.' or 'All students should bring their books.'",
-      "Incorrect: 'Each student should bring their book.' (traditional grammar considers this incorrect, though it's now commonly accepted)",
-      "Common pronoun errors:"
+      "English Grammar: Parts of Speech",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — Pronouns must agree with their antecedent (the wor",
-      "0.5:00 — Correct: 'Each student should bring his or her boo",
-      "1:00 — Incorrect: 'Each student should bring their book.'",
-      "1.5:00 — Common pronoun errors:",
-      "2:00 — Me vs I: 'She gave it to John and me.' (object pro"
-    ]
+      "0:00 — Introduction to topic",
+      "225:00 — Main concepts covered",
+      "450:00 — Examples and applications",
+      "675:00 — Review and summary"
+    ],
+    "sourceId": "A2Video_MECC_A746_English_Volume_1_Parts_of_Speech_v15",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_english_writing_1",
-    "linkedLessonId": "english_writing_1",
-    "title": "English: Writing — Video 1",
-    "description": "A visual exploration of writing concepts in English.",
-    "duration": "4:00",
-    "durationSeconds": 240,
+    "linkedLessonId": "writing_1",
+    "title": "English: Writing — Part 1",
+    "description": "A guide to the writing process: prewriting, drafting, revising, editing, and publishing effective essays.",
+    "duration": "15:00",
+    "durationSeconds": 900,
     "subject": "English",
     "chapter": "Writing",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
+    "assetPath": "https://archive.org/download/DevelopingWritingSkills/Developing%20Writing%20Skills.mp4",
     "keyPoints": [
-      "The five-paragraph essay is the standard structure for academic writing:",
-      "Introduction: Hook, background, thesis statement",
-      "Body paragraph 1: First main point with evidence and analysis",
-      "Body paragraph 2: Second main point with evidence and analysis"
+      "Developing Writing Skills",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — The five-paragraph essay is the standard structure",
-      "0.5:00 — Introduction: Hook, background, thesis statement",
-      "1:00 — Body paragraph 1: First main point with evidence a",
-      "1.5:00 — Body paragraph 2: Second main point with evidence ",
-      "2:00 — Body paragraph 3: Third main point with evidence a"
-    ]
+      "0:00 — Introduction to topic",
+      "225:00 — Main concepts covered",
+      "450:00 — Examples and applications",
+      "675:00 — Review and summary"
+    ],
+    "sourceId": "DevelopingWritingSkills",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_english_writing_6",
-    "linkedLessonId": "english_writing_6",
-    "title": "English: Writing — Video 2",
-    "description": "A visual exploration of writing concepts in English.",
-    "duration": "6:30",
-    "durationSeconds": 300,
+    "linkedLessonId": "writing_6",
+    "title": "English: Writing — Part 2",
+    "description": "Foundational writing skills including thesis development, paragraph structure, and organizing ideas.",
+    "duration": "20:00",
+    "durationSeconds": 1200,
     "subject": "English",
     "chapter": "Writing",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    "assetPath": "https://archive.org/download/A2Video_Developing_Basic_Writing_Skills_Level_I/Developing%20Basic%20Writing%20Skills%20Level%20I.mp4",
     "keyPoints": [
-      "The writing process has five stages:",
-      "Prewriting: Brainstorm ideas, research, create an outline. Don't worry about organization yet — just get ideas down.",
-      "Drafting: Write a rough version. Focus on getting your ideas on paper, not perfection. Follow your outline.",
-      "Revising: Improve content, organization, and clarity. Add details, cut irrelevant parts, reorganize paragraphs. This is the most important stage."
+      "Basic Writing Skills Level I",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — The writing process has five stages:",
-      "0.5:00 — Prewriting: Brainstorm ideas, research, create an ",
-      "1:00 — Drafting: Write a rough version. Focus on getting ",
-      "1.5:00 — Revising: Improve content, organization, and clari",
-      "2:00 — Editing: Fix grammar, punctuation, spelling, and s"
-    ]
+      "0:00 — Introduction to topic",
+      "300:00 — Main concepts covered",
+      "600:00 — Examples and applications",
+      "900:00 — Review and summary"
+    ],
+    "sourceId": "A2Video_Developing_Basic_Writing_Skills_Level_I",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_english_literature_1",
-    "linkedLessonId": "english_literature_1",
-    "title": "English: Literature — Video 1",
-    "description": "A visual exploration of literature concepts in English.",
-    "duration": "4:00",
-    "durationSeconds": 240,
+    "linkedLessonId": "literature_1",
+    "title": "English: Literature — Part 1",
+    "description": "A documentary exploring Shakespeare's life, works, and his enduring influence on English literature.",
+    "duration": "50:00",
+    "durationSeconds": 900,
     "subject": "English",
     "chapter": "Literature",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+    "assetPath": "https://archive.org/download/shakespearesoulofanage/shakespearesoulofanagereel1.mp4",
     "keyPoints": [
-      "Literary analysis examines how authors use techniques to create meaning. When analyzing a text, consider:",
-      "Plot: The sequence of events. Exposition → rising action → climax → falling action → resolution.",
-      "Character: Protagonist (main character), antagonist (opposing force), round (complex), flat (simple).",
-      "Setting: Time and place, which influences mood and theme."
+      "Shakespeare: Soul of an Age",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — Literary analysis examines how authors use techniq",
-      "0.5:00 — Plot: The sequence of events. Exposition → rising ",
-      "1:00 — Character: Protagonist (main character), antagonis",
-      "1.5:00 — Setting: Time and place, which influences mood and",
-      "2:00 — Theme: The central message or insight about life."
-    ]
+      "0:00 — Introduction to topic",
+      "225:00 — Main concepts covered",
+      "450:00 — Examples and applications",
+      "675:00 — Review and summary"
+    ],
+    "sourceId": "shakespearesoulofanage",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_english_literature_6",
-    "linkedLessonId": "english_literature_6",
-    "title": "English: Literature — Video 2",
-    "description": "A visual exploration of literature concepts in English.",
-    "duration": "6:30",
-    "durationSeconds": 300,
+    "linkedLessonId": "literature_6",
+    "title": "English: Literature — Part 2",
+    "description": "How literature reflects cultural values and historical context, using examples from world literature.",
+    "duration": "30:00",
+    "durationSeconds": 900,
     "subject": "English",
     "chapter": "Literature",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+    "assetPath": "https://archive.org/download/therussiansinsightsthroughliteraturereel2/therussiansinsightsthroughliterature/therussiansinsightsthroughliteraturereel1.mp4",
     "keyPoints": [
-      "Modernist literature (early 1900s) broke from traditional forms in response to a changing world:",
-      "Stream of consciousness: Writing that mimics the flow of thoughts",
-      "Fragmented narrative: Non-linear timelines",
-      "Focus on inner experience over external plot"
+      "Literature and Cultural Insight",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — Modernist literature (early 1900s) broke from trad",
-      "0.5:00 — Stream of consciousness: Writing that mimics the f",
-      "1:00 — Fragmented narrative: Non-linear timelines",
-      "1.5:00 — Focus on inner experience over external plot",
-      "2:00 — Skepticism toward traditional values"
-    ]
+      "0:00 — Introduction to topic",
+      "225:00 — Main concepts covered",
+      "450:00 — Examples and applications",
+      "675:00 — Review and summary"
+    ],
+    "sourceId": "therussiansinsightsthroughliteraturereel2",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_chem_periodic_1",
-    "linkedLessonId": "chem_periodic_1",
-    "title": "Chemistry: Periodic Table — Video 1",
-    "description": "A visual exploration of periodic table concepts in Chemistry.",
-    "duration": "4:00",
-    "durationSeconds": 240,
+    "linkedLessonId": "periodic_1",
+    "title": "Chemistry: Periodic Table — Part 1",
+    "description": "Khan Academy explains how the periodic table is organized into groups with similar chemical properties.",
+    "duration": "7:00",
+    "durationSeconds": 420,
     "subject": "Chemistry",
     "chapter": "Periodic Table",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+    "assetPath": "https://archive.org/download/KA-converted-LDHg7Vgzses/LDHg7Vgzses.mp4",
     "keyPoints": [
-      "Rows are called periods (7 total). Elements in the same period have the same number of electron shells.",
-      "Columns are called groups (18 total). Elements in the same group have the same number of valence electrons and similar chemical properties."
+      "Groups of the Periodic Table",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — The periodic table organizes all known chemical el",
-      "0.5:00 — Rows are called periods (7 total). Elements in the",
-      "1:00 — Columns are called groups (18 total). Elements in "
-    ]
+      "0:00 — Introduction to topic",
+      "105:00 — Main concepts covered",
+      "210:00 — Examples and applications",
+      "315:00 — Review and summary"
+    ],
+    "sourceId": "KA-converted-LDHg7Vgzses",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_chem_periodic_6",
-    "linkedLessonId": "chem_periodic_6",
-    "title": "Chemistry: Periodic Table — Video 2",
-    "description": "A visual exploration of periodic table concepts in Chemistry.",
-    "duration": "6:30",
-    "durationSeconds": 300,
+    "linkedLessonId": "periodic_6",
+    "title": "Chemistry: Periodic Table — Part 2",
+    "description": "Understanding periodic trends including ionization energy, electronegativity, and atomic radius.",
+    "duration": "9:00",
+    "durationSeconds": 540,
     "subject": "Chemistry",
     "chapter": "Periodic Table",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+    "assetPath": "https://archive.org/download/KA-converted-ywqg9PorTAw/ywqg9PorTAw.mp4",
     "keyPoints": [
-      "Isotopes are atoms of the same element with different numbers of neutrons. They have the same atomic number (protons) but different mass numbers.",
-      "Carbon-12 (6 protons + 6 neutrons) — stable",
-      "Carbon-13 (6 + 7) — stable",
-      "Carbon-14 (6 + 8) — radioactive, used for carbon dating"
+      "Periodic Table Trends: Ionization Energy",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — Isotopes are atoms of the same element with differ",
-      "0.5:00 — Carbon-12 (6 protons + 6 neutrons) — stable",
-      "1:00 — Carbon-13 (6 + 7) — stable",
-      "1.5:00 — Carbon-14 (6 + 8) — radioactive, used for carbon d",
-      "2:00 — Radioactive isotopes decay at a fixed rate (half-l"
-    ]
+      "0:00 — Introduction to topic",
+      "135:00 — Main concepts covered",
+      "270:00 — Examples and applications",
+      "405:00 — Review and summary"
+    ],
+    "sourceId": "KA-converted-ywqg9PorTAw",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_chem_reactions_1",
-    "linkedLessonId": "chem_reactions_1",
-    "title": "Chemistry: Chemical Reactions — Video 1",
-    "description": "A visual exploration of chemical reactions concepts in Chemistry.",
-    "duration": "4:00",
-    "durationSeconds": 240,
+    "linkedLessonId": "reactions_1",
+    "title": "Chemistry: Chemical Reactions — Part 1",
+    "description": "An exploration of chemical reaction equilibrium, Le Chatelier's principle, and equilibrium constants.",
+    "duration": "10:00",
+    "durationSeconds": 600,
     "subject": "Chemistry",
     "chapter": "Chemical Reactions",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+    "assetPath": "https://archive.org/download/8.CHEMICALEQUILIBRIUM/LEC%231%20EQUILIBRIUM%20STATE.mp4",
     "keyPoints": [
-      "Chemical reactions involve rearranging atoms to form new substances. Reactants → Products.",
-      "Evidence of a reaction:",
-      "Temperature change (exothermic = heat released, endothermic = heat absorbed)",
-      "Gas production (bubbles)"
+      "Chemical Equilibrium",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — Chemical reactions involve rearranging atoms to fo",
-      "0.5:00 — Evidence of a reaction:",
-      "1:00 — Temperature change (exothermic = heat released, en",
-      "1.5:00 — Gas production (bubbles)",
-      "2:00 — Precipitate formation (solid from solutions)"
-    ]
+      "0:00 — Introduction to topic",
+      "150:00 — Main concepts covered",
+      "300:00 — Examples and applications",
+      "450:00 — Review and summary"
+    ],
+    "sourceId": "8.CHEMICALEQUILIBRIUM",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_chem_reactions_6",
-    "linkedLessonId": "chem_reactions_6",
-    "title": "Chemistry: Chemical Reactions — Video 2",
-    "description": "A visual exploration of chemical reactions concepts in Chemistry.",
-    "duration": "6:30",
-    "durationSeconds": 300,
+    "linkedLessonId": "reactions_6",
+    "title": "Chemistry: Chemical Reactions — Part 2",
+    "description": "A classic educational film connecting molecular spectroscopy to understanding atomic structure.",
+    "duration": "15:00",
+    "durationSeconds": 900,
     "subject": "Chemistry",
     "chapter": "Chemical Reactions",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+    "assetPath": "https://archive.org/download/14344-molecular-spectroscopy-vwr/14344%20Molecular%20Spectroscopy_vwr.mp4",
     "keyPoints": [
-      "Acids and bases are opposites in chemistry:",
-      "Acids: Taste sour, pH < 7, turn blue litmus red. Examples: HCl (hydrochloric), H₂SO₄ (sulfuric), CH₃COOH (acetic).",
-      "Bases: Taste bitter, feel slippery, pH > 7, turn red litmus blue. Examples: NaOH (sodium hydroxide), NH₃ (ammonia).",
-      "pH scale: 0 (strongly acidic) to 14 (strongly basic). 7 is neutral (pure water)."
+      "Molecular Spectroscopy",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — Acids and bases are opposites in chemistry:",
-      "0.5:00 — Acids: Taste sour, pH < 7, turn blue litmus red. E",
-      "1:00 — Bases: Taste bitter, feel slippery, pH > 7, turn r",
-      "1.5:00 — pH scale: 0 (strongly acidic) to 14 (strongly basi",
-      "2:00 — Neutralization: Acid + Base → Salt + Water. HCl + "
-    ]
+      "0:00 — Introduction to topic",
+      "225:00 — Main concepts covered",
+      "450:00 — Examples and applications",
+      "675:00 — Review and summary"
+    ],
+    "sourceId": "14344-molecular-spectroscopy-vwr",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_chem_atomic_1",
-    "linkedLessonId": "chem_atomic_1",
-    "title": "Chemistry: Atomic Structure — Video 1",
-    "description": "A visual exploration of atomic structure concepts in Chemistry.",
-    "duration": "4:00",
-    "durationSeconds": 240,
+    "linkedLessonId": "atomic_1",
+    "title": "Chemistry: Atomic Structure — Part 1",
+    "description": "An in-depth lesson on atomic structure covering protons, neutrons, electrons, and quantum theory.",
+    "duration": "15:00",
+    "durationSeconds": 900,
     "subject": "Chemistry",
     "chapter": "Atomic Structure",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
+    "assetPath": "https://archive.org/download/5.ATOMICSTRUCTURE/LEC%231%20ATOMIC%20STRUCTURE.mp4",
     "keyPoints": [
-      "Atoms are the basic units of matter. They consist of a nucleus (protons + neutrons) surrounded by electrons.",
-      "Protons: Positive charge, mass ~1 amu, found in nucleus. Number = atomic number = element identity.",
-      "Neutrons: No charge, mass ~1 amu, found in nucleus. Number can vary (isotopes).",
-      "Electrons: Negative charge, negligible mass, found in orbitals around nucleus. Determine chemical properties."
+      "Atomic Structure",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — Atoms are the basic units of matter. They consist ",
-      "0.5:00 — Protons: Positive charge, mass ~1 amu, found in nu",
-      "1:00 — Neutrons: No charge, mass ~1 amu, found in nucleus",
-      "1.5:00 — Electrons: Negative charge, negligible mass, found",
-      "2:00 — Most of an atom is empty space. If the nucleus wer"
-    ]
+      "0:00 — Introduction to topic",
+      "225:00 — Main concepts covered",
+      "450:00 — Examples and applications",
+      "675:00 — Review and summary"
+    ],
+    "sourceId": "5.ATOMICSTRUCTURE",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_chem_atomic_6",
-    "linkedLessonId": "chem_atomic_6",
-    "title": "Chemistry: Atomic Structure — Video 2",
-    "description": "A visual exploration of atomic structure concepts in Chemistry.",
-    "duration": "6:30",
-    "durationSeconds": 300,
+    "linkedLessonId": "atomic_6",
+    "title": "Chemistry: Atomic Structure — Part 2",
+    "description": "A chemistry tutorial connecting atomic structure concepts to the organization of the periodic table.",
+    "duration": "12:00",
+    "durationSeconds": 720,
     "subject": "Chemistry",
     "chapter": "Atomic Structure",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    "assetPath": "https://archive.org/download/youtube-3_FJIpKgdV4/3_FJIpKgdV4.mp4",
     "keyPoints": [
-      "Intermolecular forces (IMFs) are attractions BETWEEN molecules (not inside them):",
-      "London dispersion forces: Present in all molecules. Temporary dipoles. Strength increases with molecular size.",
-      "Dipole-dipole forces: Between polar molecules. The positive end of one molecule attracts the negative end of another.",
-      "Hydrogen bonding: Strong dipole-dipole force when H is bonded to N, O, or F. Responsible for water's unique properties."
+      "Atomic Structure and the Periodic Table",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — Intermolecular forces (IMFs) are attractions BETWE",
-      "0.5:00 — London dispersion forces: Present in all molecules",
-      "1:00 — Dipole-dipole forces: Between polar molecules. The",
-      "1.5:00 — Hydrogen bonding: Strong dipole-dipole force when ",
-      "2:00 — Strength order: Hydrogen bonding > dipole-dipole >"
-    ]
+      "0:00 — Introduction to topic",
+      "180:00 — Main concepts covered",
+      "360:00 — Examples and applications",
+      "540:00 — Review and summary"
+    ],
+    "sourceId": "youtube-3_FJIpKgdV4",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_geometry_triangles_1",
-    "linkedLessonId": "geometry_triangles_1",
-    "title": "Geometry: Triangles — Video 1",
-    "description": "A visual exploration of triangles concepts in Geometry.",
-    "duration": "4:00",
-    "durationSeconds": 240,
+    "linkedLessonId": "triangles_1",
+    "title": "Geometry: Triangles — Part 1",
+    "description": "A math tutorial covering essential geometry formulas including triangles, area, and perimeter relationships.",
+    "duration": "7:00",
+    "durationSeconds": 420,
     "subject": "Geometry",
     "chapter": "Triangles",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+    "assetPath": "https://archive.org/download/Videomathtutor-AlgebraFormulasFromGeometry180/Videomathtutor-AlgebraFormulasFromGeometry180_512kb.mp4",
     "keyPoints": [
-      "Equilateral: All 3 sides equal, all 3 angles 60°",
-      "Isosceles: 2 sides equal, base angles are equal",
-      "Scalene: No sides equal, no angles equal"
+      "Geometry: Formulas from Geometry",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — A triangle is a three-sided polygon. It is the sim",
-      "0.5:00 — Equilateral: All 3 sides equal, all 3 angles 60°",
-      "1:00 — Isosceles: 2 sides equal, base angles are equal",
-      "1.5:00 — Scalene: No sides equal, no angles equal",
-      "2:00 — Classified by angles:"
-    ]
+      "0:00 — Introduction to topic",
+      "105:00 — Main concepts covered",
+      "210:00 — Examples and applications",
+      "315:00 — Review and summary"
+    ],
+    "sourceId": "Videomathtutor-AlgebraFormulasFromGeometry180",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_geometry_triangles_6",
-    "linkedLessonId": "geometry_triangles_6",
-    "title": "Geometry: Triangles — Video 2",
-    "description": "A visual exploration of triangles concepts in Geometry.",
-    "duration": "6:30",
+    "linkedLessonId": "triangles_6",
+    "title": "Geometry: Triangles — Part 2",
+    "description": "An artistic and mathematical exploration of triangles, their properties, and their role in geometry.",
+    "duration": "5:00",
     "durationSeconds": 300,
     "subject": "Geometry",
     "chapter": "Triangles",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+    "assetPath": "https://archive.org/download/notesonatriangle/notesonatriangle.mp4",
     "keyPoints": [
-      "Similar triangles have the same shape but different sizes. Corresponding angles are equal, and corresponding sides are proportional.",
-      "The ratio of corresponding sides is called the scale factor.",
-      "AA (Angle-Angle) Similarity: If two angles are equal, the triangles are similar.",
-      "SSS Similarity: If all three side ratios are equal, the triangles are similar."
+      "Notes on a Triangle",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — Similar triangles have the same shape but differen",
-      "0.5:00 — The ratio of corresponding sides is called the sca",
-      "1:00 — AA (Angle-Angle) Similarity: If two angles are equ",
-      "1.5:00 — SSS Similarity: If all three side ratios are equal",
-      "2:00 — SAS Similarity: If two sides are proportional and "
-    ]
+      "0:00 — Introduction to topic",
+      "75:00 — Main concepts covered",
+      "150:00 — Examples and applications",
+      "225:00 — Review and summary"
+    ],
+    "sourceId": "notesonatriangle",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_geometry_circles_1",
-    "linkedLessonId": "geometry_circles_1",
-    "title": "Geometry: Circles — Video 1",
-    "description": "A visual exploration of circles concepts in Geometry.",
-    "duration": "4:00",
-    "durationSeconds": 240,
+    "linkedLessonId": "circles_1",
+    "title": "Geometry: Circles — Part 1",
+    "description": "Khan Academy covers key circle geometry concepts including area, chord properties, and tangent lines.",
+    "duration": "6:00",
+    "durationSeconds": 360,
     "subject": "Geometry",
     "chapter": "Circles",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+    "assetPath": "https://archive.org/download/KA-converted-FJIZPvE3O1A/FJIZPvE3O1A.mp4",
     "keyPoints": [
-      "A circle is the set of all points at a fixed distance (radius) from a center point. Key terms:",
-      "Radius (r): Distance from center to any point on the circle",
-      "Diameter (d): Distance across the circle through center. d = 2r",
-      "Circumference (C): Distance around the circle. C = 2πr = πd"
+      "Circle Geometry: Area, Chords, and Tangents",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — A circle is the set of all points at a fixed dista",
-      "0.5:00 — Radius (r): Distance from center to any point on t",
-      "1:00 — Diameter (d): Distance across the circle through c",
-      "1.5:00 — Circumference (C): Distance around the circle. C =",
-      "2:00 — Area (A): Space inside the circle. A = πr²"
-    ]
+      "0:00 — Introduction to topic",
+      "90:00 — Main concepts covered",
+      "180:00 — Examples and applications",
+      "270:00 — Review and summary"
+    ],
+    "sourceId": "KA-converted-FJIZPvE3O1A",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_geometry_circles_6",
-    "linkedLessonId": "geometry_circles_6",
-    "title": "Geometry: Circles — Video 2",
-    "description": "A visual exploration of circles concepts in Geometry.",
-    "duration": "6:30",
-    "durationSeconds": 300,
+    "linkedLessonId": "circles_6",
+    "title": "Geometry: Circles — Part 2",
+    "description": "An educational module covering fundamental geometry concepts including circles, angles, and spatial reasoning.",
+    "duration": "10:00",
+    "durationSeconds": 600,
     "subject": "Geometry",
     "chapter": "Circles",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+    "assetPath": "https://archive.org/download/SDS_Geometry_Module_1_Geometry_Basics/Standard-deviants-school--geometryBasics--1_512kb.mp4",
     "keyPoints": [
-      "Area of a sector = (central angle / 360°) × πr².",
-      "Area of a segment = Area of sector - Area of triangle.",
-      "Example: A 90° sector in a circle of radius 4. Area = (90/360) × π(16) = (1/4) × 16π = 4π.",
-      "Applications: calculating pizza slice areas, designing wheels and gears, analyzing planetary orbits."
+      "Geometry Basics: Circles and Beyond",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — Area of a sector = (central angle / 360°) × πr².",
-      "0.5:00 — Area of a segment = Area of sector - Area of trian",
-      "1:00 — Example: A 90° sector in a circle of radius 4. Are",
-      "1.5:00 — Applications: calculating pizza slice areas, desig"
-    ]
+      "0:00 — Introduction to topic",
+      "150:00 — Main concepts covered",
+      "300:00 — Examples and applications",
+      "450:00 — Review and summary"
+    ],
+    "sourceId": "SDS_Geometry_Module_1_Geometry_Basics",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_geometry_coordinate_1",
-    "linkedLessonId": "geometry_coordinate_1",
-    "title": "Geometry: Coordinate Geometry — Video 1",
-    "description": "A visual exploration of coordinate geometry concepts in Geometry.",
-    "duration": "4:00",
-    "durationSeconds": 240,
+    "linkedLessonId": "coordinate_1",
+    "title": "Geometry: Coordinate Geometry — Part 1",
+    "description": "A lesson on the coordinate plane, plotting points, distance formula, and geometric relationships.",
+    "duration": "6:00",
+    "durationSeconds": 360,
     "subject": "Geometry",
     "chapter": "Coordinate Geometry",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+    "assetPath": "https://archive.org/download/coordinate-geometry-26/Coordinate-Geometry-(Part-1)_1080.mp4",
     "keyPoints": [
-      "The coordinate plane (Cartesian plane) is defined by x (horizontal) and y (vertical) axes intersecting at the origin (0, 0).",
-      "Points are located by ordered pairs (x, y). The x-coordinate tells horizontal position, the y-coordinate tells vertical position.",
-      "The plane is divided into four quadrants:",
-      "I: (+, +) — top right"
+      "Coordinate Geometry",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — The coordinate plane (Cartesian plane) is defined ",
-      "0.5:00 — Points are located by ordered pairs (x, y). The x-",
-      "1:00 — The plane is divided into four quadrants:",
-      "1.5:00 — I: (+, +) — top right",
-      "2:00 — II: (-, +) — top left"
-    ]
+      "0:00 — Introduction to topic",
+      "90:00 — Main concepts covered",
+      "180:00 — Examples and applications",
+      "270:00 — Review and summary"
+    ],
+    "sourceId": "coordinate-geometry-26",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_geometry_coordinate_6",
-    "linkedLessonId": "geometry_coordinate_6",
-    "title": "Geometry: Coordinate Geometry — Video 2",
-    "description": "A visual exploration of coordinate geometry concepts in Geometry.",
-    "duration": "6:30",
-    "durationSeconds": 300,
+    "linkedLessonId": "coordinate_6",
+    "title": "Geometry: Coordinate Geometry — Part 2",
+    "description": "Khan Academy demonstrates graphing linear equations on the coordinate plane.",
+    "duration": "8:00",
+    "durationSeconds": 480,
     "subject": "Geometry",
     "chapter": "Coordinate Geometry",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+    "assetPath": "https://archive.org/download/KA-converted-2UrcUfBizyw/2UrcUfBizyw.mp4",
     "keyPoints": [
-      "The equation of a straight line can be derived from:",
-      "Two points: Find slope m = (y₂ - y₁)/(x₂ - x₁). Then use point-slope form.",
-      "Point and slope: y - y₁ = m(x - x₁).",
-      "Graphical method: Read the y-intercept and slope from the graph."
+      "Algebra: Graphing Lines",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — The equation of a straight line can be derived fro",
-      "0.5:00 — Two points: Find slope m = (y₂ - y₁)/(x₂ - x₁). Th",
-      "1:00 — Point and slope: y - y₁ = m(x - x₁).",
-      "1.5:00 — Graphical method: Read the y-intercept and slope f",
-      "2:00 — Standard form to slope-intercept: Solve for y. Ax "
-    ]
+      "0:00 — Introduction to topic",
+      "120:00 — Main concepts covered",
+      "240:00 — Examples and applications",
+      "360:00 — Review and summary"
+    ],
+    "sourceId": "KA-converted-2UrcUfBizyw",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_us_constitution_1",
-    "linkedLessonId": "us_constitution_1",
-    "title": "US History: The Constitution — Video 1",
-    "description": "A visual exploration of the constitution concepts in US History.",
-    "duration": "4:00",
-    "durationSeconds": 240,
+    "linkedLessonId": "constitution_1",
+    "title": "US History: The Constitution — Part 1",
+    "description": "Khan Academy covers the creation of the US Constitution, the Constitutional Convention, and the ratification debate.",
+    "duration": "13:00",
+    "durationSeconds": 780,
     "subject": "US History",
     "chapter": "The Constitution",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
+    "assetPath": "https://archive.org/download/KA_Birth_of_the_US_Constitution/KA_Birth_of_the_US_Constitution.mp4",
     "keyPoints": [
-      "Seven articles outline the structure of government."
+      "Birth of the US Constitution",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — The US Constitution, signed in 1787, is the suprem",
-      "0.5:00 — The Preamble: 'We the People of the United States,",
-      "1:00 — Seven articles outline the structure of government"
-    ]
+      "0:00 — Introduction to topic",
+      "195:00 — Main concepts covered",
+      "390:00 — Examples and applications",
+      "585:00 — Review and summary"
+    ],
+    "sourceId": "KA_Birth_of_the_US_Constitution",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_us_constitution_6",
-    "linkedLessonId": "us_constitution_6",
-    "title": "US History: The Constitution — Video 2",
-    "description": "A visual exploration of the constitution concepts in US History.",
-    "duration": "6:30",
-    "durationSeconds": 300,
+    "linkedLessonId": "constitution_6",
+    "title": "US History: The Constitution — Part 2",
+    "description": "Historical footage and analysis of the US Constitution and its role in shaping American government.",
+    "duration": "10:00",
+    "durationSeconds": 600,
     "subject": "US History",
     "chapter": "The Constitution",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    "assetPath": "https://archive.org/download/ADC-8452a/ADC-8452a.mp4",
     "keyPoints": [
-      "Key compromises at the Constitutional Convention (1787):",
-      "Great Compromise: Created a bicameral Congress — House based on population, Senate with equal representation.",
-      "Commerce Compromise: Congress could regulate interstate and foreign trade but could not tax exports."
+      "The US Constitution: Foundation of American Government",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — Key compromises at the Constitutional Convention (",
-      "0.5:00 — Great Compromise: Created a bicameral Congress — H",
-      "1:00 — Three-Fifths Compromise: Counted enslaved people a",
-      "1.5:00 — Commerce Compromise: Congress could regulate inter",
-      "2:00 — Electoral College: Compromise between popular vote"
-    ]
+      "0:00 — Introduction to topic",
+      "150:00 — Main concepts covered",
+      "300:00 — Examples and applications",
+      "450:00 — Review and summary"
+    ],
+    "sourceId": "ADC-8452a",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_us_civil_war_1",
-    "linkedLessonId": "us_civil_war_1",
-    "title": "US History: Civil War — Video 1",
-    "description": "A visual exploration of civil war concepts in US History.",
-    "duration": "4:00",
-    "durationSeconds": 240,
+    "linkedLessonId": "civil_war_1",
+    "title": "US History: Civil War — Part 1",
+    "description": "A historical educational film covering the American Civil War from its causes through the Battle of Gettysburg.",
+    "duration": "20:00",
+    "durationSeconds": 1200,
     "subject": "US History",
     "chapter": "Civil War",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+    "assetPath": "https://archive.org/download/theroadtogettysburgcivilwarpart118611863/theroadtogettysburgcivilwarpart118611863.mp4",
     "keyPoints": [
-      "Key events leading to war:",
-      "Missouri Compromise (1820): Drew a line for slavery's expansion"
+      "The Road to Gettysburg: Civil War Part I (1861-1863)",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — The American Civil War (1861-1865) was the bloodie",
-      "0.5:00 — The central cause was slavery — specifically, whet",
-      "1:00 — Key events leading to war:",
-      "1.5:00 — Missouri Compromise (1820): Drew a line for slaver",
-      "2:00 — Compromise of 1850: Included the Fugitive Slave Ac"
-    ]
+      "0:00 — Introduction to topic",
+      "300:00 — Main concepts covered",
+      "600:00 — Examples and applications",
+      "900:00 — Review and summary"
+    ],
+    "sourceId": "theroadtogettysburgcivilwarpart118611863",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_us_civil_war_6",
-    "linkedLessonId": "us_civil_war_6",
-    "title": "US History: Civil War — Video 2",
-    "description": "A visual exploration of civil war concepts in US History.",
-    "duration": "6:30",
-    "durationSeconds": 300,
+    "linkedLessonId": "civil_war_6",
+    "title": "US History: Civil War — Part 2",
+    "description": "An examination of the Spanish Civil War and its connections to broader global conflict.",
+    "duration": "20:00",
+    "durationSeconds": 1200,
     "subject": "US History",
     "chapter": "Civil War",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+    "assetPath": "https://archive.org/download/betweenthewarsthespanishcivilwar_201504/betweenthewarsthespanishcivilwar.mp4",
     "keyPoints": [
-      "Life for soldiers in the Civil War was brutal:",
-      "Disease killed twice as many soldiers as battle wounds (dysentery, typhoid, pneumonia)",
-      "Medical care was primitive — amputations without antiseptic were common",
-      "Prisoner of war camps were horrific — Andersonville (Confederate) and Elmira (Union) had terrible conditions"
+      "The Spanish Civil War: A Comparative Study",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — Life for soldiers in the Civil War was brutal:",
-      "0.5:00 — Disease killed twice as many soldiers as battle wo",
-      "1:00 — Medical care was primitive — amputations without a",
-      "1.5:00 — Prisoner of war camps were horrific — Andersonvill",
-      "2:00 — Soldiers on both sides were young (average age ~25"
-    ]
+      "0:00 — Introduction to topic",
+      "300:00 — Main concepts covered",
+      "600:00 — Examples and applications",
+      "900:00 — Review and summary"
+    ],
+    "sourceId": "betweenthewarsthespanishcivilwar_201504",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_us_civil_rights_1",
-    "linkedLessonId": "us_civil_rights_1",
-    "title": "US History: Civil Rights — Video 1",
-    "description": "A visual exploration of civil rights concepts in US History.",
-    "duration": "4:00",
-    "durationSeconds": 240,
+    "linkedLessonId": "civil_rights_1",
+    "title": "US History: Civil Rights — Part 1",
+    "description": "An exploration of the Civil Rights Movement in the northern United States and its unique challenges.",
+    "duration": "30:00",
+    "durationSeconds": 900,
     "subject": "US History",
     "chapter": "Civil Rights",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-    "keyPoints": [],
+    "assetPath": "https://archive.org/download/civilrightsmovementthenorth/civilrightsmovementthenorth.mp4",
+    "keyPoints": [
+      "Civil Rights Movement: The North",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
     "chapters": [
-      "0:00 — The Civil Rights Movement (1954-1968) was the stru",
-      "0.5:00 — The movement had roots in earlier efforts: the NAA"
-    ]
+      "0:00 — Introduction to topic",
+      "225:00 — Main concepts covered",
+      "450:00 — Examples and applications",
+      "675:00 — Review and summary"
+    ],
+    "sourceId": "civilrightsmovementthenorth",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_us_civil_rights_6",
-    "linkedLessonId": "us_civil_rights_6",
-    "title": "US History: Civil Rights — Video 2",
-    "description": "A visual exploration of civil rights concepts in US History.",
-    "duration": "6:30",
-    "durationSeconds": 300,
+    "linkedLessonId": "civil_rights_6",
+    "title": "US History: Civil Rights — Part 2",
+    "description": "Historical coverage of the Civil Rights Movement in the American South during the pivotal year of 1963.",
+    "duration": "30:00",
+    "durationSeconds": 900,
     "subject": "US History",
     "chapter": "Civil Rights",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+    "assetPath": "https://archive.org/download/movementtoliveistomove_201512/movementtoliveistomove.mp4",
     "keyPoints": [
-      "The Civil Rights Act of 1964 was landmark legislation that:",
-      "Prohibited discrimination based on race, color, religion, sex, or national origin",
-      "Ended segregation in public places",
-      "Banned employment discrimination"
+      "Civil Rights Movement: The South (1963)",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — The Civil Rights Act of 1964 was landmark legislat",
-      "0.5:00 — Prohibited discrimination based on race, color, re",
-      "1:00 — Ended segregation in public places",
-      "1.5:00 — Banned employment discrimination",
-      "2:00 — Created the Equal Employment Opportunity Commissio"
-    ]
+      "0:00 — Introduction to topic",
+      "225:00 — Main concepts covered",
+      "450:00 — Examples and applications",
+      "675:00 — Review and summary"
+    ],
+    "sourceId": "movementtoliveistomove_201512",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_physics_newton_1",
-    "linkedLessonId": "physics_newton_1",
-    "title": "Physics: Newton's Laws — Video 1",
-    "description": "A visual exploration of newton's laws concepts in Physics.",
-    "duration": "4:00",
-    "durationSeconds": 240,
+    "linkedLessonId": "newton_1",
+    "title": "Physics: Newton's Laws — Part 1",
+    "description": "An educational film covering Newton's three laws of motion with real-world demonstrations and applications.",
+    "duration": "20:00",
+    "durationSeconds": 1200,
     "subject": "Physics",
     "chapter": "Newton's Laws",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+    "assetPath": "https://archive.org/download/laws-of-motion/Laws_of_Motion_HQ.mp4",
     "keyPoints": [
-      "Inertia is the resistance of an object to change its motion. It depends on mass — more mass = more inertia."
+      "Physics: Laws of Motion – Newton and Beyond",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — Newton's First Law (Law of Inertia): An object at ",
-      "0.5:00 — Inertia is the resistance of an object to change i",
-      "1:00 — Everyday examples: A book stays on a table until p"
-    ]
+      "0:00 — Introduction to topic",
+      "300:00 — Main concepts covered",
+      "600:00 — Examples and applications",
+      "900:00 — Review and summary"
+    ],
+    "sourceId": "laws-of-motion",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_physics_newton_6",
-    "linkedLessonId": "physics_newton_6",
-    "title": "Physics: Newton's Laws — Video 2",
-    "description": "A visual exploration of newton's laws concepts in Physics.",
-    "duration": "6:30",
-    "durationSeconds": 300,
+    "linkedLessonId": "newton_6",
+    "title": "Physics: Newton's Laws — Part 2",
+    "description": "A physics lesson explaining Newton's first law (inertia) and second law (F=ma) with practical examples.",
+    "duration": "10:00",
+    "durationSeconds": 600,
     "subject": "Physics",
     "chapter": "Newton's Laws",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+    "assetPath": "https://archive.org/download/naino-2026-newton-1st-and-2nd-law/NLM%20and%20Friction%20-%20L01%20-%20Newton%201st%20and%202nd%20Law.mp4",
     "keyPoints": [
-      "Free-body diagrams show all forces acting on an object:",
-      "Draw the object as a dot or simple shape",
-      "Draw arrows for each force:",
-      "Weight (mg) — always downward"
+      "Newton's First and Second Laws",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — Free-body diagrams show all forces acting on an ob",
-      "0.5:00 — Draw the object as a dot or simple shape",
-      "1:00 — Draw arrows for each force:",
-      "1.5:00 — Weight (mg) — always downward",
-      "2:00 — Normal force — perpendicular to surface"
-    ]
+      "0:00 — Introduction to topic",
+      "150:00 — Main concepts covered",
+      "300:00 — Examples and applications",
+      "450:00 — Review and summary"
+    ],
+    "sourceId": "naino-2026-newton-1st-and-2nd-law",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_physics_energy_1",
-    "linkedLessonId": "physics_energy_1",
-    "title": "Physics: Energy — Video 1",
-    "description": "A visual exploration of energy concepts in Physics.",
-    "duration": "4:00",
-    "durationSeconds": 240,
+    "linkedLessonId": "energy_1",
+    "title": "Physics: Energy — Part 1",
+    "description": "An educational exploration of potential energy, kinetic energy, and the law of conservation of energy.",
+    "duration": "20:00",
+    "durationSeconds": 1200,
     "subject": "Physics",
     "chapter": "Energy",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
+    "assetPath": "https://archive.org/download/botanicman4potentialenergy/botanicman4potentialenergy.mp4",
     "keyPoints": [
-      "Kinetic energy (KE): Energy of motion. KE = ½mv².",
-      "Doubling velocity quadruples kinetic energy",
-      "Example: A 1000 kg car moving at 20 m/s has KE = ½(1000)(400) = 200,000 J"
+      "Potential Energy and Conservation",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — Energy is the ability to do work. It is measured i",
-      "0.5:00 — Kinetic energy (KE): Energy of motion. KE = ½mv².",
-      "1:00 — Doubling velocity quadruples kinetic energy",
-      "1.5:00 — Example: A 1000 kg car moving at 20 m/s has KE = ½"
-    ]
+      "0:00 — Introduction to topic",
+      "300:00 — Main concepts covered",
+      "600:00 — Examples and applications",
+      "900:00 — Review and summary"
+    ],
+    "sourceId": "botanicman4potentialenergy",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_physics_energy_6",
-    "linkedLessonId": "physics_energy_6",
-    "title": "Physics: Energy — Video 2",
-    "description": "A visual exploration of energy concepts in Physics.",
-    "duration": "6:30",
-    "durationSeconds": 300,
+    "linkedLessonId": "energy_6",
+    "title": "Physics: Energy — Part 2",
+    "description": "PBS educational content examining energy systems, renewable resources, and their environmental impact.",
+    "duration": "10:00",
+    "durationSeconds": 600,
     "subject": "Physics",
     "chapter": "Energy",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    "assetPath": "https://archive.org/download/PBS-TERRA-Weathered/1.01%20We%20Can't%20Stop%20Wildfires%E2%80%94But%20Here's%20How%20We%20Live%20With%20Them.mp4",
     "keyPoints": [
-      "The law of conservation of energy in real systems:",
-      "Efficiency = (useful output energy / total input energy) × 100%.",
-      "Example: A light bulb converts 10% of electrical energy to light, 90% to heat. Efficiency = 10%."
+      "Energy and Climate: Understanding Our World",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — The law of conservation of energy in real systems:",
-      "0.5:00 — In any energy transformation, some energy is alway",
-      "1:00 — Efficiency = (useful output energy / total input e",
-      "1.5:00 — Example: A light bulb converts 10% of electrical e",
-      "2:00 — Energy cannot be recycled perfectly — this is why "
-    ]
+      "0:00 — Introduction to topic",
+      "150:00 — Main concepts covered",
+      "300:00 — Examples and applications",
+      "450:00 — Review and summary"
+    ],
+    "sourceId": "PBS-TERRA-Weathered",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_physics_waves_1",
-    "linkedLessonId": "physics_waves_1",
-    "title": "Physics: Waves & Sound — Video 1",
-    "description": "A visual exploration of waves & sound concepts in Physics.",
-    "duration": "4:00",
-    "durationSeconds": 240,
+    "linkedLessonId": "waves_1",
+    "title": "Physics: Waves & Sound — Part 1",
+    "description": "An educational film demonstrating wave properties including interference, diffraction, and superposition.",
+    "duration": "15:00",
+    "durationSeconds": 900,
     "subject": "Physics",
     "chapter": "Waves & Sound",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+    "assetPath": "https://archive.org/download/wavemotioninterference/wavemotioninterference.mp4",
     "keyPoints": [
-      "Waves transfer energy without transferring matter. They are disturbances that travel through a medium (or empty space for light).",
-      "Transverse waves: Particles move perpendicular to wave direction. Example: light, waves on a string, water waves.",
-      "Longitudinal waves: Particles move parallel to wave direction. Example: sound waves, compression waves in a spring.",
-      "Wave properties: wavelength (λ), frequency (f), amplitude (A), speed (v)."
+      "Wave Motion: Interference",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — Waves transfer energy without transferring matter.",
-      "0.5:00 — Transverse waves: Particles move perpendicular to ",
-      "1:00 — Longitudinal waves: Particles move parallel to wav",
-      "1.5:00 — Wave properties: wavelength (λ), frequency (f), am",
-      "2:00 — Wave equation: v = fλ."
-    ]
+      "0:00 — Introduction to topic",
+      "225:00 — Main concepts covered",
+      "450:00 — Examples and applications",
+      "675:00 — Review and summary"
+    ],
+    "sourceId": "wavemotioninterference",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_physics_waves_6",
-    "linkedLessonId": "physics_waves_6",
-    "title": "Physics: Waves & Sound — Video 2",
-    "description": "A visual exploration of waves & sound concepts in Physics.",
-    "duration": "6:30",
-    "durationSeconds": 300,
+    "linkedLessonId": "waves_6",
+    "title": "Physics: Waves & Sound — Part 2",
+    "description": "An exploration of wave theory and its role in the development of modern physics understanding.",
+    "duration": "10:00",
+    "durationSeconds": 600,
     "subject": "Physics",
     "chapter": "Waves & Sound",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+    "assetPath": "https://archive.org/download/thedaytheuniversechanged9thenewphysicsnewtonrevisedreel2/thedaytheuniversechanged9thenewphysicsnewtonrevised/thedaytheuniversechanged9thenewphysicsnewtonrevisedreel1.mp4",
     "keyPoints": [
-      "Applications of wave physics:",
-      "Ultrasound: High-frequency sound waves used for medical imaging. Sound reflects off tissue boundaries to create images.",
-      "Seismic waves: P-waves (longitudinal) and S-waves (transverse) travel through Earth. Used to study Earth's interior and detect earthquakes.",
-      "Fiber optics: Light travels through glass fibers by total internal reflection. Used for high-speed internet."
+      "The New Physics: Waves and Modern Theory",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — Applications of wave physics:",
-      "0.5:00 — Ultrasound: High-frequency sound waves used for me",
-      "1:00 — Seismic waves: P-waves (longitudinal) and S-waves ",
-      "1.5:00 — Fiber optics: Light travels through glass fibers b",
-      "2:00 — Musical instruments: String instruments use standi"
-    ]
+      "0:00 — Introduction to topic",
+      "150:00 — Main concepts covered",
+      "300:00 — Examples and applications",
+      "450:00 — Review and summary"
+    ],
+    "sourceId": "thedaytheuniversechanged9thenewphysicsnewtonrevisedreel2",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_psych_learning_1",
-    "linkedLessonId": "psych_learning_1",
-    "title": "Psychology: Learning & Memory — Video 1",
-    "description": "A visual exploration of learning & memory concepts in Psychology.",
-    "duration": "4:00",
-    "durationSeconds": 240,
+    "linkedLessonId": "learning_1",
+    "title": "Psychology: Learning & Memory — Part 1",
+    "description": "A classic educational film exploring the science of learning, memory formation, and behavioral psychology.",
+    "duration": "15:00",
+    "durationSeconds": 900,
     "subject": "Psychology",
     "chapter": "Learning & Memory",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+    "assetPath": "https://archive.org/download/learning-about-learning-1962/Learning%20about%20Learning%20-%201962.mp4",
     "keyPoints": [
-      "Structuralism: Analyzed consciousness into basic elements (Wundt, Titchener)",
-      "Functionalism: Studied how mental processes help us adapt (William James)",
-      "Behaviorism: Focused only on observable behavior (Watson, Skinner)"
+      "Learning About Learning: Psychology of Behavior",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — Psychology is the scientific study of mind and beh",
-      "0.5:00 — Structuralism: Analyzed consciousness into basic e",
-      "1:00 — Functionalism: Studied how mental processes help u",
-      "1.5:00 — Behaviorism: Focused only on observable behavior (",
-      "2:00 — Psychoanalysis: Emphasized unconscious processes ("
-    ]
+      "0:00 — Introduction to topic",
+      "225:00 — Main concepts covered",
+      "450:00 — Examples and applications",
+      "675:00 — Review and summary"
+    ],
+    "sourceId": "learning-about-learning-1962",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_psych_learning_6",
-    "linkedLessonId": "psych_learning_6",
-    "title": "Psychology: Learning & Memory — Video 2",
-    "description": "A visual exploration of learning & memory concepts in Psychology.",
-    "duration": "6:30",
+    "linkedLessonId": "learning_6",
+    "title": "Psychology: Learning & Memory — Part 2",
+    "description": "An educational video explaining Pavlovian conditioning, stimulus-response relationships, and learned behavior.",
+    "duration": "5:00",
     "durationSeconds": 300,
     "subject": "Psychology",
     "chapter": "Learning & Memory",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+    "assetPath": "https://archive.org/download/ClassicalConditioning/6a--classicalConditioning_512kb.mp4",
     "keyPoints": [
-      "Improving memory: Evidence-based strategies.",
-      "Spaced repetition: Review material at increasing intervals over time (much more effective than cramming).",
-      "Active recall: Test yourself instead of re-reading. Force your brain to retrieve information.",
-      "Elaboration: Connect new information to what you already know. Explain concepts in your own words."
+      "Classical Conditioning",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — Improving memory: Evidence-based strategies.",
-      "0.5:00 — Spaced repetition: Review material at increasing i",
-      "1:00 — Active recall: Test yourself instead of re-reading",
-      "1.5:00 — Elaboration: Connect new information to what you a",
-      "2:00 — Mnemonics: Memory aids. Acronyms (PEMDAS), acrosti"
-    ]
+      "0:00 — Introduction to topic",
+      "75:00 — Main concepts covered",
+      "150:00 — Examples and applications",
+      "225:00 — Review and summary"
+    ],
+    "sourceId": "ClassicalConditioning",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_psych_brain_1",
-    "linkedLessonId": "psych_brain_1",
-    "title": "Psychology: Brain & Behavior — Video 1",
-    "description": "A visual exploration of brain & behavior concepts in Psychology.",
-    "duration": "4:00",
-    "durationSeconds": 240,
+    "linkedLessonId": "brain_1",
+    "title": "Psychology: Brain & Behavior — Part 1",
+    "description": "An educational film examining how substances affect brain function, neural pathways, and behavior.",
+    "duration": "25:00",
+    "durationSeconds": 1500,
     "subject": "Psychology",
     "chapter": "Brain & Behavior",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+    "assetPath": "https://archive.org/download/AlcoholBrainAndBehavior/AlcoholBrainAndBehavior.mp4",
     "keyPoints": [
-      "Neurons are the basic building blocks of the nervous system:",
-      "Structure: Dendrites (receive signals) → cell body → axon (transmits signal) → axon terminals (send signals to next neuron).",
-      "Synapse: The gap between neurons. Neurotransmitters are released, cross the synapse, and bind to receptors on the next neuron."
+      "Alcohol, the Brain, and Behavior",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — Neurons are the basic building blocks of the nervo",
-      "0.5:00 — Structure: Dendrites (receive signals) → cell body",
-      "1:00 — Action potential: An electrical impulse that trave",
-      "1.5:00 — Synapse: The gap between neurons. Neurotransmitter",
-      "2:00 — All-or-nothing principle: A neuron either fires at"
-    ]
+      "0:00 — Introduction to topic",
+      "375:00 — Main concepts covered",
+      "750:00 — Examples and applications",
+      "1125:00 — Review and summary"
+    ],
+    "sourceId": "AlcoholBrainAndBehavior",
+    "sourceSystem": "Internet Archive"
   },
   {
     "id": "vid_psych_brain_6",
-    "linkedLessonId": "psych_brain_6",
-    "title": "Psychology: Brain & Behavior — Video 2",
-    "description": "A visual exploration of brain & behavior concepts in Psychology.",
-    "duration": "6:30",
-    "durationSeconds": 300,
+    "linkedLessonId": "brain_6",
+    "title": "Psychology: Brain & Behavior — Part 2",
+    "description": "Exploring how the brain processes visual information through experimental psychology methods.",
+    "duration": "30:00",
+    "durationSeconds": 1800,
     "subject": "Psychology",
     "chapter": "Brain & Behavior",
     "difficulty": "beginner",
-    "assetPath": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+    "assetPath": "https://archive.org/download/experimentalpsychologyofvision/experimentalpsychologyofvision.mp4",
     "keyPoints": [
-      "Emotion and the brain:",
-      "The James-Lange theory: We feel emotion BECAUSE of physiological responses. We see a bear, our heart races, we feel fear.",
-      "Cannon-Bard theory: Physiological response and emotional experience occur simultaneously, independently."
+      "Experimental Psychology of Vision",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
     ],
     "chapters": [
-      "0:00 — Emotion and the brain:",
-      "0.5:00 — The James-Lange theory: We feel emotion BECAUSE of",
-      "1:00 — Cannon-Bard theory: Physiological response and emo",
-      "1.5:00 — Schachter-Singer two-factor theory: Emotion = phys",
-      "2:00 — The amygdala plays a central role in fear and emot"
-    ]
+      "0:00 — Introduction to topic",
+      "450:00 — Main concepts covered",
+      "900:00 — Examples and applications",
+      "1350:00 — Review and summary"
+    ],
+    "sourceId": "experimentalpsychologyofvision",
+    "sourceSystem": "Internet Archive"
   }
 ]
