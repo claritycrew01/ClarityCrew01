@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import '../models/learner_profile.dart';
@@ -35,6 +36,23 @@ class AppState extends ChangeNotifier {
   List<LearningRecommendation> get recommendations => _recommendations;
   bool get isDarkMode => _isDarkMode;
   bool get isProcessing => _isProcessing;
+
+  // Accessibility / personalization helpers exposed to all screens
+  int tapTargetSize(LearnerProfile profile) =>
+      accessibilityService.getRecommendedTapTargetSize(profile);
+  String simplifyText(String text, LearnerProfile profile) =>
+      accessibilityService.simplifyText(text, profile);
+  bool shouldReduceMotion(LearnerProfile profile) =>
+      accessibilityService.shouldReduceMotion(profile);
+  Duration animationDuration(LearnerProfile profile) =>
+      accessibilityService.getAnimationDuration(profile);
+  List<String> accommodationsFor(LearnerProfile profile) =>
+      accessibilityService.getRecommendedAccommodations(profile);
+  List<(String label, IconData icon, Color color)> badgesFor(
+          LearnerProfile profile) =>
+      accessibilityService.getPersonalizationBadges(profile);
+  List<String> descriptionsFor(LearnerProfile profile) =>
+      accessibilityService.getPersonalizationDescriptions(profile);
 
   Future<LearnerProfile> processInteraction({
     required LearnerProfile profile,

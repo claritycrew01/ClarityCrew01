@@ -9,6 +9,7 @@ import '../../models/learner_profile.dart';
 import '../../models/subject_data.dart';
 import '../../services/content/content_repository.dart';
 import '../../services/study_navigation.dart';
+import '../../services/accessibility_service.dart';
 import '../video/video_screen.dart';
 import '../progress/progress_screen.dart';
 import '../settings/settings_screen.dart';
@@ -37,6 +38,10 @@ class HomeScreen extends StatelessWidget {
               _buildHeader(context, profile),
               const SizedBox(height: 20),
               _buildGreeting(context, profile),
+              if (profile.neurodivergentTraits.isNotEmpty) ...[
+                const SizedBox(height: 12),
+                _buildPersonalizationSection(context, profile),
+              ],
               const SizedBox(height: 24),
               if (rec != null) _buildRecommendedCard(context, rec),
               const SizedBox(height: 24),
@@ -55,14 +60,17 @@ class HomeScreen extends StatelessWidget {
 
   Widget _buildHeader(BuildContext context, LearnerProfile profile) {
     final isDesktop = MediaQuery.of(context).size.width >= AppConstants.breakpointDesktop;
+    final appState = context.watch<AppState>();
+    final tapSize = appState.tapTargetSize(profile).toDouble();
+    final iconSize = isDesktop ? 20.0 : 24.0;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Row(
           children: [
             Container(
-              width: isDesktop ? 42 : 48,
-              height: isDesktop ? 42 : 48,
+              width: isDesktop ? 42 : tapSize,
+              height: isDesktop ? 42 : tapSize,
               decoration: BoxDecoration(
                 color: AppColors.calmTeal.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(16),
@@ -70,7 +78,7 @@ class HomeScreen extends StatelessWidget {
               child: Icon(
                 Icons.auto_awesome_rounded,
                 color: AppColors.calmTeal,
-                size: isDesktop ? 20 : 24,
+                size: iconSize,
               ),
             ),
             const SizedBox(width: 12),
@@ -99,6 +107,11 @@ class HomeScreen extends StatelessWidget {
               button: true,
               label: 'AI Tutor insights',
               child: IconButton(
+                iconSize: iconSize,
+                constraints: BoxConstraints(
+                  minWidth: tapSize,
+                  minHeight: tapSize,
+                ),
                 icon: const Icon(Icons.auto_awesome_rounded),
                 color: AppColors.calmTeal,
                 onPressed: () => Navigator.push(
@@ -113,6 +126,11 @@ class HomeScreen extends StatelessWidget {
               button: true,
               label: 'Progress insights',
               child: IconButton(
+                iconSize: iconSize,
+                constraints: BoxConstraints(
+                  minWidth: tapSize,
+                  minHeight: tapSize,
+                ),
                 icon: const Icon(Icons.bar_chart_rounded),
                 onPressed: () => Navigator.push(
                   context,
@@ -126,6 +144,11 @@ class HomeScreen extends StatelessWidget {
               button: true,
               label: 'Settings',
               child: IconButton(
+                iconSize: iconSize,
+                constraints: BoxConstraints(
+                  minWidth: tapSize,
+                  minHeight: tapSize,
+                ),
                 icon: const Icon(Icons.settings_rounded),
                 onPressed: () => Navigator.push(
                   context,
@@ -158,6 +181,86 @@ class HomeScreen extends StatelessWidget {
               ),
         ),
       ],
+    );
+  }
+
+  Widget _buildPersonalizationSection(BuildContext context, LearnerProfile profile) {
+    final service = AccessibilityService();
+    final badges = service.getPersonalizationBadges(profile);
+    final descriptions = service.getPersonalizationDescriptions(profile);
+    if (badges.isEmpty) return const SizedBox.shrink();
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: AppColors.calmTeal.withValues(alpha: 0.06),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(
+          color: AppColors.calmTeal.withValues(alpha: 0.15),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Icon(Icons.tune_outlined, size: 16, color: AppColors.calmTeal),
+              const SizedBox(width: 6),
+              Text(
+                'Your Personalization',
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                  color: AppColors.calmTeal,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: badges.map((b) {
+              final (label, icon, color) = b;
+              return Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                decoration: BoxDecoration(
+                  color: color.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(icon, size: 14, color: color),
+                    const SizedBox(width: 5),
+                    Text(
+                      label,
+                      style: TextStyle(
+                        color: color,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }).toList(),
+          ),
+          if (descriptions.isNotEmpty) ...[
+            const SizedBox(height: 8),
+            ...descriptions.map((d) => Padding(
+              padding: const EdgeInsets.only(bottom: 2),
+              child: Text(
+                d,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: AppColors.textSecondary,
+                  height: 1.3,
+                ),
+              ),
+            )),
+          ],
+        ],
+      ),
     );
   }
 

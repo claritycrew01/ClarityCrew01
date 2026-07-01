@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import '../models/learner_profile.dart';
 import '../models/content_item.dart';
 
@@ -59,6 +60,68 @@ class AccessibilityService {
     return item;
   }
 
+  /// Returns a (label, icon, color) per active trait for visible UI badges.
+  List<(String label, IconData icon, Color color)> getPersonalizationBadges(
+    LearnerProfile profile,
+  ) {
+    final badges = <(String, IconData, Color)>[];
+    if (profile.neurodivergentTraits.contains('adhd')) {
+      badges.add(('Focus Mode', Icons.bolt_outlined, const Color(0xFFE76F51)));
+    }
+    if (profile.neurodivergentTraits.contains('autism')) {
+      badges.add(('Routine Mode', Icons.loop_rounded, const Color(0xFF457B9D)));
+    }
+    if (profile.neurodivergentTraits.contains('dyslexia')) {
+      badges.add(('Reading Mode', Icons.text_fields, const Color(0xFF7B68EE)));
+    }
+    if (profile.neurodivergentTraits.contains('dyspraxia')) {
+      badges.add(('Large Controls', Icons.touch_app, const Color(0xFFE9C46A)));
+    }
+    if (profile.neurodivergentTraits.contains('dyscalculia')) {
+      badges.add(('Visual Math', Icons.grid_on_rounded, const Color(0xFF52B788)));
+    }
+    if (profile.neurodivergentTraits.contains('anxiety')) {
+      badges.add(('Calm Mode', Icons.spa_outlined, const Color(0xFF2A9D8F)));
+    }
+    if (profile.neurodivergentTraits.contains('sensory processing')) {
+      badges.add(('Low Stimulation', Icons.remove_red_eye_outlined, const Color(0xFF6C757D)));
+    }
+    if (profile.neurodivergentTraits.contains('executive dysfunction')) {
+      badges.add(('Guided Mode', Icons.map_outlined, const Color(0xFFF4A261)));
+    }
+    return badges;
+  }
+
+  /// Returns a short descriptive summary per active trait.
+  List<String> getPersonalizationDescriptions(LearnerProfile profile) {
+    final descs = <String>[];
+    if (profile.neurodivergentTraits.contains('adhd')) {
+      descs.add('Shorter steps, focus timer, and one-next-action highlighting.');
+    }
+    if (profile.neurodivergentTraits.contains('autism')) {
+      descs.add('Predictable layout, clear labels, and session previews.');
+    }
+    if (profile.neurodivergentTraits.contains('dyslexia')) {
+      descs.add('Enhanced font clarity, simplified text, and reading support.');
+    }
+    if (profile.neurodivergentTraits.contains('dyspraxia')) {
+      descs.add('Larger touch targets, generous spacing, and forgiving layout.');
+    }
+    if (profile.neurodivergentTraits.contains('dyscalculia')) {
+      descs.add('Numbers explained visually, step-by-step worked examples.');
+    }
+    if (profile.neurodivergentTraits.contains('anxiety')) {
+      descs.add('Reassuring tone, clear progress, pause-and-break controls.');
+    }
+    if (profile.neurodivergentTraits.contains('sensory processing')) {
+      descs.add('Reduced animations, calmer colors, and wider spacing.');
+    }
+    if (profile.neurodivergentTraits.contains('executive dysfunction')) {
+      descs.add('One-step guidance, task breakdown, and continue-where-you-left-off.');
+    }
+    return descs;
+  }
+
   List<String> getRecommendedAccommodations(LearnerProfile profile) {
     final accommodations = <String>[];
     if (profile.neurodivergentTraits.contains('adhd')) {
@@ -83,6 +146,46 @@ class AccessibilityService {
         'Avoid long paragraphs',
         'Use bullet points',
         'Provide audio alternatives',
+      ]);
+    }
+    if (profile.neurodivergentTraits.contains('dyspraxia')) {
+      accommodations.addAll([
+        'Increase tap target sizes',
+        'Add generous spacing between controls',
+        'Simplify navigation steps',
+        'Make drag interactions optional',
+      ]);
+    }
+    if (profile.neurodivergentTraits.contains('dyscalculia')) {
+      accommodations.addAll([
+        'Explain numbers with extra context',
+        'Break calculations into visual steps',
+        'Show worked examples before practice',
+        'Reduce unexplained numeric density',
+      ]);
+    }
+    if (profile.neurodivergentTraits.contains('anxiety')) {
+      accommodations.addAll([
+        'Use reassuring, low-pressure tone',
+        'Show exactly what happens next',
+        'Provide optional pause and skip controls',
+        'Avoid sudden changes or surprises',
+      ]);
+    }
+    if (profile.neurodivergentTraits.contains('sensory processing')) {
+      accommodations.addAll([
+        'Reduce bright colors and flashing elements',
+        'Provide a visual comfort setting',
+        'Increase spacing between elements',
+        'Offer a distraction-free layout',
+      ]);
+    }
+    if (profile.neurodivergentTraits.contains('executive dysfunction')) {
+      accommodations.addAll([
+        'Show one small step at a time',
+        'Add guided start button',
+        'Provide checkpoints and visible progress',
+        'Add continue-where-you-left-off',
       ]);
     }
     return accommodations;

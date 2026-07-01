@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/theme/colors.dart';
 import '../../state/learner_state.dart';
+import '../../services/accessibility_service.dart';
 
 class AccessibilitySettingsScreen extends StatefulWidget {
   const AccessibilitySettingsScreen({super.key});
@@ -201,21 +202,70 @@ class _AccessibilitySettingsScreenState
                     ),
                   )
                 else
-                  ...profile.neurodivergentTraits.map((trait) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
-                      child: Row(
-                        children: [
-                          const Icon(Icons.check_circle_outline,
-                              size: 18, color: AppColors.calmTeal),
-                          const SizedBox(width: 8),
-                          Text(
-                            '${trait[0].toUpperCase()}${trait.substring(1)} support active',
+                  ...() {
+                    final service = AccessibilityService();
+                    final badges = service.getPersonalizationBadges(profile);
+                    final allAccommodations =
+                        service.getRecommendedAccommodations(profile);
+                    return [
+                      // Show active personalization badges
+                      ...badges.map((b) {
+                        final (label, icon, color) = b;
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 8),
+                          child: Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(6),
+                                decoration: BoxDecoration(
+                                  color: color.withValues(alpha: 0.12),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Icon(icon, size: 18, color: color),
+                              ),
+                              const SizedBox(width: 10),
+                              Text(
+                                label,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  color: color,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    );
-                  }),
+                        );
+                      }),
+                      if (badges.isNotEmpty) const Divider(height: 24),
+                      // Show detailed accommodation list
+                      ...allAccommodations.map((a) {
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 6),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Padding(
+                                padding: EdgeInsets.only(top: 4),
+                                child: Icon(Icons.check_circle_outline,
+                                    size: 16, color: AppColors.calmTeal),
+                              ),
+                              const SizedBox(width: 8),
+                              Expanded(
+                                child: Text(
+                                  a,
+                                  style: const TextStyle(
+                                    color: AppColors.textSecondary,
+                                    fontSize: 13,
+                                    height: 1.4,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      }),
+                    ];
+                  }(),
               ]),
               const SizedBox(height: 32),
             ],

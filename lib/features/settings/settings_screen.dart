@@ -6,6 +6,7 @@ import '../../core/constants.dart';
 import '../../core/theme/colors.dart';
 import '../../state/learner_state.dart';
 import '../../state/app_state.dart';
+import '../../services/accessibility_service.dart';
 import '../accessibility/accessibility_settings_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -95,14 +96,48 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           fontWeight: FontWeight.w600,
                         ),
                   ),
-                  subtitle: Text(
-                    profile.neurodivergentTraits.isEmpty
-                        ? 'No traits selected'
-                        : profile.neurodivergentTraits.join(', '),
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: AppColors.textSecondary,
+                  subtitle: profile.neurodivergentTraits.isEmpty
+                      ? Text(
+                          'No traits selected',
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                color: AppColors.textSecondary,
+                              ),
+                        )
+                      : Padding(
+                          padding: const EdgeInsets.only(top: 6),
+                          child: Wrap(
+                            spacing: 6,
+                            runSpacing: 6,
+                            children: AccessibilityService()
+                                .getPersonalizationBadges(profile)
+                                .map((b) {
+                              final (label, icon, color) = b;
+                              return Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 8, vertical: 3),
+                                decoration: BoxDecoration(
+                                  color: color.withValues(alpha: 0.1),
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(icon, size: 12, color: color),
+                                    const SizedBox(width: 4),
+                                    Text(
+                                      label,
+                                      style: TextStyle(
+                                        color: color,
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }).toList(),
+                          ),
                         ),
-                  ),
                   trailing: const Icon(Icons.edit_outlined),
                   onTap: () => _showEditNameDialog(context),
                 ),
