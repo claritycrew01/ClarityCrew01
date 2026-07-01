@@ -3,50 +3,54 @@ import 'package:provider/provider.dart';
 import '../../core/theme/colors.dart';
 import '../../state/session_state.dart';
 import '../../state/learner_state.dart';
+import '../../models/learner_profile.dart';
+import '../../models/session_record.dart';
 
 class ProgressScreen extends StatelessWidget {
   const ProgressScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final sessionState = context.watch<SessionState>();
-    final learnerState = context.watch<LearnerState>();
-    final sessions = sessionState.sessions;
-    final profile = learnerState.profile;
-
-    final totalSessions = sessions.length;
-    final avgEngagement = sessionState.averageEngagement;
-    final avgComprehension = sessionState.averageComprehension;
-    final completed = sessions.where((s) => s.completed).length;
-
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: const Text('Your Progress'),
         centerTitle: true,
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildOverviewCards(
-                context,
-                totalSessions,
-                avgEngagement,
-                avgComprehension,
-                completed,
+      body: Consumer2<SessionState, LearnerState>(
+        builder: (context, sessionState, learnerState, _) {
+          final sessions = sessionState.sessions;
+          final profile = learnerState.profile;
+          final totalSessions = sessions.length;
+          final avgEngagement = sessionState.averageEngagement;
+          final avgComprehension = sessionState.averageComprehension;
+          final completed = sessions.where((s) => s.completed).length;
+
+          return SafeArea(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildOverviewCards(
+                    context,
+                    totalSessions,
+                    avgEngagement,
+                    avgComprehension,
+                    completed,
+                  ),
+                  const SizedBox(height: 24),
+                  _buildModeDistribution(context, profile),
+                  const SizedBox(height: 24),
+                  _buildRecentSessions(context, sessions),
+                  const SizedBox(height: 24),
+                  _buildLearningProfile(context, profile),
+                  const SizedBox(height: 32),
+                ],
               ),
-              const SizedBox(height: 24),
-              _buildModeDistribution(context, profile),
-              const SizedBox(height: 24),
-              _buildRecentSessions(context, sessions),
-              const SizedBox(height: 24),
-              _buildLearningProfile(context, profile),
-              const SizedBox(height: 32),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -173,7 +177,7 @@ class ProgressScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildModeDistribution(BuildContext context, dynamic profile) {
+  Widget _buildModeDistribution(BuildContext context, LearnerProfile profile) {
     final weights = profile.modeWeights;
     if (weights.isEmpty) return const SizedBox.shrink();
 
@@ -240,7 +244,7 @@ class ProgressScreen extends StatelessWidget {
   }
 
   Widget _buildRecentSessions(
-      BuildContext context, List<dynamic> sessions) {
+      BuildContext context, List<SessionRecord> sessions) {
     if (sessions.isEmpty) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -366,7 +370,7 @@ class ProgressScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildLearningProfile(BuildContext context, dynamic profile) {
+  Widget _buildLearningProfile(BuildContext context, LearnerProfile profile) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
