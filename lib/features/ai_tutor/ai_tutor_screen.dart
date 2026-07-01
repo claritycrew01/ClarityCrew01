@@ -119,7 +119,9 @@ class _AiTutorScreenState extends State<AiTutorScreen>
     final profile = learnerState.profile;
 
     appState.updateSessionData(sessionState.sessions);
-    appState.generateNewRecommendations(profile);
+    if (appState.recommendations.isEmpty) {
+      appState.generateNewRecommendations(profile);
+    }
     final recs = appState.recommendations;
 
     if (!_conversationLoaded) {
