@@ -84,12 +84,18 @@ class _AiTutorScreenState extends State<AiTutorScreen>
     });
     _messageController.clear();
 
-    final response = _tutorService.respond(
+    var response = _tutorService.respond(
       userMessage: text,
       profile: learnerState.profile,
       contentId: _activeContentId,
       activeRecommendation: appState.currentRecommendation,
     );
+
+    if (appState.shouldSimplifyContent(learnerState.profile)) {
+      response = response.copyWith(
+        text: appState.simplifyText(response.text, learnerState.profile),
+      );
+    }
 
     setState(() {
       _messages.add(response);
@@ -128,6 +134,10 @@ class _AiTutorScreenState extends State<AiTutorScreen>
       return const Scaffold(
         body: Center(child: CircularProgressIndicator()),
       );
+    }
+
+    if (appState.shouldReduceMotion(profile)) {
+      _pulseController.stop();
     }
 
     return Scaffold(

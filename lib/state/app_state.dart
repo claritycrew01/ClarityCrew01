@@ -44,6 +44,24 @@ class AppState extends ChangeNotifier {
       accessibilityService.simplifyText(text, profile);
   bool shouldReduceMotion(LearnerProfile profile) =>
       accessibilityService.shouldReduceMotion(profile);
+  bool shouldSimplifyContent(LearnerProfile profile) =>
+      accessibilityService.shouldSimplifyContent(profile);
+  bool shouldSimplifyVisuals(LearnerProfile profile) =>
+      accessibilityService.shouldSimplifyVisuals(profile);
+  bool shouldReduceChoices(LearnerProfile profile) =>
+      accessibilityService.shouldReduceChoices(profile);
+  bool shouldShowSessionPreview(LearnerProfile profile) =>
+      accessibilityService.shouldShowSessionPreview(profile);
+  bool shouldShowContinuePrompt(LearnerProfile profile) =>
+      accessibilityService.shouldShowContinuePrompt(profile);
+  bool shouldShowStepByStep(LearnerProfile profile) =>
+      accessibilityService.shouldShowStepByStep(profile);
+  bool shouldShowPauseControls(LearnerProfile profile) =>
+      accessibilityService.shouldShowPauseControls(profile);
+  List<String> splitIntoSteps(String text, LearnerProfile profile) =>
+      accessibilityService.splitIntoSteps(text, profile);
+  int getModeDisplayLimit(LearnerProfile profile) =>
+      accessibilityService.getModeDisplayLimit(profile);
   Duration animationDuration(LearnerProfile profile) =>
       accessibilityService.getAnimationDuration(profile);
   List<String> accommodationsFor(LearnerProfile profile) =>

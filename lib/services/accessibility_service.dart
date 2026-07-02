@@ -11,15 +11,18 @@ class AccessibilityService {
   }
 
   bool shouldSimplifyVisuals(LearnerProfile profile) {
-    return profile.prefersReducedVisuals;
+    return profile.prefersReducedVisuals ||
+        profile.neurodivergentTraits.contains('sensory processing');
   }
 
   bool shouldReduceMotion(LearnerProfile profile) {
-    return profile.prefersReducedMotion;
+    return profile.prefersReducedMotion ||
+        profile.neurodivergentTraits.contains('sensory processing') ||
+        profile.neurodivergentTraits.contains('autism');
   }
 
   Duration getAnimationDuration(LearnerProfile profile) {
-    if (profile.prefersReducedMotion) return Duration.zero;
+    if (shouldReduceMotion(profile)) return Duration.zero;
     return const Duration(milliseconds: 300);
   }
 
@@ -37,14 +40,65 @@ class AccessibilityService {
     return 1.0;
   }
 
+  bool shouldSimplifyContent(LearnerProfile profile) {
+    return profile.neurodivergentTraits.contains('dyslexia') ||
+        profile.neurodivergentTraits.contains('adhd');
+  }
+
   String simplifyText(String text, LearnerProfile profile) {
-    if (!profile.neurodivergentTraits.contains('dyslexia') &&
-        profile.depthPreference > 0.4) {
+    if (!shouldSimplifyContent(profile) && profile.depthPreference > 0.4) {
       return text;
     }
     final sentences = text.split(RegExp(r'(?<=[.!?])\s+'));
     if (sentences.length <= 2) return text;
     return sentences.take(2).join(' ');
+  }
+
+  List<String> splitIntoSteps(String text, LearnerProfile profile) {
+    if (!profile.neurodivergentTraits.contains('dyscalculia') &&
+        !shouldSimplifyContent(profile)) {
+      return [text];
+    }
+    final paragraphs = text.split(RegExp(r'\n\n+'));
+    if (paragraphs.length <= 1) {
+      final sentences = text.split(RegExp(r'(?<=[.!?])\s+'));
+      if (sentences.length <= 2) return [text];
+      return sentences;
+    }
+    return paragraphs;
+  }
+
+  /// True for ADHD, executive dysfunction — reduces mode choices on home screen.
+  bool shouldReduceChoices(LearnerProfile profile) {
+    return profile.neurodivergentTraits.contains('adhd') ||
+        profile.neurodivergentTraits.contains('executive dysfunction');
+  }
+
+  /// True for autism — shows a "What happens next" preview before content.
+  bool shouldShowSessionPreview(LearnerProfile profile) {
+    return profile.neurodivergentTraits.contains('autism');
+  }
+
+  /// True for executive dysfunction — shows "Continue where you left off".
+  bool shouldShowContinuePrompt(LearnerProfile profile) {
+    return profile.neurodivergentTraits.contains('executive dysfunction');
+  }
+
+  /// True for dyscalculia — shows step-by-step worked examples.
+  bool shouldShowStepByStep(LearnerProfile profile) {
+    return profile.neurodivergentTraits.contains('dyscalculia');
+  }
+
+  /// True for anxiety — shows optional pause controls.
+  bool shouldShowPauseControls(LearnerProfile profile) {
+    return profile.neurodivergentTraits.contains('anxiety');
+  }
+
+  /// Returns the number of modes to show on the home screen grid.
+  /// Reduces choices for ADHD and executive dysfunction.
+  int getModeDisplayLimit(LearnerProfile profile) {
+    if (shouldReduceChoices(profile)) return 4;
+    return 7;
   }
 
   ContentItem adaptContentForAccessibility(

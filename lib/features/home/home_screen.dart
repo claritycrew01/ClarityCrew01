@@ -42,10 +42,14 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(height: 12),
                 _buildPersonalizationSection(context, profile),
               ],
+              if (rec != null &&
+                  !appState.shouldReduceChoices(profile))
+                _buildRecommendedCard(context, rec),
+              if (appState.shouldShowContinuePrompt(profile) &&
+                  sessionState.sessions.isNotEmpty)
+                _buildContinueCard(context, sessionState),
               const SizedBox(height: 24),
-              if (rec != null) _buildRecommendedCard(context, rec),
-              const SizedBox(height: 24),
-              _buildModeGrid(context),
+              _buildModeGrid(context, appState, profile),
               const SizedBox(height: 28),
               _buildSubjectsSection(context),
               const SizedBox(height: 24),
@@ -165,7 +169,9 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _buildGreeting(BuildContext context, LearnerProfile profile) {
+    final appState = context.watch<AppState>();
     final greeting = _getGreeting();
+    final simplifyVisuals = appState.shouldSimplifyVisuals(profile);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -173,13 +179,15 @@ class HomeScreen extends StatelessWidget {
           '$greeting${profile.name.isNotEmpty ? ', ${profile.name}' : ''}',
           style: Theme.of(context).textTheme.headlineLarge,
         ),
-        const SizedBox(height: 4),
-        Text(
-          _getDailyMessage(profile),
-          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: AppColors.textSecondary,
-              ),
-        ),
+        if (!simplifyVisuals) ...[
+          const SizedBox(height: 4),
+          Text(
+            _getDailyMessage(profile),
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  color: AppColors.textSecondary,
+                ),
+          ),
+        ],
       ],
     );
   }
@@ -379,9 +387,84 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildModeGrid(BuildContext context) {
+  Widget _buildContinueCard(BuildContext context, SessionState sessionState) {
+    final lastSession = sessionState.sessions.last;
+    if (lastSession.completed) return const SizedBox.shrink();
+    final modes = LearningMode.values.where(
+      (m) => m.name.replaceAll('_', '') ==
+          lastSession.sessionType.replaceAll('_', ''),
+    ).toList();
+    final mode = modes.isNotEmpty ? modes.first : LearningMode.microLesson;
+    return Semantics(
+      button: true,
+      label: 'Continue your last session',
+      child: GestureDetector(
+        onTap: () => StudyNavigation.launchMode(context, mode),
+        child: Container(
+          width: double.infinity,
+          margin: const EdgeInsets.only(top: 16),
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                AppColors.softGold.withValues(alpha: 0.15),
+                AppColors.warmCoral.withValues(alpha: 0.08),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(
+              color: AppColors.softGold.withValues(alpha: 0.4),
+            ),
+          ),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: AppColors.softGold.withValues(alpha: 0.2),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Icon(Icons.play_arrow_rounded,
+                    color: AppColors.softGold, size: 24),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Continue Where You Left Off',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 15,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      'You have an incomplete ${lastSession.sessionType.replaceAll('_', ' ')} session',
+                      style: TextStyle(
+                        color: AppColors.textSecondary,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const Icon(Icons.arrow_forward_rounded,
+                  color: AppColors.softGold, size: 20),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildModeGrid(BuildContext context, AppState appState, LearnerProfile profile) {
     final isDesktop = MediaQuery.of(context).size.width >= AppConstants.breakpointDesktop;
-    final modes = [
+    final tapSize = appState.tapTargetSize(profile).toDouble();
+    final allModes = [
       _ModeInfo('Quiz', Icons.quiz_outlined, AppColors.warmCoral,
           LearningMode.quiz),
       _ModeInfo('Video', Icons.play_circle_outline, AppColors.sereneBlue,
@@ -397,15 +480,25 @@ class HomeScreen extends StatelessWidget {
       _ModeInfo('Focus Sprint', Icons.timer_outlined, AppColors.success,
           LearningMode.focusSprint),
     ];
+    final displayLimit = appState.getModeDisplayLimit(profile);
+    final modes = allModes.take(displayLimit).toList();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Learning Modes',
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.w600,
-              ),
+        Row(
+          children: [
+            Text(
+              displayLimit < allModes.length ? 'Your Best Modes' : 'Learning Modes',
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+            ),
+            if (displayLimit < allModes.length) ...[
+              const SizedBox(width: 8),
+              Icon(Icons.auto_awesome, size: 16, color: AppColors.calmTeal),
+            ],
+          ],
         ),
         const SizedBox(height: 12),
         GridView.builder(
@@ -439,13 +532,13 @@ class HomeScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        width: 40,
-                        height: 40,
+                        width: tapSize > 48 ? 48 : 40,
+                        height: tapSize > 48 ? 48 : 40,
                         decoration: BoxDecoration(
                           color: mode.color.withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: Icon(mode.icon, color: mode.color, size: 22),
+                        child: Icon(mode.icon, color: mode.color, size: tapSize > 48 ? 26 : 22),
                       ),
                       const SizedBox(height: 10),
                       Text(

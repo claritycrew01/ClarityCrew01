@@ -24,6 +24,11 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
   bool _showSummary = false;
   bool _useSimplified = false;
   String? _simplifiedBody;
+  bool _showPreview = false;
+  bool _showPause = false;
+  int _currentStep = 0;
+  List<String> _steps = [];
+  bool _hasDyscalculia = false;
 
   @override
   void initState() {
@@ -36,11 +41,26 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (!_sessionInitialized) {
+      final appState = context.read<AppState>();
+      final profile = context.read<LearnerState>().profile;
       context.read<SessionState>().setActiveContent(
             _contentLibrary,
             startContentId: widget.initialLessonId,
           );
       _sessionInitialized = true;
+      if (appState.shouldShowSessionPreview(profile)) {
+        _showPreview = true;
+      }
+      if (appState.shouldSimplifyContent(profile) &&
+          _contentLibrary.isNotEmpty) {
+        _simplifyContent(_contentLibrary.first);
+      }
+      if (appState.shouldShowStepByStep(profile) &&
+          _contentLibrary.isNotEmpty) {
+        _hasDyscalculia = true;
+        _steps = appState.splitIntoSteps(_contentLibrary.first.body, profile);
+        _currentStep = 0;
+      }
     }
   }
 
@@ -72,7 +92,10 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
       );
     }
 
+    final appState = context.watch<AppState>();
+    final learnerState = context.watch<LearnerState>();
     final sessionState = context.watch<SessionState>();
+    final profile = learnerState.profile;
     final content = sessionState.currentContent ??
         _contentLibrary.first;
 
@@ -80,11 +103,29 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
       return _buildSummaryScreen(context, sessionState);
     }
 
+    if (_showPreview) {
+      return _buildPreviewScreen(context, content, profile);
+    }
+
+    if (_showPause) {
+      return _buildPauseOverlay(context, sessionState);
+    }
+
+    if (_hasDyscalculia && _contentLibrary.isNotEmpty) {
+      _steps = appState.splitIntoSteps(content.body, profile);
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(content.contentType.replaceAll('_', ' ')),
         centerTitle: true,
         actions: [
+          if (appState.shouldShowPauseControls(profile))
+            IconButton(
+              icon: const Icon(Icons.pause_circle_outline),
+              tooltip: 'Pause',
+              onPressed: () => setState(() => _showPause = true),
+            ),
           TextButton(
             onPressed: () => setState(() => _showSummary = true),
             child: const Text('End Session'),
@@ -99,14 +140,14 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
             children: [
               _buildContentHeader(content),
               const SizedBox(height: 20),
-              _buildContentBody(content),
+              _buildContentBody(content, profile, appState),
               const SizedBox(height: 24),
               if (content.quizOptions.isNotEmpty)
-                _buildQuizSection(content),
+                _buildQuizSection(content, profile, appState),
               if (content.flashcards.isNotEmpty)
                 _buildFlashcardPreview(content.flashcards),
               const SizedBox(height: 24),
-              _buildNavigationButtons(content),
+              _buildNavigationButtons(content, profile, appState),
             ],
           ),
         ),
@@ -174,10 +215,15 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
     );
   }
 
-  Widget _buildContentBody(ContentItem content) {
+  Widget _buildContentBody(ContentItem content, LearnerProfile profile, AppState appState) {
     final displayText = _useSimplified && _simplifiedBody != null
         ? _simplifiedBody!
         : content.body;
+
+    if (_hasDyscalculia && _steps.isNotEmpty) {
+      return _buildStepBody(content, displayText, profile, appState);
+    }
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(20),
@@ -192,7 +238,7 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
           Text(
             displayText,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  height: 1.7,
+                  height: _useSimplified ? 1.7 : 1.7,
                 ),
           ),
           if (_useSimplified) ...[
@@ -218,7 +264,93 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
     );
   }
 
-  Widget _buildQuizSection(ContentItem content) {
+  Widget _buildStepBody(ContentItem content, String displayText, LearnerProfile profile, AppState appState) {
+    final steps = _steps;
+    final current = _currentStep.clamp(0, steps.length - 1);
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: AppColors.cardLight,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.grey.withValues(alpha: 0.1)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                decoration: BoxDecoration(
+                  color: AppColors.softPurple.withValues(alpha: 0.15),
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: Text(
+                  'Step ${current + 1} of ${steps.length}',
+                  style: const TextStyle(
+                    color: AppColors.softPurple,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              const Spacer(),
+              Icon(
+                current == 0 ? Icons.looks_one : Icons.arrow_upward,
+                size: 16,
+                color: AppColors.softPurple,
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Text(
+            steps[current],
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  height: 1.7,
+                ),
+          ),
+          if (steps.length > 1) ...[
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                if (current > 0)
+                  Semantics(
+                    button: true,
+                    label: 'Previous step',
+                    child: OutlinedButton.icon(
+                      onPressed: () =>
+                          setState(() => _currentStep = current - 1),
+                      icon: const Icon(Icons.arrow_back, size: 18),
+                      label: const Text('Back'),
+                    ),
+                  )
+                else
+                  const SizedBox.shrink(),
+                if (current < steps.length - 1)
+                  Semantics(
+                    button: true,
+                    label: 'Next step',
+                    child: FilledButton.icon(
+                      onPressed: () =>
+                          setState(() => _currentStep = current + 1),
+                      icon: const Icon(Icons.arrow_forward, size: 18),
+                      label: const Text('Next'),
+                    ),
+                  )
+                else
+                  const SizedBox.shrink(),
+              ],
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _buildQuizSection(ContentItem content, LearnerProfile profile, AppState appState) {
+    final tapHeight = appState.tapTargetSize(profile).toDouble();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -254,7 +386,10 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
                   );
                 },
                 style: OutlinedButton.styleFrom(
-                  padding: const EdgeInsets.all(16),
+                  padding: EdgeInsets.symmetric(
+                    vertical: tapHeight > 48 ? 18 : 16,
+                    horizontal: 16,
+                  ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -325,7 +460,8 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
     );
   }
 
-  Widget _buildNavigationButtons(ContentItem content) {
+  Widget _buildNavigationButtons(ContentItem content, LearnerProfile profile, AppState appState) {
+    final tapHeight = appState.tapTargetSize(profile).toDouble();
     return Row(
       children: [
         Expanded(
@@ -351,6 +487,7 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
               label: const Text('Complete'),
               style: FilledButton.styleFrom(
                 backgroundColor: AppColors.success,
+                padding: EdgeInsets.symmetric(vertical: tapHeight > 48 ? 18 : 12),
               ),
             ),
           ),
@@ -371,10 +508,195 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
               },
               icon: const Icon(Icons.remove_circle_outline),
               label: const Text('Simplify'),
+              style: OutlinedButton.styleFrom(
+                padding: EdgeInsets.symmetric(vertical: tapHeight > 48 ? 18 : 12),
+              ),
             ),
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildPreviewScreen(BuildContext context, ContentItem content, LearnerProfile profile) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('What to Expect'),
+        automaticallyImplyLeading: false,
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            children: [
+              Container(
+                width: 72,
+                height: 72,
+                decoration: BoxDecoration(
+                  color: AppColors.sereneBlue.withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: const Icon(Icons.visibility_outlined,
+                    color: AppColors.sereneBlue, size: 36),
+              ),
+              const SizedBox(height: 24),
+              Text(
+                'Here is what you will learn',
+                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 20),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: AppColors.cardLight,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: Colors.grey.withValues(alpha: 0.1)),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildPreviewRow('Lesson', content.title),
+                    const SizedBox(height: 12),
+                    _buildPreviewRow('Difficulty', content.difficulty),
+                    const SizedBox(height: 12),
+                    _buildPreviewRow('Content', content.contentType.replaceAll('_', ' ')),
+                    if (content.tags.isNotEmpty) ...[
+                      const SizedBox(height: 12),
+                      _buildPreviewRow('Topics', content.tags.join(', ')),
+                    ],
+                    const SizedBox(height: 12),
+                    _buildPreviewRow('Description', content.description),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 12),
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: AppColors.calmTeal.withValues(alpha: 0.08),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Row(
+                  children: [
+                    const Icon(Icons.loop_rounded,
+                        size: 16, color: AppColors.calmTeal),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        'Work through this lesson step by step at your own pace.',
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: AppColors.calmTeal,
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 32),
+              FilledButton.icon(
+                onPressed: () => setState(() => _showPreview = false),
+                icon: const Icon(Icons.play_arrow_rounded),
+                label: const Text('Start Lesson'),
+                style: FilledButton.styleFrom(
+                  minimumSize: const Size(double.infinity, 52),
+                  textStyle: const TextStyle(fontSize: 16),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPreviewRow(String label, String value) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          width: 80,
+          child: Text(
+            label,
+            style: const TextStyle(
+              color: AppColors.textSecondary,
+              fontWeight: FontWeight.w600,
+              fontSize: 13,
+            ),
+          ),
+        ),
+        Expanded(
+          child: Text(
+            value,
+            style: const TextStyle(fontSize: 13),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPauseOverlay(BuildContext context, SessionState sessionState) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Session Paused'),
+        automaticallyImplyLeading: false,
+      ),
+      body: SafeArea(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: AppColors.calmTeal.withValues(alpha: 0.12),
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                  child: const Icon(Icons.spa_outlined,
+                      color: AppColors.calmTeal, size: 40),
+                ),
+                const SizedBox(height: 24),
+                Text(
+                  'Take a break',
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  'There is no rush. Come back whenever you feel ready.',
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        color: AppColors.textSecondary,
+                      ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 40),
+                FilledButton.icon(
+                  onPressed: () => setState(() => _showPause = false),
+                  icon: const Icon(Icons.play_arrow_rounded),
+                  label: const Text('Resume Session'),
+                  style: FilledButton.styleFrom(
+                    minimumSize: const Size(double.infinity, 52),
+                    textStyle: const TextStyle(fontSize: 16),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                TextButton.icon(
+                  onPressed: () => setState(() => _showSummary = true),
+                  icon: const Icon(Icons.stop_outlined),
+                  label: const Text('End Session'),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 

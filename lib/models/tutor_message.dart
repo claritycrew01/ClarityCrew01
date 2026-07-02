@@ -18,6 +18,22 @@ class TutorMessage {
   bool get isUser => role == 'user';
   bool get isTutor => role == 'tutor';
 
+  TutorMessage copyWith({
+    String? id,
+    String? role,
+    String? text,
+    String? contentId,
+    DateTime? timestamp,
+  }) {
+    return TutorMessage(
+      id: id ?? this.id,
+      role: role ?? this.role,
+      text: text ?? this.text,
+      contentId: contentId ?? this.contentId,
+      timestamp: timestamp ?? this.timestamp,
+    );
+  }
+
   Map<String, dynamic> toJson() => {
         'id': id,
         'role': role,
