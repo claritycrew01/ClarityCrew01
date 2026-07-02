@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/theme/colors.dart';
+import '../../models/learner_profile.dart';
 import '../../state/learner_state.dart';
 import '../../state/session_state.dart';
 import '../../state/app_state.dart';
