@@ -43,7 +43,7 @@ ClarityCrew is an academic study app for neurodivergent learners. It is not a di
 - After implementing, verify the feature with real data.
 - Prefer small focused changes over broad rewrites.
 - If a feature is missing required data, create the data schema and seed data first.
-- All builds are done via GitHub Actions CI. Do not attempt local builds — Flutter is not installed locally.
+- All builds are done via Cloudflare Pages CI. Do not attempt local builds — Flutter is not installed locally.
 
 ## Build & Deploy (Android)
 - Trigger APK build by pushing to `master` on GitHub.
@@ -51,16 +51,25 @@ ClarityCrew is an academic study app for neurodivergent learners. It is not a di
 - Do not run `flutter build` locally. Always use the CI pipeline.
 
 ## Build & Deploy (Website)
-- The website is automatically built and deployed to GitHub Pages on push to `master`.
-- The `Deploy Website` workflow builds the Flutter web app and deploys with `actions/deploy-pages`.
-- The website URL will be `https://claritycrew01.github.io/ClarityCrew01/`.
-- To trigger a manual deploy, go to Actions > Deploy Website > Run workflow.
+- The website is automatically built and deployed to **Cloudflare Pages** on push to `master`.
+- The `_redirects` file at the repo root handles SPA routing fallback (`/* /index.html 200`).
+- The build output directory is `build/web`.
 
-### Initial GitHub Pages setup (one-time)
-1. Go to repo Settings → Pages
-2. Under "Build and deployment" → "Source", select **"GitHub Actions"**
-3. No branch config needed — the `deploy_web.yml` workflow handles it
-4. Push to `master` (or run workflow manually) to trigger the first deploy
+### Initial Cloudflare Pages setup (one-time)
+1. Go to [Cloudflare Dashboard](https://dash.cloudflare.com/) → Pages → Create a project
+2. Connect your GitHub repo (`claritycrew01/ClarityCrew01`)
+3. In **Build settings**:
+   - **Build command**: `flutter build web --release && cp _redirects build/web/`
+   - **Build output directory**: `build/web`
+   - **Framework preset**: React (or leave as None) — Flutter is not in the preset list
+4. Under **Environment variables (advanced)**, add the latest Flutter version if not already detected:
+   - e.g., add a build variable to pin Flutter version if needed
+5. Click **Save and Deploy**
+6. After first deploy, add a custom domain if desired (or use the `*.pages.dev` URL)
+
+### Manual deploy
+- Push to `master` — Cloudflare auto-deploys.
+- Or use the Cloudflare dashboard → Pages → your project → **Deployments** → **Trigger deploy**.
 
 ## Web-specific notes
 - Flutter web platform files live in `web/` directory.
