@@ -22,14 +22,48 @@ class ClarityCrewApp extends StatelessWidget {
       ],
       child: Consumer2<LearnerState, AppState>(
         builder: (context, learnerState, appState, _) {
+          final profile = learnerState.profile;
+          final baseTheme = appState.isDarkMode ? AppTheme.dark : AppTheme.light;
+
+          final theme = profile.prefersHighContrast
+              ? baseTheme.copyWith(
+                  colorScheme: baseTheme.colorScheme.copyWith(
+                    onSurface: Colors.black,
+                    surface: Colors.white,
+                  ),
+                  scaffoldBackgroundColor: Colors.white,
+                )
+              : baseTheme;
+
+          final darkTheme = profile.prefersHighContrast
+              ? AppTheme.dark.copyWith(
+                  colorScheme: AppTheme.dark.colorScheme.copyWith(
+                    onSurface: Colors.white,
+                    surface: Colors.black,
+                  ),
+                  scaffoldBackgroundColor: Colors.black,
+                )
+              : AppTheme.dark;
+
           return MaterialApp(
             title: 'ClarityCrew',
             debugShowCheckedModeBanner: false,
-            theme: appState.isDarkMode ? AppTheme.dark : AppTheme.light,
-            darkTheme: AppTheme.dark,
+            theme: theme,
+            darkTheme: darkTheme,
             themeMode: appState.isDarkMode ? ThemeMode.dark : ThemeMode.light,
             home: _buildHome(context, learnerState),
-            builder: (context, child) => ResponsiveWrapper(child: child!),
+            builder: (context, child) {
+              child = ResponsiveWrapper(child: child!);
+              if (profile.fontSizeMultiplier != 1.0) {
+                child = MediaQuery(
+                  data: MediaQuery.of(context).copyWith(
+                    textScaler: TextScaler.linear(profile.fontSizeMultiplier),
+                  ),
+                  child: child,
+                );
+              }
+              return child;
+            },
           );
         },
       ),

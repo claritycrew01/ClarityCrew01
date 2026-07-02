@@ -50,6 +50,7 @@ class LearnerProfile {
   final bool prefersReducedMotion;
   final bool prefersReducedVisuals;
   final bool prefersHighContrast;
+  final bool prefersSimplifiedText;
   final double lineSpacing;
   final double fontSizeMultiplier;
   final Map<String, double> engagementHistory;
@@ -69,6 +70,7 @@ class LearnerProfile {
     this.prefersReducedMotion = false,
     this.prefersReducedVisuals = false,
     this.prefersHighContrast = false,
+    this.prefersSimplifiedText = false,
     this.lineSpacing = 1.5,
     this.fontSizeMultiplier = 1.0,
     this.engagementHistory = const {},
@@ -90,6 +92,7 @@ class LearnerProfile {
     bool? prefersReducedMotion,
     bool? prefersReducedVisuals,
     bool? prefersHighContrast,
+    bool? prefersSimplifiedText,
     double? lineSpacing,
     double? fontSizeMultiplier,
     Map<String, double>? engagementHistory,
@@ -109,6 +112,7 @@ class LearnerProfile {
       prefersReducedMotion: prefersReducedMotion ?? this.prefersReducedMotion,
       prefersReducedVisuals: prefersReducedVisuals ?? this.prefersReducedVisuals,
       prefersHighContrast: prefersHighContrast ?? this.prefersHighContrast,
+      prefersSimplifiedText: prefersSimplifiedText ?? this.prefersSimplifiedText,
       lineSpacing: lineSpacing ?? this.lineSpacing,
       fontSizeMultiplier: fontSizeMultiplier ?? this.fontSizeMultiplier,
       engagementHistory: engagementHistory ?? this.engagementHistory,
@@ -130,6 +134,7 @@ class LearnerProfile {
         'prefersReducedMotion': prefersReducedMotion,
         'prefersReducedVisuals': prefersReducedVisuals,
         'prefersHighContrast': prefersHighContrast,
+        'prefersSimplifiedText': prefersSimplifiedText,
         'lineSpacing': lineSpacing,
         'fontSizeMultiplier': fontSizeMultiplier,
         'engagementHistory': engagementHistory,
@@ -160,6 +165,7 @@ class LearnerProfile {
       prefersReducedMotion: json['prefersReducedMotion'] as bool? ?? false,
       prefersReducedVisuals: json['prefersReducedVisuals'] as bool? ?? false,
       prefersHighContrast: json['prefersHighContrast'] as bool? ?? false,
+      prefersSimplifiedText: json['prefersSimplifiedText'] as bool? ?? false,
       lineSpacing: (json['lineSpacing'] as num?)?.toDouble() ?? 1.5,
       fontSizeMultiplier: (json['fontSizeMultiplier'] as num?)?.toDouble() ?? 1.0,
       engagementHistory: (json['engagementHistory'] as Map<String, dynamic>?)

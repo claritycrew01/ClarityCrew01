@@ -42,7 +42,8 @@ class AccessibilityService {
 
   bool shouldSimplifyContent(LearnerProfile profile) {
     return profile.neurodivergentTraits.contains('dyslexia') ||
-        profile.neurodivergentTraits.contains('adhd');
+        profile.neurodivergentTraits.contains('adhd') ||
+        profile.prefersSimplifiedText;
   }
 
   String simplifyText(String text, LearnerProfile profile) {
@@ -106,7 +107,8 @@ class AccessibilityService {
     LearnerProfile profile,
   ) {
     if (profile.neurodivergentTraits.contains('dyslexia') ||
-        profile.prefersReducedVisuals) {
+        profile.prefersReducedVisuals ||
+        profile.prefersSimplifiedText) {
       return item.copyWith(
         body: simplifyText(item.body, profile),
       );

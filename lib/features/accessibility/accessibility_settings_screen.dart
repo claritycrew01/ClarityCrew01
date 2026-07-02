@@ -14,8 +14,6 @@ class AccessibilitySettingsScreen extends StatefulWidget {
 
 class _AccessibilitySettingsScreenState
     extends State<AccessibilitySettingsScreen> {
-  bool _simplifiedText = false;
-
   @override
   Widget build(BuildContext context) {
     final learnerState = context.watch<LearnerState>();
@@ -123,18 +121,9 @@ class _AccessibilitySettingsScreenState
                   subtitle: const Text(
                     'Shorter sentences and simpler language',
                   ),
-                  value: _simplifiedText,
+                  value: profile.prefersSimplifiedText,
                   onChanged: (value) {
-                    setState(() => _simplifiedText = value);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(value
-                            ? 'Text will be simplified'
-                            : 'Using original text'),
-                        behavior: SnackBarBehavior.floating,
-                        duration: const Duration(seconds: 1),
-                      ),
-                    );
+                    learnerState.updateAccessibility(simplifiedText: value);
                   },
                   activeColor: AppColors.calmTeal,
                 ),

@@ -17,9 +17,6 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  bool _soundEnabled = true;
-  bool _hapticEnabled = true;
-
   @override
   Widget build(BuildContext context) {
     final learnerState = context.watch<LearnerState>();
@@ -182,10 +179,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 contentPadding: EdgeInsets.zero,
                 title: const Text('Sound Effects'),
                 subtitle: const Text('Play sounds for interactions'),
-                value: _soundEnabled,
+                value: appState.soundEnabled,
                 onChanged: (value) {
-                  setState(() => _soundEnabled = value);
-                  if (_hapticEnabled && !kIsWeb) {
+                  appState.setSoundEnabled(value);
+                  if (appState.hapticEnabled && !kIsWeb) {
                     HapticFeedback.lightImpact();
                   }
                 },
@@ -196,9 +193,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 contentPadding: EdgeInsets.zero,
                 title: const Text('Haptic Feedback'),
                 subtitle: const Text('Vibrate on key actions'),
-                value: _hapticEnabled,
+                value: appState.hapticEnabled,
                 onChanged: (value) {
-                  setState(() => _hapticEnabled = value);
+                  appState.setHapticEnabled(value);
                   if (value && !kIsWeb) {
                     HapticFeedback.mediumImpact();
                   }

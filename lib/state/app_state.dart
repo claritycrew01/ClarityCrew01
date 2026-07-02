@@ -12,6 +12,7 @@ import '../services/session_analyzer.dart';
 import '../services/progress_tracker.dart';
 import '../services/focus_support_service.dart';
 import '../services/accessibility_service.dart';
+import '../persistence/shared_preferences_adapter.dart';
 
 class AppState extends ChangeNotifier {
   final AdaptiveAIEngine aiEngine = AdaptiveAIEngine();
@@ -27,6 +28,8 @@ class AppState extends ChangeNotifier {
   bool _isDarkMode = false;
   bool _isProcessing = false;
   List<SessionRecord> _recentSessions = [];
+  bool _soundEnabled = true;
+  bool _hapticEnabled = true;
 
   void updateSessionData(List<SessionRecord> sessions) {
     _recentSessions = sessions;
@@ -36,6 +39,8 @@ class AppState extends ChangeNotifier {
   List<LearningRecommendation> get recommendations => _recommendations;
   bool get isDarkMode => _isDarkMode;
   bool get isProcessing => _isProcessing;
+  bool get soundEnabled => _soundEnabled;
+  bool get hapticEnabled => _hapticEnabled;
 
   // Accessibility / personalization helpers exposed to all screens
   int tapTargetSize(LearnerProfile profile) =>
@@ -117,12 +122,35 @@ class AppState extends ChangeNotifier {
 
   void setDarkMode(bool value) {
     _isDarkMode = value;
+    SharedPrefsAdapter.setBool('dark_mode', value);
     notifyListeners();
   }
 
   void toggleDarkMode() {
     _isDarkMode = !_isDarkMode;
+    SharedPrefsAdapter.setBool('dark_mode', _isDarkMode);
     notifyListeners();
+  }
+
+  void setSoundEnabled(bool value) {
+    _soundEnabled = value;
+    SharedPrefsAdapter.setBool('sound_enabled', value);
+    notifyListeners();
+  }
+
+  void setHapticEnabled(bool value) {
+    _hapticEnabled = value;
+    SharedPrefsAdapter.setBool('haptic_enabled', value);
+    notifyListeners();
+  }
+
+  AppState() {
+    final darkMode = SharedPrefsAdapter.getBool('dark_mode');
+    if (darkMode != null) _isDarkMode = darkMode;
+    final sound = SharedPrefsAdapter.getBool('sound_enabled');
+    if (sound != null) _soundEnabled = sound;
+    final haptic = SharedPrefsAdapter.getBool('haptic_enabled');
+    if (haptic != null) _hapticEnabled = haptic;
   }
 
   LearningMode predictBestMode(LearnerProfile profile) {

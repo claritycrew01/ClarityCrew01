@@ -68,6 +68,7 @@ class LearnerState extends ChangeNotifier {
     bool? reducedMotion,
     bool? reducedVisuals,
     bool? highContrast,
+    bool? simplifiedText,
     double? lineSpacing,
     double? fontSizeMultiplier,
   }) async {
@@ -75,6 +76,7 @@ class LearnerState extends ChangeNotifier {
       prefersReducedMotion: reducedMotion ?? _profile.prefersReducedMotion,
       prefersReducedVisuals: reducedVisuals ?? _profile.prefersReducedVisuals,
       prefersHighContrast: highContrast ?? _profile.prefersHighContrast,
+      prefersSimplifiedText: simplifiedText ?? _profile.prefersSimplifiedText,
       lineSpacing: lineSpacing ?? _profile.lineSpacing,
       fontSizeMultiplier: fontSizeMultiplier ?? _profile.fontSizeMultiplier,
       lastUpdated: DateTime.now(),
