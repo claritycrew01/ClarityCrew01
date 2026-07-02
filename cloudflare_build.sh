@@ -1,12 +1,13 @@
 #!/bin/bash
 set -euo pipefail
 
-# Install Flutter if not already cached
-if [ ! -d "/opt/flutter" ]; then
-  git clone --depth 1 https://github.com/flutter/flutter.git -b stable /opt/flutter
+export FLUTTER_HOME="${FLUTTER_HOME:-$HOME/.flutter}"
+export PUB_CACHE="$FLUTTER_HOME/.pub-cache"
+
+if [ ! -d "$FLUTTER_HOME" ]; then
+  git clone --depth 1 https://github.com/flutter/flutter.git -b stable "$FLUTTER_HOME"
 fi
-export PATH="/opt/flutter/bin:$PATH"
-export PUB_CACHE="/opt/flutter/.pub-cache"
+export PATH="$FLUTTER_HOME/bin:$PATH"
 
 flutter config --enable-web --no-analytics
 flutter pub get
