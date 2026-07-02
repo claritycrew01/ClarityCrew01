@@ -59,13 +59,16 @@ ClarityCrew is an academic study app for neurodivergent learners. It is not a di
 1. Go to [Cloudflare Dashboard](https://dash.cloudflare.com/) → Pages → Create a project
 2. Connect your GitHub repo (`claritycrew01/ClarityCrew01`)
 3. In **Build settings**:
-   - **Build command**: `flutter build web --release && cp _redirects build/web/`
+   - **Build command**: `bash cloudflare_build.sh`
    - **Build output directory**: `build/web`
-   - **Framework preset**: React (or leave as None) — Flutter is not in the preset list
-4. Under **Environment variables (advanced)**, add the latest Flutter version if not already detected:
-   - e.g., add a build variable to pin Flutter version if needed
-5. Click **Save and Deploy**
+   - **Framework preset**: None (Flutter is not in the preset list)
+4. Under **Environment variables (advanced)** → **Production**, add:
+   - `FLUTTER_ROOT`: `/opt/flutter`
+5. Click **Save and Deploy** (first build takes ~5 min — Flutter SDK is being downloaded)
 6. After first deploy, add a custom domain if desired (or use the `*.pages.dev` URL)
+
+### Caching
+- The build script installs Flutter to `/opt/flutter`. Cloudflare Pages caches this directory between builds once the first build succeeds, so subsequent builds are faster (~1–2 min).
 
 ### Manual deploy
 - Push to `master` — Cloudflare auto-deploys.
