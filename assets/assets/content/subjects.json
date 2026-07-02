@@ -1,0 +1,56 @@
+[
+  {
+    "id": "algebra",
+    "name": "Algebra",
+    "iconKey": "calculate_outlined",
+    "color": "#4CAF50"
+  },
+  {
+    "id": "biology",
+    "name": "Biology",
+    "iconKey": "biotech_outlined",
+    "color": "#2196F3"
+  },
+  {
+    "id": "world_history",
+    "name": "World History",
+    "iconKey": "public_outlined",
+    "color": "#FF9800"
+  },
+  {
+    "id": "english",
+    "name": "English",
+    "iconKey": "menu_book_outlined",
+    "color": "#9C27B0"
+  },
+  {
+    "id": "chemistry",
+    "name": "Chemistry",
+    "iconKey": "science_outlined",
+    "color": "#E91E63"
+  },
+  {
+    "id": "geometry",
+    "name": "Geometry",
+    "iconKey": "category_outlined",
+    "color": "#00BCD4"
+  },
+  {
+    "id": "us_history",
+    "name": "US History",
+    "iconKey": "flag_outlined",
+    "color": "#795548"
+  },
+  {
+    "id": "physics",
+    "name": "Physics",
+    "iconKey": "bolt_outlined",
+    "color": "#FF5722"
+  },
+  {
+    "id": "psychology",
+    "name": "Psychology",
+    "iconKey": "psychology_outlined",
+    "color": "#9C27B0"
+  }
+]

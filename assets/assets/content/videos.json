@@ -1,0 +1,1354 @@
+[
+  {
+    "id": "vid_algebra_linear_eq_1",
+    "linkedLessonId": "linear_eq_1",
+    "title": "Algebra: Linear Equations — Part 1",
+    "description": "TutorMan explains how to change a linear equation into slope-intercept form step by step.",
+    "duration": "4:10",
+    "durationSeconds": 250,
+    "subject": "Algebra",
+    "chapter": "Linear Equations",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/MathLessonWritingALinearEquationIntoSlopeInterceptForm/video.mp4",
+    "keyPoints": [
+      "Writing Linear Equations in Slope-Intercept Form",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "62:00 — Main concepts covered",
+      "125:00 — Examples and applications",
+      "187:00 — Review and summary"
+    ],
+    "sourceId": "MathLessonWritingALinearEquationIntoSlopeInterceptForm",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_algebra_linear_eq_6",
+    "linkedLessonId": "linear_eq_6",
+    "title": "Algebra: Linear Equations — Part 2",
+    "description": "Learn how to graph linear equations on the coordinate plane with clear examples.",
+    "duration": "4:30",
+    "durationSeconds": 270,
+    "subject": "Algebra",
+    "chapter": "Linear Equations",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/GraphingLinearEquations/GraphReview_512kb.mp4",
+    "keyPoints": [
+      "Graphing Linear Equations",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "67:00 — Main concepts covered",
+      "135:00 — Examples and applications",
+      "202:00 — Review and summary"
+    ],
+    "sourceId": "GraphingLinearEquations",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_algebra_polynomials_1",
+    "linkedLessonId": "polynomials_1",
+    "title": "Algebra: Polynomials — Part 1",
+    "description": "A classic instructional video covering polynomial factoring techniques.",
+    "duration": "4:30",
+    "durationSeconds": 270,
+    "subject": "Algebra",
+    "chapter": "Polynomials",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/ClassicAlgebraFactoring_801/29Factoring_512kb.mp4",
+    "keyPoints": [
+      "Classic Algebra: Factoring Polynomials",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "67:00 — Main concepts covered",
+      "135:00 — Examples and applications",
+      "202:00 — Review and summary"
+    ],
+    "sourceId": "ClassicAlgebraFactoring_801",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_algebra_polynomials_6",
+    "linkedLessonId": "polynomials_6",
+    "title": "Algebra: Polynomials — Part 2",
+    "description": "Khan Academy lesson on factoring quadratic polynomials.",
+    "duration": "8:00",
+    "durationSeconds": 480,
+    "subject": "Algebra",
+    "chapter": "Polynomials",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/KA-converted-K5ggNnKTmNM/K5ggNnKTmNM.mp4",
+    "keyPoints": [
+      "Factoring Quadratics",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "120:00 — Main concepts covered",
+      "240:00 — Examples and applications",
+      "360:00 — Review and summary"
+    ],
+    "sourceId": "KA-converted-K5ggNnKTmNM",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_algebra_quadratics_1",
+    "linkedLessonId": "quadratics_1",
+    "title": "Algebra: Quadratic Equations — Part 1",
+    "description": "Khan Academy introduces the quadratic equation, its standard form, and how to identify coefficients.",
+    "duration": "9:00",
+    "durationSeconds": 540,
+    "subject": "Algebra",
+    "chapter": "Quadratic Equations",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/KA-converted-IWigvJcCAJ0/IWigvJcCAJ0.mp4",
+    "keyPoints": [
+      "Introduction to Quadratic Equations",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "135:00 — Main concepts covered",
+      "270:00 — Examples and applications",
+      "405:00 — Review and summary"
+    ],
+    "sourceId": "KA-converted-IWigvJcCAJ0",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_algebra_quadratics_6",
+    "linkedLessonId": "quadratics_6",
+    "title": "Algebra: Quadratic Equations — Part 2",
+    "description": "Khan Academy demonstrates solving quadratic equations through factoring.",
+    "duration": "7:00",
+    "durationSeconds": 420,
+    "subject": "Algebra",
+    "chapter": "Quadratic Equations",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/KA-converted-N30tN9158Kc/N30tN9158Kc.mp4",
+    "keyPoints": [
+      "Solving Quadratic Equations by Factoring",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "105:00 — Main concepts covered",
+      "210:00 — Examples and applications",
+      "315:00 — Review and summary"
+    ],
+    "sourceId": "KA-converted-N30tN9158Kc",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_biology_cell_1",
+    "linkedLessonId": "cell_1",
+    "title": "Biology: Cell Biology — Part 1",
+    "description": "An AS-Level biology lesson exploring cell structure, organelles, and their functions.",
+    "duration": "6:30",
+    "durationSeconds": 390,
+    "subject": "Biology",
+    "chapter": "Cell Biology",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/cell_biology2/cellsnew_512kb.mp4",
+    "keyPoints": [
+      "Cell Biology: The Fundamental Unit of Life",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "97:00 — Main concepts covered",
+      "195:00 — Examples and applications",
+      "292:00 — Review and summary"
+    ],
+    "sourceId": "cell_biology2",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_biology_cell_6",
+    "linkedLessonId": "cell_6",
+    "title": "Biology: Cell Biology — Part 2",
+    "description": "Continuing exploration of cell biology including membrane transport and cellular processes.",
+    "duration": "6:30",
+    "durationSeconds": 390,
+    "subject": "Biology",
+    "chapter": "Cell Biology",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/cell_biology2/cellsnew_512kb.mp4",
+    "keyPoints": [
+      "Cell Structure and Function",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "97:00 — Main concepts covered",
+      "195:00 — Examples and applications",
+      "292:00 — Review and summary"
+    ],
+    "sourceId": "cell_biology2",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_biology_genetics_1",
+    "linkedLessonId": "genetics_1",
+    "title": "Biology: Genetics — Part 1",
+    "description": "An educational film explaining how DNA carries genetic information.",
+    "duration": "15:00",
+    "durationSeconds": 900,
+    "subject": "Biology",
+    "chapter": "Genetics",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/dnamoleculeofheredity/dnamoleculeofheredity.mp4",
+    "keyPoints": [
+      "DNA: The Molecule of Heredity",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "225:00 — Main concepts covered",
+      "450:00 — Examples and applications",
+      "675:00 — Review and summary"
+    ],
+    "sourceId": "dnamoleculeofheredity",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_biology_genetics_6",
+    "linkedLessonId": "genetics_6",
+    "title": "Biology: Genetics — Part 2",
+    "description": "Exploration of human genetics including inheritance patterns, chromosomes, and genetic traits.",
+    "duration": "18:00",
+    "durationSeconds": 1080,
+    "subject": "Biology",
+    "chapter": "Genetics",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/humanheredityrevisededition/humanheredityrevisededition.mp4",
+    "keyPoints": [
+      "Human Heredity",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "270:00 — Main concepts covered",
+      "540:00 — Examples and applications",
+      "810:00 — Review and summary"
+    ],
+    "sourceId": "humanheredityrevisededition",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_biology_ecology_1",
+    "linkedLessonId": "ecology_1",
+    "title": "Biology: Ecology — Part 1",
+    "description": "An exploration of ecological systems, food webs, and the interconnectedness of living organisms.",
+    "duration": "10:00",
+    "durationSeconds": 600,
+    "subject": "Biology",
+    "chapter": "Ecology",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/EcologyEmergesEvolutionOfEco-activism/EE1_Final_264_512kb.mp4",
+    "keyPoints": [
+      "Ecology: The Web of Life",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "150:00 — Main concepts covered",
+      "300:00 — Examples and applications",
+      "450:00 — Review and summary"
+    ],
+    "sourceId": "EcologyEmergesEvolutionOfEco-activism",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_biology_ecology_6",
+    "linkedLessonId": "ecology_6",
+    "title": "Biology: Ecology — Part 2",
+    "description": "Examining how ecological principles apply in urban settings.",
+    "duration": "10:00",
+    "durationSeconds": 600,
+    "subject": "Biology",
+    "chapter": "Ecology",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/EcologyEmergesNatureInCities/EE3_06_04.30_264_512kb.mp4",
+    "keyPoints": [
+      "Ecology in Urban Environments",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "150:00 — Main concepts covered",
+      "300:00 — Examples and applications",
+      "450:00 — Review and summary"
+    ],
+    "sourceId": "EcologyEmergesNatureInCities",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_history_renaissance_1",
+    "linkedLessonId": "renaissance_1",
+    "title": "World History: The Renaissance — Part 1",
+    "description": "An educational film exploring the cultural and intellectual rebirth of the Renaissance.",
+    "duration": "26:00",
+    "durationSeconds": 1560,
+    "subject": "World History",
+    "chapter": "The Renaissance",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/thespiritoftherenaissance/thespiritoftherenaissance.mp4",
+    "keyPoints": [
+      "The Spirit of the Renaissance",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "390:00 — Main concepts covered",
+      "780:00 — Examples and applications",
+      "1170:00 — Review and summary"
+    ],
+    "sourceId": "thespiritoftherenaissance",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_history_renaissance_6",
+    "linkedLessonId": "renaissance_6",
+    "title": "World History: The Renaissance — Part 2",
+    "description": "Renaissance culture through its secular music, art, and the humanist movement.",
+    "duration": "18:00",
+    "durationSeconds": 1080,
+    "subject": "World History",
+    "chapter": "The Renaissance",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/secularmusicoftherenaissance/secularmusicoftherenaissance/secularmusicoftherenaissance.mp4",
+    "keyPoints": [
+      "Secular Music of the Renaissance",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "270:00 — Main concepts covered",
+      "540:00 — Examples and applications",
+      "810:00 — Review and summary"
+    ],
+    "sourceId": "secularmusicoftherenaissance",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_history_ancient_1",
+    "linkedLessonId": "ancient_1",
+    "title": "World History: Ancient Civilizations — Part 1",
+    "description": "Journey through the cradle of civilization exploring Sumer, Babylon, and the birth of writing and law.",
+    "duration": "30:00",
+    "durationSeconds": 600,
+    "subject": "World History",
+    "chapter": "Ancient Civilizations",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/FacesOfAncientMesopotamia/Mesopotamia.mp4",
+    "keyPoints": [
+      "Faces of Ancient Mesopotamia",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "150:00 — Main concepts covered",
+      "300:00 — Examples and applications",
+      "450:00 — Review and summary"
+    ],
+    "sourceId": "FacesOfAncientMesopotamia",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_history_ancient_6",
+    "linkedLessonId": "ancient_6",
+    "title": "World History: Ancient Civilizations — Part 2",
+    "description": "A comprehensive look at Ancient Greek civilization from its city-states to its lasting cultural legacy.",
+    "duration": "22:00",
+    "durationSeconds": 1320,
+    "subject": "World History",
+    "chapter": "Ancient Civilizations",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/ancientgreece_201702/ancientgreece_201702.mp4",
+    "keyPoints": [
+      "Ancient Greece",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "330:00 — Main concepts covered",
+      "660:00 — Examples and applications",
+      "990:00 — Review and summary"
+    ],
+    "sourceId": "ancientgreece_201702",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_history_world_wars_1",
+    "linkedLessonId": "world_wars_1",
+    "title": "World History: World Wars — Part 1",
+    "description": "Historical newsreel footage and analysis of World War I, trench warfare, and its global impact.",
+    "duration": "10:00",
+    "durationSeconds": 600,
+    "subject": "World History",
+    "chapter": "World Wars",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/31434WestfrontWWINewsreelRexfer/31434%20Westfront%20WWI%20Newsreel_Rexfer.mp4",
+    "keyPoints": [
+      "World War I: The Western Front",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "150:00 — Main concepts covered",
+      "300:00 — Examples and applications",
+      "450:00 — Review and summary"
+    ],
+    "sourceId": "31434WestfrontWWINewsreelRexfer",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_history_world_wars_6",
+    "linkedLessonId": "world_wars_6",
+    "title": "World History: World Wars — Part 2",
+    "description": "A comprehensive documentary covering WWII from its origins through the major campaigns and aftermath.",
+    "duration": "50:00",
+    "durationSeconds": 600,
+    "subject": "World History",
+    "chapter": "World Wars",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/ApocalypseWWII/1%20Aggression%201933-1939.mp4",
+    "keyPoints": [
+      "Apocalypse: The Second World War",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "150:00 — Main concepts covered",
+      "300:00 — Examples and applications",
+      "450:00 — Review and summary"
+    ],
+    "sourceId": "ApocalypseWWII",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_english_grammar_1",
+    "linkedLessonId": "grammar_1",
+    "title": "English: Grammar — Part 1",
+    "description": "A study guide covering English sentence structure including subjects, predicates, clauses, and phrases.",
+    "duration": "5:00",
+    "durationSeconds": 300,
+    "subject": "English",
+    "chapter": "Grammar",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/EnglishGrammarSentenceStructureStudyGuide/01.mp4",
+    "keyPoints": [
+      "English Grammar: Sentence Structure",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "75:00 — Main concepts covered",
+      "150:00 — Examples and applications",
+      "225:00 — Review and summary"
+    ],
+    "sourceId": "EnglishGrammarSentenceStructureStudyGuide",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_english_grammar_6",
+    "linkedLessonId": "grammar_6",
+    "title": "English: Grammar — Part 2",
+    "description": "An educational video covering the eight parts of speech with examples of their use in sentences.",
+    "duration": "15:00",
+    "durationSeconds": 900,
+    "subject": "English",
+    "chapter": "Grammar",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/A2Video_MECC_A746_English_Volume_1_Parts_of_Speech_v15/MECC-A746%20English%20Volume%201%20-%20Parts%20of%20Speech%20v1.5.mp4",
+    "keyPoints": [
+      "English Grammar: Parts of Speech",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "225:00 — Main concepts covered",
+      "450:00 — Examples and applications",
+      "675:00 — Review and summary"
+    ],
+    "sourceId": "A2Video_MECC_A746_English_Volume_1_Parts_of_Speech_v15",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_english_writing_1",
+    "linkedLessonId": "writing_1",
+    "title": "English: Writing — Part 1",
+    "description": "A guide to the writing process: prewriting, drafting, revising, editing, and publishing effective essays.",
+    "duration": "15:00",
+    "durationSeconds": 900,
+    "subject": "English",
+    "chapter": "Writing",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/DevelopingWritingSkills/Developing%20Writing%20Skills.mp4",
+    "keyPoints": [
+      "Developing Writing Skills",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "225:00 — Main concepts covered",
+      "450:00 — Examples and applications",
+      "675:00 — Review and summary"
+    ],
+    "sourceId": "DevelopingWritingSkills",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_english_writing_6",
+    "linkedLessonId": "writing_6",
+    "title": "English: Writing — Part 2",
+    "description": "Foundational writing skills including thesis development, paragraph structure, and organizing ideas.",
+    "duration": "20:00",
+    "durationSeconds": 1200,
+    "subject": "English",
+    "chapter": "Writing",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/A2Video_Developing_Basic_Writing_Skills_Level_I/Developing%20Basic%20Writing%20Skills%20Level%20I.mp4",
+    "keyPoints": [
+      "Basic Writing Skills Level I",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "300:00 — Main concepts covered",
+      "600:00 — Examples and applications",
+      "900:00 — Review and summary"
+    ],
+    "sourceId": "A2Video_Developing_Basic_Writing_Skills_Level_I",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_english_literature_1",
+    "linkedLessonId": "literature_1",
+    "title": "English: Literature — Part 1",
+    "description": "A documentary exploring Shakespeare's life, works, and his enduring influence on English literature.",
+    "duration": "50:00",
+    "durationSeconds": 900,
+    "subject": "English",
+    "chapter": "Literature",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/shakespearesoulofanage/shakespearesoulofanagereel1.mp4",
+    "keyPoints": [
+      "Shakespeare: Soul of an Age",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "225:00 — Main concepts covered",
+      "450:00 — Examples and applications",
+      "675:00 — Review and summary"
+    ],
+    "sourceId": "shakespearesoulofanage",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_english_literature_6",
+    "linkedLessonId": "literature_6",
+    "title": "English: Literature — Part 2",
+    "description": "How literature reflects cultural values and historical context, using examples from world literature.",
+    "duration": "30:00",
+    "durationSeconds": 900,
+    "subject": "English",
+    "chapter": "Literature",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/therussiansinsightsthroughliteraturereel2/therussiansinsightsthroughliterature/therussiansinsightsthroughliteraturereel1.mp4",
+    "keyPoints": [
+      "Literature and Cultural Insight",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "225:00 — Main concepts covered",
+      "450:00 — Examples and applications",
+      "675:00 — Review and summary"
+    ],
+    "sourceId": "therussiansinsightsthroughliteraturereel2",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_chem_periodic_1",
+    "linkedLessonId": "periodic_1",
+    "title": "Chemistry: Periodic Table — Part 1",
+    "description": "Khan Academy explains how the periodic table is organized into groups with similar chemical properties.",
+    "duration": "7:00",
+    "durationSeconds": 420,
+    "subject": "Chemistry",
+    "chapter": "Periodic Table",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/KA-converted-LDHg7Vgzses/LDHg7Vgzses.mp4",
+    "keyPoints": [
+      "Groups of the Periodic Table",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "105:00 — Main concepts covered",
+      "210:00 — Examples and applications",
+      "315:00 — Review and summary"
+    ],
+    "sourceId": "KA-converted-LDHg7Vgzses",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_chem_periodic_6",
+    "linkedLessonId": "periodic_6",
+    "title": "Chemistry: Periodic Table — Part 2",
+    "description": "Understanding periodic trends including ionization energy, electronegativity, and atomic radius.",
+    "duration": "9:00",
+    "durationSeconds": 540,
+    "subject": "Chemistry",
+    "chapter": "Periodic Table",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/KA-converted-ywqg9PorTAw/ywqg9PorTAw.mp4",
+    "keyPoints": [
+      "Periodic Table Trends: Ionization Energy",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "135:00 — Main concepts covered",
+      "270:00 — Examples and applications",
+      "405:00 — Review and summary"
+    ],
+    "sourceId": "KA-converted-ywqg9PorTAw",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_chem_reactions_1",
+    "linkedLessonId": "reactions_1",
+    "title": "Chemistry: Chemical Reactions — Part 1",
+    "description": "An exploration of chemical reaction equilibrium, Le Chatelier's principle, and equilibrium constants.",
+    "duration": "10:00",
+    "durationSeconds": 600,
+    "subject": "Chemistry",
+    "chapter": "Chemical Reactions",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/8.CHEMICALEQUILIBRIUM/LEC%231%20EQUILIBRIUM%20STATE.mp4",
+    "keyPoints": [
+      "Chemical Equilibrium",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "150:00 — Main concepts covered",
+      "300:00 — Examples and applications",
+      "450:00 — Review and summary"
+    ],
+    "sourceId": "8.CHEMICALEQUILIBRIUM",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_chem_reactions_6",
+    "linkedLessonId": "reactions_6",
+    "title": "Chemistry: Chemical Reactions — Part 2",
+    "description": "A classic educational film connecting molecular spectroscopy to understanding atomic structure.",
+    "duration": "15:00",
+    "durationSeconds": 900,
+    "subject": "Chemistry",
+    "chapter": "Chemical Reactions",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/14344-molecular-spectroscopy-vwr/14344%20Molecular%20Spectroscopy_vwr.mp4",
+    "keyPoints": [
+      "Molecular Spectroscopy",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "225:00 — Main concepts covered",
+      "450:00 — Examples and applications",
+      "675:00 — Review and summary"
+    ],
+    "sourceId": "14344-molecular-spectroscopy-vwr",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_chem_atomic_1",
+    "linkedLessonId": "atomic_1",
+    "title": "Chemistry: Atomic Structure — Part 1",
+    "description": "An in-depth lesson on atomic structure covering protons, neutrons, electrons, and quantum theory.",
+    "duration": "15:00",
+    "durationSeconds": 900,
+    "subject": "Chemistry",
+    "chapter": "Atomic Structure",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/5.ATOMICSTRUCTURE/LEC%231%20ATOMIC%20STRUCTURE.mp4",
+    "keyPoints": [
+      "Atomic Structure",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "225:00 — Main concepts covered",
+      "450:00 — Examples and applications",
+      "675:00 — Review and summary"
+    ],
+    "sourceId": "5.ATOMICSTRUCTURE",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_chem_atomic_6",
+    "linkedLessonId": "atomic_6",
+    "title": "Chemistry: Atomic Structure — Part 2",
+    "description": "A chemistry tutorial connecting atomic structure concepts to the organization of the periodic table.",
+    "duration": "12:00",
+    "durationSeconds": 720,
+    "subject": "Chemistry",
+    "chapter": "Atomic Structure",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/youtube-3_FJIpKgdV4/3_FJIpKgdV4.mp4",
+    "keyPoints": [
+      "Atomic Structure and the Periodic Table",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "180:00 — Main concepts covered",
+      "360:00 — Examples and applications",
+      "540:00 — Review and summary"
+    ],
+    "sourceId": "youtube-3_FJIpKgdV4",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_geometry_triangles_1",
+    "linkedLessonId": "triangles_1",
+    "title": "Geometry: Triangles — Part 1",
+    "description": "A math tutorial covering essential geometry formulas including triangles, area, and perimeter relationships.",
+    "duration": "7:00",
+    "durationSeconds": 420,
+    "subject": "Geometry",
+    "chapter": "Triangles",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/Videomathtutor-AlgebraFormulasFromGeometry180/Videomathtutor-AlgebraFormulasFromGeometry180_512kb.mp4",
+    "keyPoints": [
+      "Geometry: Formulas from Geometry",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "105:00 — Main concepts covered",
+      "210:00 — Examples and applications",
+      "315:00 — Review and summary"
+    ],
+    "sourceId": "Videomathtutor-AlgebraFormulasFromGeometry180",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_geometry_triangles_6",
+    "linkedLessonId": "triangles_6",
+    "title": "Geometry: Triangles — Part 2",
+    "description": "An artistic and mathematical exploration of triangles, their properties, and their role in geometry.",
+    "duration": "5:00",
+    "durationSeconds": 300,
+    "subject": "Geometry",
+    "chapter": "Triangles",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/notesonatriangle/notesonatriangle.mp4",
+    "keyPoints": [
+      "Notes on a Triangle",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "75:00 — Main concepts covered",
+      "150:00 — Examples and applications",
+      "225:00 — Review and summary"
+    ],
+    "sourceId": "notesonatriangle",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_geometry_circles_1",
+    "linkedLessonId": "circles_1",
+    "title": "Geometry: Circles — Part 1",
+    "description": "Khan Academy covers key circle geometry concepts including area, chord properties, and tangent lines.",
+    "duration": "6:00",
+    "durationSeconds": 360,
+    "subject": "Geometry",
+    "chapter": "Circles",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/KA-converted-FJIZPvE3O1A/FJIZPvE3O1A.mp4",
+    "keyPoints": [
+      "Circle Geometry: Area, Chords, and Tangents",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "90:00 — Main concepts covered",
+      "180:00 — Examples and applications",
+      "270:00 — Review and summary"
+    ],
+    "sourceId": "KA-converted-FJIZPvE3O1A",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_geometry_circles_6",
+    "linkedLessonId": "circles_6",
+    "title": "Geometry: Circles — Part 2",
+    "description": "An educational module covering fundamental geometry concepts including circles, angles, and spatial reasoning.",
+    "duration": "10:00",
+    "durationSeconds": 600,
+    "subject": "Geometry",
+    "chapter": "Circles",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/SDS_Geometry_Module_1_Geometry_Basics/Standard-deviants-school--geometryBasics--1_512kb.mp4",
+    "keyPoints": [
+      "Geometry Basics: Circles and Beyond",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "150:00 — Main concepts covered",
+      "300:00 — Examples and applications",
+      "450:00 — Review and summary"
+    ],
+    "sourceId": "SDS_Geometry_Module_1_Geometry_Basics",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_geometry_coordinate_1",
+    "linkedLessonId": "coordinate_1",
+    "title": "Geometry: Coordinate Geometry — Part 1",
+    "description": "A lesson on the coordinate plane, plotting points, distance formula, and geometric relationships.",
+    "duration": "6:00",
+    "durationSeconds": 360,
+    "subject": "Geometry",
+    "chapter": "Coordinate Geometry",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/coordinate-geometry-26/Coordinate-Geometry-(Part-1)_1080.mp4",
+    "keyPoints": [
+      "Coordinate Geometry",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "90:00 — Main concepts covered",
+      "180:00 — Examples and applications",
+      "270:00 — Review and summary"
+    ],
+    "sourceId": "coordinate-geometry-26",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_geometry_coordinate_6",
+    "linkedLessonId": "coordinate_6",
+    "title": "Geometry: Coordinate Geometry — Part 2",
+    "description": "Khan Academy demonstrates graphing linear equations on the coordinate plane.",
+    "duration": "8:00",
+    "durationSeconds": 480,
+    "subject": "Geometry",
+    "chapter": "Coordinate Geometry",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/KA-converted-2UrcUfBizyw/2UrcUfBizyw.mp4",
+    "keyPoints": [
+      "Algebra: Graphing Lines",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "120:00 — Main concepts covered",
+      "240:00 — Examples and applications",
+      "360:00 — Review and summary"
+    ],
+    "sourceId": "KA-converted-2UrcUfBizyw",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_us_constitution_1",
+    "linkedLessonId": "constitution_1",
+    "title": "US History: The Constitution — Part 1",
+    "description": "Khan Academy covers the creation of the US Constitution, the Constitutional Convention, and the ratification debate.",
+    "duration": "13:00",
+    "durationSeconds": 780,
+    "subject": "US History",
+    "chapter": "The Constitution",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/KA_Birth_of_the_US_Constitution/KA_Birth_of_the_US_Constitution.mp4",
+    "keyPoints": [
+      "Birth of the US Constitution",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "195:00 — Main concepts covered",
+      "390:00 — Examples and applications",
+      "585:00 — Review and summary"
+    ],
+    "sourceId": "KA_Birth_of_the_US_Constitution",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_us_constitution_6",
+    "linkedLessonId": "constitution_6",
+    "title": "US History: The Constitution — Part 2",
+    "description": "Historical footage and analysis of the US Constitution and its role in shaping American government.",
+    "duration": "10:00",
+    "durationSeconds": 600,
+    "subject": "US History",
+    "chapter": "The Constitution",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/ADC-8452a/ADC-8452a.mp4",
+    "keyPoints": [
+      "The US Constitution: Foundation of American Government",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "150:00 — Main concepts covered",
+      "300:00 — Examples and applications",
+      "450:00 — Review and summary"
+    ],
+    "sourceId": "ADC-8452a",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_us_civil_war_1",
+    "linkedLessonId": "civil_war_1",
+    "title": "US History: Civil War — Part 1",
+    "description": "A historical educational film covering the American Civil War from its causes through the Battle of Gettysburg.",
+    "duration": "20:00",
+    "durationSeconds": 1200,
+    "subject": "US History",
+    "chapter": "Civil War",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/theroadtogettysburgcivilwarpart118611863/theroadtogettysburgcivilwarpart118611863.mp4",
+    "keyPoints": [
+      "The Road to Gettysburg: Civil War Part I (1861-1863)",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "300:00 — Main concepts covered",
+      "600:00 — Examples and applications",
+      "900:00 — Review and summary"
+    ],
+    "sourceId": "theroadtogettysburgcivilwarpart118611863",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_us_civil_war_6",
+    "linkedLessonId": "civil_war_6",
+    "title": "US History: Civil War — Part 2",
+    "description": "An examination of the Spanish Civil War and its connections to broader global conflict.",
+    "duration": "20:00",
+    "durationSeconds": 1200,
+    "subject": "US History",
+    "chapter": "Civil War",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/betweenthewarsthespanishcivilwar_201504/betweenthewarsthespanishcivilwar.mp4",
+    "keyPoints": [
+      "The Spanish Civil War: A Comparative Study",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "300:00 — Main concepts covered",
+      "600:00 — Examples and applications",
+      "900:00 — Review and summary"
+    ],
+    "sourceId": "betweenthewarsthespanishcivilwar_201504",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_us_civil_rights_1",
+    "linkedLessonId": "civil_rights_1",
+    "title": "US History: Civil Rights — Part 1",
+    "description": "An exploration of the Civil Rights Movement in the northern United States and its unique challenges.",
+    "duration": "30:00",
+    "durationSeconds": 900,
+    "subject": "US History",
+    "chapter": "Civil Rights",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/civilrightsmovementthenorth/civilrightsmovementthenorth.mp4",
+    "keyPoints": [
+      "Civil Rights Movement: The North",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "225:00 — Main concepts covered",
+      "450:00 — Examples and applications",
+      "675:00 — Review and summary"
+    ],
+    "sourceId": "civilrightsmovementthenorth",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_us_civil_rights_6",
+    "linkedLessonId": "civil_rights_6",
+    "title": "US History: Civil Rights — Part 2",
+    "description": "Historical coverage of the Civil Rights Movement in the American South during the pivotal year of 1963.",
+    "duration": "30:00",
+    "durationSeconds": 900,
+    "subject": "US History",
+    "chapter": "Civil Rights",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/movementtoliveistomove_201512/movementtoliveistomove.mp4",
+    "keyPoints": [
+      "Civil Rights Movement: The South (1963)",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "225:00 — Main concepts covered",
+      "450:00 — Examples and applications",
+      "675:00 — Review and summary"
+    ],
+    "sourceId": "movementtoliveistomove_201512",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_physics_newton_1",
+    "linkedLessonId": "newton_1",
+    "title": "Physics: Newton's Laws — Part 1",
+    "description": "An educational film covering Newton's three laws of motion with real-world demonstrations and applications.",
+    "duration": "20:00",
+    "durationSeconds": 1200,
+    "subject": "Physics",
+    "chapter": "Newton's Laws",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/laws-of-motion/Laws_of_Motion_HQ.mp4",
+    "keyPoints": [
+      "Physics: Laws of Motion – Newton and Beyond",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "300:00 — Main concepts covered",
+      "600:00 — Examples and applications",
+      "900:00 — Review and summary"
+    ],
+    "sourceId": "laws-of-motion",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_physics_newton_6",
+    "linkedLessonId": "newton_6",
+    "title": "Physics: Newton's Laws — Part 2",
+    "description": "A physics lesson explaining Newton's first law (inertia) and second law (F=ma) with practical examples.",
+    "duration": "10:00",
+    "durationSeconds": 600,
+    "subject": "Physics",
+    "chapter": "Newton's Laws",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/naino-2026-newton-1st-and-2nd-law/NLM%20and%20Friction%20-%20L01%20-%20Newton%201st%20and%202nd%20Law.mp4",
+    "keyPoints": [
+      "Newton's First and Second Laws",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "150:00 — Main concepts covered",
+      "300:00 — Examples and applications",
+      "450:00 — Review and summary"
+    ],
+    "sourceId": "naino-2026-newton-1st-and-2nd-law",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_physics_energy_1",
+    "linkedLessonId": "energy_1",
+    "title": "Physics: Energy — Part 1",
+    "description": "An educational exploration of potential energy, kinetic energy, and the law of conservation of energy.",
+    "duration": "20:00",
+    "durationSeconds": 1200,
+    "subject": "Physics",
+    "chapter": "Energy",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/botanicman4potentialenergy/botanicman4potentialenergy.mp4",
+    "keyPoints": [
+      "Potential Energy and Conservation",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "300:00 — Main concepts covered",
+      "600:00 — Examples and applications",
+      "900:00 — Review and summary"
+    ],
+    "sourceId": "botanicman4potentialenergy",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_physics_energy_6",
+    "linkedLessonId": "energy_6",
+    "title": "Physics: Energy — Part 2",
+    "description": "PBS educational content examining energy systems, renewable resources, and their environmental impact.",
+    "duration": "10:00",
+    "durationSeconds": 600,
+    "subject": "Physics",
+    "chapter": "Energy",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/PBS-TERRA-Weathered/1.01%20We%20Can't%20Stop%20Wildfires%E2%80%94But%20Here's%20How%20We%20Live%20With%20Them.mp4",
+    "keyPoints": [
+      "Energy and Climate: Understanding Our World",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "150:00 — Main concepts covered",
+      "300:00 — Examples and applications",
+      "450:00 — Review and summary"
+    ],
+    "sourceId": "PBS-TERRA-Weathered",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_physics_waves_1",
+    "linkedLessonId": "waves_1",
+    "title": "Physics: Waves & Sound — Part 1",
+    "description": "An educational film demonstrating wave properties including interference, diffraction, and superposition.",
+    "duration": "15:00",
+    "durationSeconds": 900,
+    "subject": "Physics",
+    "chapter": "Waves & Sound",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/wavemotioninterference/wavemotioninterference.mp4",
+    "keyPoints": [
+      "Wave Motion: Interference",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "225:00 — Main concepts covered",
+      "450:00 — Examples and applications",
+      "675:00 — Review and summary"
+    ],
+    "sourceId": "wavemotioninterference",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_physics_waves_6",
+    "linkedLessonId": "waves_6",
+    "title": "Physics: Waves & Sound — Part 2",
+    "description": "An exploration of wave theory and its role in the development of modern physics understanding.",
+    "duration": "10:00",
+    "durationSeconds": 600,
+    "subject": "Physics",
+    "chapter": "Waves & Sound",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/thedaytheuniversechanged9thenewphysicsnewtonrevisedreel2/thedaytheuniversechanged9thenewphysicsnewtonrevised/thedaytheuniversechanged9thenewphysicsnewtonrevisedreel1.mp4",
+    "keyPoints": [
+      "The New Physics: Waves and Modern Theory",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "150:00 — Main concepts covered",
+      "300:00 — Examples and applications",
+      "450:00 — Review and summary"
+    ],
+    "sourceId": "thedaytheuniversechanged9thenewphysicsnewtonrevisedreel2",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_psych_learning_1",
+    "linkedLessonId": "learning_1",
+    "title": "Psychology: Learning & Memory — Part 1",
+    "description": "A classic educational film exploring the science of learning, memory formation, and behavioral psychology.",
+    "duration": "15:00",
+    "durationSeconds": 900,
+    "subject": "Psychology",
+    "chapter": "Learning & Memory",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/learning-about-learning-1962/Learning%20about%20Learning%20-%201962.mp4",
+    "keyPoints": [
+      "Learning About Learning: Psychology of Behavior",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "225:00 — Main concepts covered",
+      "450:00 — Examples and applications",
+      "675:00 — Review and summary"
+    ],
+    "sourceId": "learning-about-learning-1962",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_psych_learning_6",
+    "linkedLessonId": "learning_6",
+    "title": "Psychology: Learning & Memory — Part 2",
+    "description": "An educational video explaining Pavlovian conditioning, stimulus-response relationships, and learned behavior.",
+    "duration": "5:00",
+    "durationSeconds": 300,
+    "subject": "Psychology",
+    "chapter": "Learning & Memory",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/ClassicalConditioning/6a--classicalConditioning_512kb.mp4",
+    "keyPoints": [
+      "Classical Conditioning",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "75:00 — Main concepts covered",
+      "150:00 — Examples and applications",
+      "225:00 — Review and summary"
+    ],
+    "sourceId": "ClassicalConditioning",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_psych_brain_1",
+    "linkedLessonId": "brain_1",
+    "title": "Psychology: Brain & Behavior — Part 1",
+    "description": "An educational film examining how substances affect brain function, neural pathways, and behavior.",
+    "duration": "25:00",
+    "durationSeconds": 1500,
+    "subject": "Psychology",
+    "chapter": "Brain & Behavior",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/AlcoholBrainAndBehavior/AlcoholBrainAndBehavior.mp4",
+    "keyPoints": [
+      "Alcohol, the Brain, and Behavior",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "375:00 — Main concepts covered",
+      "750:00 — Examples and applications",
+      "1125:00 — Review and summary"
+    ],
+    "sourceId": "AlcoholBrainAndBehavior",
+    "sourceSystem": "Internet Archive"
+  },
+  {
+    "id": "vid_psych_brain_6",
+    "linkedLessonId": "brain_6",
+    "title": "Psychology: Brain & Behavior — Part 2",
+    "description": "Exploring how the brain processes visual information through experimental psychology methods.",
+    "duration": "30:00",
+    "durationSeconds": 1800,
+    "subject": "Psychology",
+    "chapter": "Brain & Behavior",
+    "difficulty": "beginner",
+    "assetPath": "https://archive.org/download/experimentalpsychologyofvision/experimentalpsychologyofvision.mp4",
+    "keyPoints": [
+      "Experimental Psychology of Vision",
+      "Learn through visual explanation and examples",
+      "Reinforces core concepts from the lesson",
+      "Ideal for review and study support"
+    ],
+    "chapters": [
+      "0:00 — Introduction to topic",
+      "450:00 — Main concepts covered",
+      "900:00 — Examples and applications",
+      "1350:00 — Review and summary"
+    ],
+    "sourceId": "experimentalpsychologyofvision",
+    "sourceSystem": "Internet Archive"
+  }
+]
