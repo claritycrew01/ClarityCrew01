@@ -28,20 +28,40 @@ class ClarityCrewApp extends StatelessWidget {
           final theme = profile.prefersHighContrast
               ? baseTheme.copyWith(
                   colorScheme: baseTheme.colorScheme.copyWith(
-                    onSurface: Colors.black,
+                    primary: Colors.black,
+                    onPrimary: Colors.white,
+                    secondary: Colors.black,
+                    onSecondary: Colors.white,
                     surface: Colors.white,
+                    onSurface: Colors.black,
+                    error: Colors.red.shade900,
+                    onError: Colors.white,
                   ),
                   scaffoldBackgroundColor: Colors.white,
+                  appBarTheme: const AppBarTheme(
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.black,
+                  ),
                 )
               : baseTheme;
 
           final darkTheme = profile.prefersHighContrast
               ? AppTheme.dark.copyWith(
                   colorScheme: AppTheme.dark.colorScheme.copyWith(
-                    onSurface: Colors.white,
+                    primary: Colors.white,
+                    onPrimary: Colors.black,
+                    secondary: Colors.white,
+                    onSecondary: Colors.black,
                     surface: Colors.black,
+                    onSurface: Colors.white,
+                    error: Colors.red.shade200,
+                    onError: Colors.black,
                   ),
                   scaffoldBackgroundColor: Colors.black,
+                  appBarTheme: const AppBarTheme(
+                    backgroundColor: Colors.black,
+                    foregroundColor: Colors.white,
+                  ),
                 )
               : AppTheme.dark;
 
