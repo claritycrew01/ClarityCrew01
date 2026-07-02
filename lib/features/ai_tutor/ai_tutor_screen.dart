@@ -87,6 +87,7 @@ class _AiTutorScreenState extends State<AiTutorScreen>
     var response = _tutorService.respond(
       userMessage: text,
       profile: learnerState.profile,
+      conversationHistory: List.from(_messages),
       contentId: _activeContentId,
       activeRecommendation: appState.currentRecommendation,
     );
