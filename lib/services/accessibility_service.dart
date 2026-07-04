@@ -14,7 +14,7 @@ class AccessibilityService {
         profile.neurodivergentTraits.contains('autism');
   }
 
-  bool shouldReduceMotion(LearnerProfile profile) {
+  int getRecommendedTapTargetSize(LearnerProfile profile) {
     if (profile.neurodivergentTraits.contains('adhd') ||
         profile.neurodivergentTraits.contains('dyspraxia')) {
       return 56;

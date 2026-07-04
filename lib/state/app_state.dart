@@ -9,6 +9,7 @@ import '../services/content_mode_selector.dart';
 import '../services/recommendation_engine.dart';
 import '../services/progress_tracker.dart';
 import '../services/accessibility_service.dart';
+import '../services/focus_support_service.dart';
 import '../persistence/shared_preferences_adapter.dart';
 
 class AppState extends ChangeNotifier {
@@ -17,6 +18,7 @@ class AppState extends ChangeNotifier {
   final RecommendationEngine recommendationEngine = RecommendationEngine();
   final ProgressTracker progressTracker = ProgressTracker();
   final AccessibilityService accessibilityService = AccessibilityService();
+  final FocusSupportService focusService = FocusSupportService();
 
   LearningRecommendation? _currentRecommendation;
   List<LearningRecommendation> _recommendations = [];
