@@ -35,7 +35,7 @@ ClarityCrew is an academic study app for neurodivergent learners. It is not a di
 - Use SafeArea where needed.
 - Make content scrollable on small screens.
 - Test on constrained mobile heights.
-- On desktop and tablet, content is constrained to `maxContentWidth` (480px) and centered.
+- On desktop and tablet, content is constrained to `maxContentWidth` (1200px) and centered.
 
 ## Workflow rules
 - Before implementing a feature, define the data model.

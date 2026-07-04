@@ -14,7 +14,6 @@ import '../../services/tutor/tutor_service.dart';
 import '../learning/learning_session_screen.dart';
 import '../quiz/quiz_screen.dart';
 import '../flashcards/flashcard_screen.dart';
-import '../video/video_screen.dart';
 import '../focus/focus_mode_screen.dart';
 
 class AiTutorScreen extends StatefulWidget {
@@ -47,24 +46,31 @@ class _AiTutorScreenState extends State<AiTutorScreen>
   }
 
   Future<void> _loadConversation() async {
-    final conversation = await _tutorStorage.loadConversation();
-    if (!mounted) return;
-    setState(() {
-      _messages.addAll(conversation.messages);
-      _activeContentId = widget.initialContentId ?? conversation.lastContentId;
-      _conversationLoaded = true;
-      if (_messages.isEmpty) {
-        _messages.add(
-          TutorMessage(
-            id: 'welcome',
-            role: 'tutor',
-            text:
-                'I am your AI tutor. Ask me to explain a lesson, simplify a topic, go deeper, or tell you what to study next.',
-            timestamp: DateTime.now(),
-          ),
-        );
-      }
-    });
+    try {
+      final conversation = await _tutorStorage.loadConversation();
+      if (!mounted) return;
+      setState(() {
+        _messages.addAll(conversation.messages);
+        _activeContentId = widget.initialContentId ?? conversation.lastContentId;
+        _conversationLoaded = true;
+        if (_messages.isEmpty) {
+          _messages.add(
+            TutorMessage(
+              id: 'welcome',
+              role: 'tutor',
+              text:
+                  'I am your AI tutor. Ask me to explain a lesson, simplify a topic, go deeper, or tell you what to study next.',
+              timestamp: DateTime.now(),
+            ),
+          );
+        }
+      });
+    } catch (_) {
+      if (!mounted) return;
+      setState(() {
+        _conversationLoaded = true;
+      });
+    }
   }
 
   Future<void> _sendMessage() async {
@@ -112,8 +118,8 @@ class _AiTutorScreenState extends State<AiTutorScreen>
           lastContentId: _activeContentId,
         ),
       );
-    } catch (_) {
-      // Conversation persistence is best-effort
+    } catch (e) {
+      debugPrint('Failed to persist conversation: $e');
     }
   }
 

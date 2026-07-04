@@ -6,6 +6,7 @@ import '../../state/learner_state.dart';
 import '../../state/app_state.dart';
 import '../../state/session_state.dart';
 import '../../models/learner_profile.dart';
+import '../../models/learning_recommendation.dart';
 import '../../models/subject_data.dart';
 import '../../services/content/content_repository.dart';
 import '../../services/study_navigation.dart';
@@ -289,7 +290,7 @@ class HomeScreen extends StatelessWidget {
     return 'Ready to learn? Your flow today looks like $mode.';
   }
 
-  Widget _buildRecommendedCard(BuildContext context, dynamic rec) {
+  Widget _buildRecommendedCard(BuildContext context, LearningRecommendation rec) {
     return Semantics(
       button: true,
       label: 'Recommended: ${rec.title}',

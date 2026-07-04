@@ -2,9 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/theme/colors.dart';
-import '../../state/session_state.dart';
 import '../../state/app_state.dart';
-import '../../state/learner_state.dart';
 import '../../services/focus_support_service.dart';
 
 class FocusModeScreen extends StatefulWidget {
@@ -70,7 +68,7 @@ class _FocusModeScreenState extends State<FocusModeScreen>
                     _buildStatusBadge(isBreak, isRunning),
                     const SizedBox(height: 32),
                     SizedBox(
-                      height: 280,
+                      height: constraints.maxHeight * 0.45,
                       child: _buildTimerCircle(progress, isRunning),
                     ),
                     const SizedBox(height: 24),

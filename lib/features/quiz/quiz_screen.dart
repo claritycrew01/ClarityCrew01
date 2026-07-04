@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/theme/colors.dart';
@@ -28,7 +27,6 @@ class _QuizScreenState extends State<QuizScreen>
   bool _isComplete = false;
   bool _initialized = false;
   late AnimationController _animController;
-  final _random = Random();
 
   @override
   void initState() {
@@ -450,6 +448,7 @@ class _QuizScreenState extends State<QuizScreen>
       interactionType: type,
       wasSuccessful: wasSuccessful,
     ).then((updated) {
+      if (!mounted) return;
       learnerState.setProfile(updated);
     });
   }

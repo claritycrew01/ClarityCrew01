@@ -32,7 +32,11 @@ class SessionState extends ChangeNotifier {
   }
 
   Future<void> _initialize() async {
-    _sessions = await _repo.loadSessionHistory();
+    try {
+      _sessions = await _repo.loadSessionHistory();
+    } catch (_) {
+      // Start with empty session history on load failure
+    }
     _isLoading = false;
     notifyListeners();
   }

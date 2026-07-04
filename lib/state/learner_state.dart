@@ -1,7 +1,5 @@
 import 'package:flutter/foundation.dart';
 import '../models/learner_profile.dart';
-import '../models/session_record.dart';
-import '../models/interaction_event.dart';
 import '../persistence/local_storage_repository.dart';
 
 class LearnerState extends ChangeNotifier {
@@ -19,9 +17,13 @@ class LearnerState extends ChangeNotifier {
   }
 
   Future<void> _initialize() async {
-    final saved = await _repo.loadLearnerProfile();
-    if (saved != null) {
-      _profile = saved;
+    try {
+      final saved = await _repo.loadLearnerProfile();
+      if (saved != null) {
+        _profile = saved;
+      }
+    } catch (_) {
+      // Use default profile on load failure
     }
     _isLoading = false;
     notifyListeners();

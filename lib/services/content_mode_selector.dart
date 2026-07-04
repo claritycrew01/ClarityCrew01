@@ -40,7 +40,9 @@ class ContentModeSelector {
   }
 
   LearningMode predictBestMode(LearnerProfile profile) {
-    return profile.modeWeights.entries
+    final entries = profile.modeWeights.entries;
+    if (entries.isEmpty) return _randomInitialMode();
+    return entries
         .reduce((a, b) => a.value > b.value ? a : b)
         .key;
   }

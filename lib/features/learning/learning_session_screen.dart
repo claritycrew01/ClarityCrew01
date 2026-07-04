@@ -874,6 +874,7 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
         action: SnackBarAction(
           label: 'Original',
           onPressed: () {
+            if (!mounted) return;
             setState(() {
               _useSimplified = false;
               _simplifiedBody = null;
@@ -917,6 +918,7 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
       interactionType: type,
       wasSuccessful: wasSuccessful,
     ).then((updated) {
+      if (!mounted) return;
       learnerState.setProfile(updated);
     });
   }

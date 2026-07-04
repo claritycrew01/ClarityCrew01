@@ -375,7 +375,7 @@ class _VideoScreenState extends State<VideoScreen> {
                       size: 16, color: AppColors.textSecondary),
                   const SizedBox(width: 6),
                   Text(
-                    'Offline video',
+                    video.assetPath.startsWith('http') ? 'Online video' : 'Offline video',
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: AppColors.textSecondary,
                         ),

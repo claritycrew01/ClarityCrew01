@@ -6,6 +6,7 @@ import '../../core/constants.dart';
 import '../../core/theme/colors.dart';
 import '../../state/learner_state.dart';
 import '../../state/app_state.dart';
+import '../../models/learner_profile.dart';
 import '../../services/accessibility_service.dart';
 import '../accessibility/accessibility_settings_screen.dart';
 
@@ -49,7 +50,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  Widget _buildProfileSection(BuildContext context, dynamic profile) {
+  Widget _buildProfileSection(BuildContext context, LearnerProfile profile) {
     final isDesktop = MediaQuery.of(context).size.width >= AppConstants.breakpointDesktop;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

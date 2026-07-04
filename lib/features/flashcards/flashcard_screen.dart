@@ -66,6 +66,28 @@ class _FlashcardScreenState extends State<FlashcardScreen>
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
+    if (_cards.isEmpty) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('Memory Boost')),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(32),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.style_outlined, size: 64,
+                    color: AppColors.textSecondary.withValues(alpha: 0.3)),
+                const SizedBox(height: 16),
+                Text('No flashcards available for this lesson.',
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        color: AppColors.textSecondary)),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
     if (_reviewCount >= _cards.length) {
       return _buildCompleteScreen(context);
     }
@@ -434,6 +456,7 @@ class _FlashcardScreenState extends State<FlashcardScreen>
       interactionType: known ? 'completed' : 'struggled',
       wasSuccessful: known,
     ).then((updated) {
+      if (!mounted) return;
       learnerState.setProfile(updated);
     });
 
