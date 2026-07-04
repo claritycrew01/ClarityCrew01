@@ -21,7 +21,10 @@ class StudyNavigation {
         return ContentRepository.findById(video.linkedLessonId);
       }
     }
-    return ContentRepository.findById(rec.contentId!);
+    if (rec.recommendedMode != LearningMode.video) {
+      return ContentRepository.findById(rec.contentId!);
+    }
+    return null;
   }
 
   static void launchMode(

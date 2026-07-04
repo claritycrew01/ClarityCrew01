@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 
-SemanticsLabel semanticLabel(String label) {
-  return SemanticsLabel(label: label);
-}
-
 extension SemanticsExtension on Widget {
   Widget withSemantics({
     String? label,
@@ -34,13 +30,6 @@ class ReducedMotionWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedSwitcher(
-      duration: _motionDuration(context),
-      child: child,
-    );
-  }
-
-  Duration _motionDuration(BuildContext context) {
-    return Duration.zero;
+    return child;
   }
 }

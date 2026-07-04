@@ -8,11 +8,13 @@ import '../../state/app_state.dart';
 import '../../models/content_item.dart';
 import '../../models/interaction_event.dart';
 import '../../services/content/content_repository.dart';
+import '../ai_tutor/ai_tutor_screen.dart';
 
 class LearningSessionScreen extends StatefulWidget {
   final String? initialLessonId;
+  final String? initialContentId;
 
-  const LearningSessionScreen({super.key, this.initialLessonId});
+  const LearningSessionScreen({super.key, this.initialLessonId, this.initialContentId});
 
   @override
   State<LearningSessionScreen> createState() => _LearningSessionScreenState();
@@ -99,6 +101,17 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
     final profile = learnerState.profile;
     final content = sessionState.currentContent ??
         _contentLibrary.first;
+
+    if (appState.shouldSimplifyContent(profile)) {
+      if (!_useSimplified || _simplifiedBody == null) {
+        _simplifyContent(content);
+      }
+    } else {
+      if (_useSimplified) {
+        _useSimplified = false;
+        _simplifiedBody = null;
+      }
+    }
 
     if (_showSummary) {
       return _buildSummaryScreen(context, sessionState);
@@ -463,55 +476,140 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
 
   Widget _buildNavigationButtons(ContentItem content, LearnerProfile profile, AppState appState) {
     final tapHeight = appState.tapTargetSize(profile).toDouble();
-    return Row(
+    final sessionState = context.watch<SessionState>();
+    final hasPrev = sessionState.activeContentIndex > 0;
+    final hasNext = sessionState.activeContentIndex < sessionState.activeContent.length - 1;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Expanded(
-          child: Semantics(
-            button: true,
-            label: 'Mark as complete',
-            child: FilledButton.icon(
-              onPressed: () {
-                _recordInteraction(
-                  context,
-                  content,
-                  'completed',
-                  wasSuccessful: true,
-                );
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Great progress!'),
-                    behavior: SnackBarBehavior.floating,
+        Row(
+          children: [
+            if (hasPrev)
+              Expanded(
+                child: Semantics(
+                  button: true,
+                  label: 'Previous lesson',
+                  child: OutlinedButton.icon(
+                    onPressed: () {
+                      sessionState.goBackContent();
+                      if (appState.shouldSimplifyContent(profile)) {
+                        _simplifyContent(_contentLibrary[
+                            sessionState.activeContentIndex.clamp(0, _contentLibrary.length - 1)]);
+                      } else {
+                        _useSimplified = false;
+                        _simplifiedBody = null;
+                      }
+                    },
+                    icon: const Icon(Icons.arrow_back_rounded),
+                    label: const Text('Previous'),
+                    style: OutlinedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(vertical: tapHeight > 48 ? 18 : 12),
+                    ),
                   ),
-                );
-              },
-              icon: const Icon(Icons.check_rounded),
-              label: const Text('Complete'),
-              style: FilledButton.styleFrom(
-                backgroundColor: AppColors.success,
-                padding: EdgeInsets.symmetric(vertical: tapHeight > 48 ? 18 : 12),
+                ),
+              ),
+            if (hasPrev) const SizedBox(width: 12),
+            if (hasNext)
+              Expanded(
+                child: Semantics(
+                  button: true,
+                  label: 'Next lesson',
+                  child: FilledButton.icon(
+                    onPressed: () {
+                      sessionState.advanceContent();
+                      if (appState.shouldSimplifyContent(profile)) {
+                        _simplifyContent(_contentLibrary[
+                            sessionState.activeContentIndex.clamp(0, _contentLibrary.length - 1)]);
+                      } else {
+                        _useSimplified = false;
+                        _simplifiedBody = null;
+                      }
+                    },
+                    icon: const Icon(Icons.arrow_forward_rounded),
+                    label: const Text('Next'),
+                    style: FilledButton.styleFrom(
+                      padding: EdgeInsets.symmetric(vertical: tapHeight > 48 ? 18 : 12),
+                    ),
+                  ),
+                ),
+              ),
+            if (!hasPrev && !hasNext) const Spacer(),
+          ],
+        ),
+        const SizedBox(height: 12),
+        Row(
+          children: [
+            Expanded(
+              child: Semantics(
+                button: true,
+                label: 'Mark as complete',
+                child: FilledButton.icon(
+                  onPressed: () {
+                    _recordInteraction(
+                      context,
+                      content,
+                      'completed',
+                      wasSuccessful: true,
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Great progress!'),
+                        behavior: SnackBarBehavior.floating,
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.check_rounded),
+                  label: const Text('Complete'),
+                  style: FilledButton.styleFrom(
+                    backgroundColor: AppColors.success,
+                    padding: EdgeInsets.symmetric(vertical: tapHeight > 48 ? 18 : 12),
+                  ),
+                ),
               ),
             ),
-          ),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Semantics(
-            button: true,
-            label: 'Need a simpler version',
-            child: OutlinedButton.icon(
-              onPressed: () {
-                _simplifyContent(content);
-                _recordInteraction(
-                  context,
-                  content,
-                  'requestedSimpler',
-                );
-              },
-              icon: const Icon(Icons.remove_circle_outline),
-              label: const Text('Simplify'),
-              style: OutlinedButton.styleFrom(
-                padding: EdgeInsets.symmetric(vertical: tapHeight > 48 ? 18 : 12),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Semantics(
+                button: true,
+                label: 'Need a simpler version',
+                child: OutlinedButton.icon(
+                  onPressed: () {
+                    _simplifyContent(content);
+                    _recordInteraction(
+                      context,
+                      content,
+                      'requestedSimpler',
+                    );
+                  },
+                  icon: const Icon(Icons.remove_circle_outline),
+                  label: const Text('Simplify'),
+                  style: OutlinedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: tapHeight > 48 ? 18 : 12),
+                  ),
+                ),
               ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        Semantics(
+          button: true,
+          label: 'Ask AI about this lesson',
+          child: OutlinedButton.icon(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => AiTutorScreen(
+                    initialContentId: content.id,
+                  ),
+                ),
+              );
+            },
+            icon: const Icon(Icons.auto_awesome_outlined),
+            label: const Text('Ask AI'),
+            style: OutlinedButton.styleFrom(
+              padding: EdgeInsets.symmetric(vertical: tapHeight > 48 ? 18 : 12),
             ),
           ),
         ),

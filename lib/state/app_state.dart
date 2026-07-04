@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import '../models/learner_profile.dart';
 import '../models/learning_recommendation.dart';
 import '../models/interaction_event.dart';
@@ -8,9 +7,7 @@ import '../models/session_record.dart';
 import '../services/adaptive_ai_engine.dart';
 import '../services/content_mode_selector.dart';
 import '../services/recommendation_engine.dart';
-import '../services/session_analyzer.dart';
 import '../services/progress_tracker.dart';
-import '../services/focus_support_service.dart';
 import '../services/accessibility_service.dart';
 import '../persistence/shared_preferences_adapter.dart';
 
@@ -18,9 +15,7 @@ class AppState extends ChangeNotifier {
   final AdaptiveAIEngine aiEngine = AdaptiveAIEngine();
   final ContentModeSelector modeSelector = ContentModeSelector();
   final RecommendationEngine recommendationEngine = RecommendationEngine();
-  final SessionAnalyzer sessionAnalyzer = SessionAnalyzer();
   final ProgressTracker progressTracker = ProgressTracker();
-  final FocusSupportService focusService = FocusSupportService();
   final AccessibilityService accessibilityService = AccessibilityService();
 
   LearningRecommendation? _currentRecommendation;
@@ -67,8 +62,6 @@ class AppState extends ChangeNotifier {
       accessibilityService.splitIntoSteps(text, profile);
   int getModeDisplayLimit(LearnerProfile profile) =>
       accessibilityService.getModeDisplayLimit(profile);
-  Duration animationDuration(LearnerProfile profile) =>
-      accessibilityService.getAnimationDuration(profile);
   List<String> accommodationsFor(LearnerProfile profile) =>
       accessibilityService.getRecommendedAccommodations(profile);
   List<(String label, IconData icon, Color color)> badgesFor(
@@ -88,7 +81,6 @@ class AppState extends ChangeNotifier {
     String contentId = '',
   }) async {
     _isProcessing = true;
-    notifyListeners();
 
     final event = InteractionEvent(
       id: UniqueKey().toString(),

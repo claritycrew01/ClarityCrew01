@@ -18,7 +18,9 @@ import '../video/video_screen.dart';
 import '../focus/focus_mode_screen.dart';
 
 class AiTutorScreen extends StatefulWidget {
-  const AiTutorScreen({super.key});
+  final String? initialContentId;
+
+  const AiTutorScreen({super.key, this.initialContentId});
 
   @override
   State<AiTutorScreen> createState() => _AiTutorScreenState();
@@ -49,7 +51,7 @@ class _AiTutorScreenState extends State<AiTutorScreen>
     if (!mounted) return;
     setState(() {
       _messages.addAll(conversation.messages);
-      _activeContentId = conversation.lastContentId;
+      _activeContentId = widget.initialContentId ?? conversation.lastContentId;
       _conversationLoaded = true;
       if (_messages.isEmpty) {
         _messages.add(
@@ -103,12 +105,16 @@ class _AiTutorScreenState extends State<AiTutorScreen>
       _activeContentId = response.contentId ?? _activeContentId;
     });
 
-    await _tutorStorage.saveConversation(
-      TutorConversation(
-        messages: _messages,
-        lastContentId: _activeContentId,
-      ),
-    );
+    try {
+      await _tutorStorage.saveConversation(
+        TutorConversation(
+          messages: _messages,
+          lastContentId: _activeContentId,
+        ),
+      );
+    } catch (_) {
+      // Conversation persistence is best-effort
+    }
   }
 
   @override

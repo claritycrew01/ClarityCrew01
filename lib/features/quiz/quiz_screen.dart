@@ -52,7 +52,10 @@ class _QuizScreenState extends State<QuizScreen>
             .where((l) => l.id == widget.initialLessonId)
             .toList()
         : ContentRepository.getAll();
-    _questions.addAll(lessons.map((lesson) {
+    _questions.addAll(lessons
+        .where((lesson) =>
+            lesson.quizOptions.isNotEmpty && lesson.correctOptionIndex != null)
+        .map((lesson) {
       return ContentItem(
         id: 'q_${lesson.id}',
         title: lesson.title,
@@ -85,7 +88,7 @@ class _QuizScreenState extends State<QuizScreen>
                 Icon(Icons.quiz_outlined, size: 64,
                     color: AppColors.textSecondary.withValues(alpha: 0.3)),
                 const SizedBox(height: 16),
-                Text('No questions available.',
+                Text('No questions for this lesson.',
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         color: AppColors.textSecondary)),
               ],
@@ -282,7 +285,7 @@ class _QuizScreenState extends State<QuizScreen>
             child: Text(
               isCorrect
                   ? 'Great job! You got it right.'
-                  : 'That was close! The correct answer was: ${question.quizOptions[question.correctOptionIndex!]}',
+                  : 'That was close! The correct answer was: ${question.correctOptionIndex != null && question.correctOptionIndex! < question.quizOptions.length ? question.quizOptions[question.correctOptionIndex!] : 'not available'}',
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),

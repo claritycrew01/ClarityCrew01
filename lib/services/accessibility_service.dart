@@ -3,13 +3,6 @@ import '../models/learner_profile.dart';
 import '../models/content_item.dart';
 
 class AccessibilityService {
-  double getEffectiveFontSize(
-    LearnerProfile profile,
-    double baseSize,
-  ) {
-    return baseSize * profile.fontSizeMultiplier;
-  }
-
   bool shouldSimplifyVisuals(LearnerProfile profile) {
     return profile.prefersReducedVisuals ||
         profile.neurodivergentTraits.contains('sensory processing');
@@ -21,12 +14,7 @@ class AccessibilityService {
         profile.neurodivergentTraits.contains('autism');
   }
 
-  Duration getAnimationDuration(LearnerProfile profile) {
-    if (shouldReduceMotion(profile)) return Duration.zero;
-    return const Duration(milliseconds: 300);
-  }
-
-  int getRecommendedTapTargetSize(LearnerProfile profile) {
+  bool shouldReduceMotion(LearnerProfile profile) {
     if (profile.neurodivergentTraits.contains('adhd') ||
         profile.neurodivergentTraits.contains('dyspraxia')) {
       return 56;

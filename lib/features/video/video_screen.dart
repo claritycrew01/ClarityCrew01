@@ -101,7 +101,7 @@ class _VideoScreenState extends State<VideoScreen> {
     if (video.assetPath.startsWith('http')) {
       return VideoPlayerController.networkUrl(Uri.parse(video.assetPath));
     }
-    if (kIsWeb) {
+    if (kIsWeb && video.assetPath.startsWith('assets/')) {
       return VideoPlayerController.networkUrl(
         Uri.parse(video.assetPath),
       );
@@ -210,16 +210,28 @@ class _VideoScreenState extends State<VideoScreen> {
           color: Colors.black,
           child: _isLoadingVideo
               ? const Center(child: CircularProgressIndicator())
-              : _loadError != null
+                      : _loadError != null
                   ? Center(
                       child: Padding(
                         padding: const EdgeInsets.all(16),
-                        child: Text(
-                          _loadError!,
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                color: Colors.white70,
-                              ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              _loadError!,
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: Colors.white70,
+                                  ),
+                            ),
+                            const SizedBox(height: 12),
+                            OutlinedButton.icon(
+                              onPressed: _loadVideo,
+                              icon: const Icon(Icons.refresh, color: Colors.white70),
+                              label: const Text('Retry',
+                                  style: TextStyle(color: Colors.white70)),
+                            ),
+                          ],
                         ),
                       ),
                     )

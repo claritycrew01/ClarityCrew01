@@ -150,33 +150,6 @@ class _AccessibilitySettingsScreenState
                   activeColor: AppColors.calmTeal,
                 ),
                 const Divider(height: 1),
-                ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  title: const Text('Line Spacing'),
-                  subtitle: Text('Current: ${profile.lineSpacing}'),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.remove_circle_outline),
-                        onPressed: () {
-                          final newVal =
-                              (profile.lineSpacing - 0.25).clamp(1.0, 3.0);
-                          learnerState.updateAccessibility(lineSpacing: newVal);
-                        },
-                      ),
-                      Text('${profile.lineSpacing}'),
-                      IconButton(
-                        icon: const Icon(Icons.add_circle_outline),
-                        onPressed: () {
-                          final newVal =
-                              (profile.lineSpacing + 0.25).clamp(1.0, 3.0);
-                          learnerState.updateAccessibility(lineSpacing: newVal);
-                        },
-                      ),
-                    ],
-                  ),
-                ),
               ]),
               const SizedBox(height: 24),
               _buildSectionTitle(context, 'Accommodations'),

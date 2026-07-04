@@ -177,20 +177,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
               const Divider(height: 1),
               SwitchListTile(
                 contentPadding: EdgeInsets.zero,
-                title: const Text('Sound Effects'),
-                subtitle: const Text('Play sounds for interactions'),
-                value: appState.soundEnabled,
-                onChanged: (value) {
-                  appState.setSoundEnabled(value);
-                  if (appState.hapticEnabled && !kIsWeb) {
-                    HapticFeedback.lightImpact();
-                  }
-                },
-                activeColor: AppColors.calmTeal,
-              ),
-              const Divider(height: 1),
-              SwitchListTile(
-                contentPadding: EdgeInsets.zero,
                 title: const Text('Haptic Feedback'),
                 subtitle: const Text('Vibrate on key actions'),
                 value: appState.hapticEnabled,
