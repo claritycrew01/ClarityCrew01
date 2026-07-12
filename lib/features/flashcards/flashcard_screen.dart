@@ -391,7 +391,7 @@ class _FlashcardScreenState extends State<FlashcardScreen>
                 const SizedBox(height: 32),
                 FilledButton(
                   onPressed: () => Navigator.pop(context),
-                  child: const Text('Back to Dashboard'),
+                  child: const Text('Done'),
                 ),
             ],
           ),

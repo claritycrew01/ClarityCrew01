@@ -2,7 +2,7 @@ class AppConstants {
   AppConstants._();
 
   static const String appName = 'ClarityCrew';
-  static const String appTagline = 'Learn your way';
+  static const String appTagline = 'Study support for neurodivergent learners';
 
   static const double maxContentWidth = 1200;
   static const double breakpointTablet = 600;

@@ -381,7 +381,7 @@ class _QuizScreenState extends State<QuizScreen>
               const SizedBox(height: 40),
               FilledButton(
                 onPressed: () => Navigator.pop(context),
-                child: const Text('Back to Dashboard'),
+                child: const Text('Done'),
               ),
               const SizedBox(height: 12),
               TextButton(

@@ -115,34 +115,98 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
           const SizedBox(height: 16),
           Text(
-            'A learning companion built for the way your mind works.\nNo pressure. No overwhelm. Just your pace, your path.',
+            'A study app for neurodivergent learners.\nNo pressure. No overwhelm. Your pace, your path.',
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   color: AppColors.textSecondary,
                 ),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 40),
+          const SizedBox(height: 36),
           Container(
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               color: AppColors.calmBg,
               borderRadius: BorderRadius.circular(20),
             ),
-            child: Row(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(Icons.lightbulb_outline, color: AppColors.calmTeal),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Text(
-                    'Everything adapts to you.\nWe will learn what works best together.',
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
+                Row(
+                  children: [
+                    Icon(Icons.lightbulb_outline,
+                        size: 18, color: AppColors.calmTeal),
+                    const SizedBox(width: 8),
+                    Text(
+                      'Here is how it works:',
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
+                    ),
+                  ],
                 ),
+                const SizedBox(height: 14),
+                _buildStep(context, '1', 'Pick a subject',
+                    'Math, science, history — whatever you want to study.'),
+                const SizedBox(height: 10),
+                _buildStep(context, '2', 'Choose how to learn',
+                    'Read a lesson, take a quiz, watch a video, or try flashcards.'),
+                const SizedBox(height: 10),
+                _buildStep(context, '3', 'Go at your own pace',
+                    'Pause anytime. Adjust text size. Simplify content. No timers, no pressure.'),
               ],
             ),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildStep(
+      BuildContext context, String number, String title, String description) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          width: 26,
+          height: 26,
+          decoration: BoxDecoration(
+            color: AppColors.calmTeal.withValues(alpha: 0.2),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Center(
+            child: Text(
+              number,
+              style: TextStyle(
+                color: AppColors.calmTeal,
+                fontWeight: FontWeight.w700,
+                fontSize: 13,
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+              ),
+              const SizedBox(height: 2),
+              Text(
+                description,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: AppColors.textSecondary,
+                      height: 1.3,
+                    ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 

@@ -32,6 +32,7 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
   int _currentStep = 0;
   List<String> _steps = [];
   bool _hasDyscalculia = false;
+  String? _simplifiedForContentId;
 
   @override
   void initState() {
@@ -56,6 +57,7 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
       }
       if (appState.shouldSimplifyContent(profile) &&
           _contentLibrary.isNotEmpty) {
+        _simplifiedForContentId = _contentLibrary.first.id;
         _simplifyContent(_contentLibrary.first);
       }
       if (appState.shouldShowStepByStep(profile) &&
@@ -102,15 +104,22 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
     final content = sessionState.currentContent ??
         _contentLibrary.first;
 
-    if (appState.shouldSimplifyContent(profile)) {
-      if (!_useSimplified || _simplifiedBody == null) {
+    if (appState.shouldSimplifyContent(profile) &&
+        _simplifiedForContentId != content.id) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        _simplifiedForContentId = content.id;
         _simplifyContent(content);
-      }
-    } else {
-      if (_useSimplified) {
-        _useSimplified = false;
-        _simplifiedBody = null;
-      }
+      });
+    } else if (!appState.shouldSimplifyContent(profile) && _useSimplified) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        setState(() {
+          _useSimplified = false;
+          _simplifiedBody = null;
+          _simplifiedForContentId = null;
+        });
+      });
     }
 
     if (_showSummary) {
@@ -134,6 +143,20 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
         title: Text(content.contentType.replaceAll('_', ' ')),
         centerTitle: true,
         actions: [
+          if (appState.shouldSimplifyContent(profile))
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  if (_useSimplified) {
+                    _useSimplified = false;
+                    _simplifiedBody = null;
+                  } else {
+                    _simplifyContent(content);
+                  }
+                });
+              },
+              child: Text(_useSimplified ? 'Original' : 'Simplify'),
+            ),
           if (appState.shouldShowPauseControls(profile))
             IconButton(
               icon: const Icon(Icons.pause_circle_outline),
@@ -537,79 +560,32 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
           ],
         ),
         const SizedBox(height: 12),
-        Row(
-          children: [
-            Expanded(
-              child: Semantics(
-                button: true,
-                label: 'Mark as complete',
-                child: FilledButton.icon(
-                  onPressed: () {
-                    _recordInteraction(
-                      context,
-                      content,
-                      'completed',
-                      wasSuccessful: true,
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Great progress!'),
-                        behavior: SnackBarBehavior.floating,
-                      ),
-                    );
-                  },
-                  icon: const Icon(Icons.check_rounded),
-                  label: const Text('Complete'),
-                  style: FilledButton.styleFrom(
-                    backgroundColor: AppColors.success,
-                    padding: EdgeInsets.symmetric(vertical: tapHeight > 48 ? 18 : 12),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Semantics(
-                button: true,
-                label: 'Need a simpler version',
-                child: OutlinedButton.icon(
-                  onPressed: () {
-                    _simplifyContent(content);
-                    _recordInteraction(
-                      context,
-                      content,
-                      'requestedSimpler',
-                    );
-                  },
-                  icon: const Icon(Icons.remove_circle_outline),
-                  label: const Text('Simplify'),
-                  style: OutlinedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(vertical: tapHeight > 48 ? 18 : 12),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 12),
         Semantics(
           button: true,
-          label: 'Ask AI about this lesson',
-          child: OutlinedButton.icon(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => AiTutorScreen(
-                    initialContentId: content.id,
+          label: 'Mark as complete',
+          child: SizedBox(
+            width: double.infinity,
+            child: FilledButton.icon(
+              onPressed: () {
+                _recordInteraction(
+                  context,
+                  content,
+                  'completed',
+                  wasSuccessful: true,
+                );
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Great progress!'),
+                    behavior: SnackBarBehavior.floating,
                   ),
-                ),
-              );
-            },
-            icon: const Icon(Icons.auto_awesome_outlined),
-            label: const Text('Ask AI'),
-            style: OutlinedButton.styleFrom(
-              padding: EdgeInsets.symmetric(vertical: tapHeight > 48 ? 18 : 12),
+                );
+              },
+              icon: const Icon(Icons.check_rounded),
+              label: const Text('Complete'),
+              style: FilledButton.styleFrom(
+                backgroundColor: AppColors.success,
+                padding: EdgeInsets.symmetric(vertical: tapHeight > 48 ? 18 : 12),
+              ),
             ),
           ),
         ),
@@ -841,7 +817,7 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
               const SizedBox(height: 32),
               FilledButton(
                 onPressed: () => Navigator.pop(context),
-                child: const Text('Back to Dashboard'),
+                child: const Text('Done'),
               ),
             ],
           ),
@@ -851,38 +827,46 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
   }
 
   void _simplifyContent(ContentItem content) {
-    final sentences = content.body.split(RegExp(r'(?<=[.!?])\s+'));
-    String simplified;
-    if (sentences.length <= 2) {
-      simplified = content.body;
-    } else {
-      simplified = sentences.take(2).join(' ');
-      final keyPoints = content.tags.isNotEmpty
-          ? '\n\nKey points: ${content.tags.take(3).join(', ')}'
-          : '';
-      simplified += keyPoints;
+    final body = content.body.trim();
+    if (body.isEmpty) {
+      setState(() {
+        _useSimplified = true;
+        _simplifiedBody = body;
+      });
+      return;
     }
+
+    final paragraphs = body.split(RegExp(r'\n\n+')).where((p) => p.trim().isNotEmpty).toList();
+    final builder = StringBuffer();
+
+    if (content.tags.isNotEmpty) {
+      builder.writeln('Key terms: ${content.tags.take(5).join(', ')}');
+      builder.writeln();
+    }
+
+    if (paragraphs.length <= 2) {
+      final sentences = body.split(RegExp(r'(?<=[.!?])\s+'));
+      if (sentences.length <= 3) {
+        builder.write(body);
+      } else {
+        builder.writeln(sentences[0]);
+        if (sentences.length > 1) {
+          builder.write(sentences.last);
+        }
+      }
+    } else {
+      for (final para in paragraphs) {
+        final trimmed = para.trim();
+        if (trimmed.isEmpty) continue;
+        final firstSentence = trimmed.split(RegExp(r'(?<=[.!?])\s+')).first;
+        builder.writeln('- $firstSentence');
+      }
+    }
+
     setState(() {
       _useSimplified = true;
-      _simplifiedBody = simplified;
+      _simplifiedBody = builder.toString().trim();
     });
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: const Text('Showing simplified version'),
-        behavior: SnackBarBehavior.floating,
-        duration: const Duration(seconds: 3),
-        action: SnackBarAction(
-          label: 'Original',
-          onPressed: () {
-            if (!mounted) return;
-            setState(() {
-              _useSimplified = false;
-              _simplifiedBody = null;
-            });
-          },
-        ),
-      ),
-    );
   }
 
   void _recordInteraction(

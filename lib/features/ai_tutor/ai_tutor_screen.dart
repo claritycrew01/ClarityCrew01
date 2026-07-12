@@ -25,9 +25,7 @@ class AiTutorScreen extends StatefulWidget {
   State<AiTutorScreen> createState() => _AiTutorScreenState();
 }
 
-class _AiTutorScreenState extends State<AiTutorScreen>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _pulseController;
+class _AiTutorScreenState extends State<AiTutorScreen> {
   final _messageController = TextEditingController();
   final _tutorService = TutorService();
   final _tutorStorage = TutorStorage();
@@ -38,10 +36,6 @@ class _AiTutorScreenState extends State<AiTutorScreen>
   @override
   void initState() {
     super.initState();
-    _pulseController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 3),
-    )..repeat(reverse: true);
     _loadConversation();
   }
 
@@ -59,7 +53,7 @@ class _AiTutorScreenState extends State<AiTutorScreen>
               id: 'welcome',
               role: 'tutor',
               text:
-                  'I am your AI tutor. Ask me to explain a lesson, simplify a topic, go deeper, or tell you what to study next.',
+                  'I can help you understand this topic. Ask me to explain something, simplify it, or give you a quick summary.',
               timestamp: DateTime.now(),
             ),
           );
@@ -125,7 +119,6 @@ class _AiTutorScreenState extends State<AiTutorScreen>
 
   @override
   void dispose() {
-    _pulseController.dispose();
     _messageController.dispose();
     super.dispose();
   }
@@ -139,7 +132,10 @@ class _AiTutorScreenState extends State<AiTutorScreen>
 
     appState.updateSessionData(sessionState.sessions);
     if (appState.recommendations.isEmpty) {
-      appState.generateNewRecommendations(profile);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        appState.generateNewRecommendations(profile);
+      });
     }
     final recs = appState.recommendations;
 
@@ -149,13 +145,9 @@ class _AiTutorScreenState extends State<AiTutorScreen>
       );
     }
 
-    if (appState.shouldReduceMotion(profile)) {
-      _pulseController.stop();
-    }
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text('AI Tutor'),
+        title: const Text('AI Study Help'),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -167,14 +159,10 @@ class _AiTutorScreenState extends State<AiTutorScreen>
               _buildAiHeader(context, profile),
               const SizedBox(height: 24),
               _buildConversation(context),
-              const SizedBox(height: 24),
-              _buildRecommendedForYou(context, recs, profile),
-              const SizedBox(height: 24),
-              _buildLearningStyleInsights(context, profile),
-              const SizedBox(height: 24),
-              _buildQuickActions(context, appState, recs),
-              const SizedBox(height: 24),
-              _buildSessionHistoryInsight(context, sessionState),
+              if (recs.isNotEmpty) ...[
+                const SizedBox(height: 24),
+                _buildRecommendedForYou(context, recs, profile),
+              ],
               const SizedBox(height: 32),
             ],
           ),
@@ -184,77 +172,54 @@ class _AiTutorScreenState extends State<AiTutorScreen>
   }
 
   Widget _buildAiHeader(BuildContext context, LearnerProfile profile) {
-    final bestMode = profile.modeWeights.entries.isEmpty
-        ? null
-        : profile.modeWeights.entries
-            .reduce((a, b) => a.value > b.value ? a : b);
-
     final isDesktop = MediaQuery.of(context).size.width >= AppConstants.breakpointDesktop;
-    return AnimatedBuilder(
-      animation: _pulseController,
-      builder: (context, child) {
-        return Container(
-          padding: EdgeInsets.all(isDesktop ? 20 : 24),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                AppColors.calmTeal.withValues(alpha: 0.15),
-                AppColors.sereneBlue.withValues(alpha: 0.08),
+    return Container(
+      padding: EdgeInsets.all(isDesktop ? 20 : 24),
+      decoration: BoxDecoration(
+        color: AppColors.calmTeal.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: AppColors.calmTeal.withValues(alpha: 0.2),
+        ),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: isDesktop ? 44 : 48,
+            height: isDesktop ? 44 : 48,
+            decoration: BoxDecoration(
+              color: AppColors.calmTeal.withValues(alpha: 0.2),
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: const Icon(
+              Icons.auto_awesome,
+              color: AppColors.calmTeal,
+              size: 24,
+            ),
+          ),
+          const SizedBox(width: 14),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'AI Study Help',
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  'Ask questions about your current topic.',
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: AppColors.textSecondary,
+                      ),
+                ),
               ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            borderRadius: BorderRadius.circular(24),
-            border: Border.all(
-              color: AppColors.calmTeal.withValues(alpha: 0.3),
             ),
           ),
-          child: Row(
-            children: [
-              Container(
-                width: isDesktop ? 48 : 56,
-                height: isDesktop ? 48 : 56,
-                decoration: BoxDecoration(
-                  color: AppColors.calmTeal.withValues(alpha: 0.2),
-                  borderRadius: BorderRadius.circular(18),
-                ),
-                child: Icon(
-                  Icons.auto_awesome,
-                  color: AppColors.calmTeal.withValues(
-                    alpha: 0.7 + _pulseController.value * 0.3,
-                  ),
-                  size: isDesktop ? 24 : 28,
-                ),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      profile.name.isNotEmpty
-                          ? "I'm watching your progress, ${profile.name}"
-                          : "I'm watching your progress",
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                            fontWeight: FontWeight.w700,
-                          ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      bestMode != null
-                          ? 'You learn best with ${bestMode.key.toString().split('.').last.replaceAll('_', ' ')} right now'
-                          : "I'm still learning how you learn best",
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: AppColors.textSecondary,
-                          ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        );
-      },
+        ],
+      ),
     );
   }
 
