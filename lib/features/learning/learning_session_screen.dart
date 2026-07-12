@@ -146,14 +146,14 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
           if (appState.shouldSimplifyContent(profile))
             TextButton(
               onPressed: () {
-                setState(() {
-                  if (_useSimplified) {
+                if (_useSimplified) {
+                  setState(() {
                     _useSimplified = false;
                     _simplifiedBody = null;
-                  } else {
-                    _simplifyContent(content);
-                  }
-                });
+                  });
+                } else {
+                  _simplifyContent(content);
+                }
               },
               child: Text(_useSimplified ? 'Original' : 'Simplify'),
             ),
@@ -827,52 +827,65 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
   }
 
   void _simplifyContent(ContentItem content) {
-    final body = content.body.trim();
-    if (body.isEmpty) {
-      setState(() {
-        _useSimplified = true;
-        _simplifiedBody = body;
-      });
-      return;
-    }
-
-    final simplified = _simplifyText(body);
-    final paragraphs = simplified.split(RegExp(r'\n\n+')).where((p) => p.trim().isNotEmpty).toList();
-    final builder = StringBuffer();
-
-    if (content.tags.isNotEmpty) {
-      builder.writeln('Key terms: ${content.tags.take(5).join(', ')}');
-      builder.writeln();
-    }
-
-    if (paragraphs.length <= 2) {
-      final sentences = simplified.split(RegExp(r'(?<=[.!?])\s+')).where((s) => s.trim().isNotEmpty).toList();
-      if (sentences.length <= 4) {
-        builder.write(simplified);
-      } else {
-        builder.writeln(sentences[0]);
-        builder.writeln();
-        builder.write(sentences.last);
+    try {
+      final body = content.body.trim();
+      if (body.isEmpty) {
+        setState(() {
+          _useSimplified = true;
+          _simplifiedBody = body;
+        });
+        return;
       }
-    } else {
-      for (final para in paragraphs) {
-        final trimmed = para.trim();
-        if (trimmed.isEmpty) continue;
-        final sentences = trimmed.split(RegExp(r'(?<=[.!?])\s+')).where((s) => s.trim().isNotEmpty).toList();
-        if (sentences.length <= 2) {
-          builder.writeln(trimmed);
+
+      final simplified = _simplifyText(body);
+      final paragraphs = simplified.split(RegExp(r'\n\n+')).where((p) => p.trim().isNotEmpty).toList();
+      final builder = StringBuffer();
+
+      if (content.tags.isNotEmpty) {
+        builder.writeln('Key terms: ${content.tags.take(5).join(', ')}');
+        builder.writeln();
+      }
+
+      if (paragraphs.length <= 2) {
+        final sentences = simplified.split(RegExp(r'(?<=[.!?])\s+')).where((s) => s.trim().isNotEmpty).toList();
+        if (sentences.length <= 4) {
+          builder.write(simplified);
         } else {
           builder.writeln(sentences[0]);
-          builder.writeln(sentences[1]);
+          builder.writeln();
+          builder.write(sentences.last);
         }
-        builder.writeln();
+      } else {
+        for (final para in paragraphs) {
+          final trimmed = para.trim();
+          if (trimmed.isEmpty) continue;
+          final sentences = trimmed.split(RegExp(r'(?<=[.!?])\s+')).where((s) => s.trim().isNotEmpty).toList();
+          if (sentences.length <= 2) {
+            builder.writeln(trimmed);
+          } else {
+            builder.writeln(sentences[0]);
+            builder.writeln(sentences[1]);
+          }
+          builder.writeln();
+        }
       }
-    }
 
-    setState(() {
-      _useSimplified = true;
-      _simplifiedBody = builder.toString().trim();
-    });
+      var result = builder.toString().trim();
+      if (result == body) {
+        result = '→ $body';
+      }
+
+      setState(() {
+        _useSimplified = true;
+        _simplifiedBody = result;
+      });
+    } catch (e) {
+      debugPrint('_simplifyContent error: $e');
+      setState(() {
+        _useSimplified = true;
+        _simplifiedBody = content.body;
+      });
+    }
   }
 
   String _simplifyText(String text) {
@@ -890,6 +903,7 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
       'in order to', 'as a result of', 'due to the fact that',
       'on the other hand', 'in addition to', 'in terms of',
       'with respect to', 'in relation to', 'with regard to',
+      'for the purpose of', 'in the context of',
     ];
     for (final filler in fillers) {
       s = s.replaceAll(RegExp(RegExp.escape(filler), caseSensitive: false), '').trim();
@@ -929,34 +943,96 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
       'terminate': 'end', 'terminates': 'ends', 'terminated': 'ended', 'terminating': 'ending',
       'function': 'work', 'functions': 'works', 'functioned': 'worked', 'functioning': 'working',
       'observe': 'see', 'observes': 'sees', 'observed': 'saw', 'observing': 'seeing',
+      'primary': 'main', 'primarily': 'mainly',
+      'fundamental': 'basic', 'fundamentally': 'basically',
+      'significant': 'big', 'significantly': 'a lot',
+      'component': 'part', 'components': 'parts',
+      'concept': 'idea', 'concepts': 'ideas',
+      'strategy': 'plan', 'strategies': 'plans',
+      'method': 'way', 'methods': 'ways',
+      'technique': 'method', 'techniques': 'methods',
+      'individual': 'person', 'individuals': 'people',
+      'purchase': 'buy', 'purchases': 'buys', 'purchased': 'bought',
+      'communicate': 'talk', 'communicates': 'talks', 'communicated': 'talked',
+      'participate': 'join', 'participates': 'joins', 'participated': 'joined',
+      'contribute': 'add', 'contributes': 'adds', 'contributed': 'added',
+      'constitute': 'make up', 'constitutes': 'makes up', 'constituted': 'made up',
+      'categorize': 'group', 'categorizes': 'groups', 'categorized': 'grouped',
+      'classify': 'sort', 'classifies': 'sorts', 'classified': 'sorted',
+      'distinguish': 'tell apart', 'distinguishes': 'tells apart',
+      'acquire': 'gain', 'acquires': 'gains', 'acquired': 'gained',
+      'maintain': 'keep', 'maintains': 'keeps', 'maintained': 'kept',
+      'retain': 'keep', 'retains': 'keeps', 'retained': 'kept',
+      'replicate': 'copy', 'replicates': 'copies', 'replicated': 'copied',
+      'formulate': 'create', 'formulates': 'creates', 'formulated': 'created',
+      'evaluate': 'check', 'evaluates': 'checks', 'evaluated': 'checked',
+      'interpret': 'explain', 'interprets': 'explains', 'interpreted': 'explained',
+      'summarize': 'sum up', 'summarizes': 'sums up', 'summarized': 'summed up',
+      'represent': 'stand for', 'represents': 'stands for', 'represented': 'stood for',
+      'designate': 'call', 'designates': 'calls', 'designated': 'called',
+      'comprise': 'include', 'comprises': 'includes', 'comprised': 'included',
+      'emerged': 'came', 'emerges': 'comes',
+      'prohibited': 'banned', 'prohibits': 'bans',
+      'guarantee': 'ensure', 'guarantees': 'ensures',
     };
     for (final entry in wordReplacements.entries) {
       s = s.replaceAll(RegExp('\\b${RegExp.escape(entry.key)}\\b', caseSensitive: false), entry.value);
     }
 
+    s = s.replaceAll(RegExp(r'\s+'), ' ').trim();
+
     final sentences = s.split(RegExp(r'(?<=[.!?])\s+'));
     final splitSentences = <String>[];
     for (final sentence in sentences) {
-      final trimmed = sentence.trim();
+      var trimmed = sentence.trim();
       if (trimmed.isEmpty) continue;
-      final words = trimmed.split(' ');
-      if (words.length > 18) {
-        final conjPatterns = [', and ', ', but ', ', or ', ' and ', ' but ', ' or ', ' because ', ' which ', ' that '];
+
+      while (true) {
+        final words = trimmed.split(' ');
+        if (words.length <= 12) {
+          splitSentences.add(trimmed);
+          break;
+        }
+
+        final splitPatterns = [
+          ', and ', ', but ', ', or ',
+          ' and ', ' but ', ' or ',
+          ' because ', ' which ', ' that ',
+          '; ',
+        ];
+
         bool wasSplit = false;
-        for (final conj in conjPatterns) {
-          final idx = trimmed.indexOf(conj);
-          if (idx > 0 && idx < trimmed.length - conj.length - 1) {
-            splitSentences.add(trimmed.substring(0, idx).trim() + '.');
-            splitSentences.add(trimmed.substring(idx + conj.length).trim());
-            wasSplit = true;
-            break;
+        for (final pattern in splitPatterns) {
+          final idx = trimmed.indexOf(pattern);
+          if (idx > 0) {
+            final before = trimmed.substring(0, idx).trim();
+            final after = trimmed.substring(idx + pattern.length).trim();
+            if (before.isNotEmpty && after.isNotEmpty) {
+              splitSentences.add(before.endsWith('.') ? before : '$before.');
+              trimmed = after;
+              wasSplit = true;
+              break;
+            }
           }
         }
+
         if (!wasSplit) {
-          splitSentences.add(trimmed);
+          final commaIdx = trimmed.indexOf(', ');
+          if (commaIdx > 0) {
+            final before = trimmed.substring(0, commaIdx).trim();
+            final after = trimmed.substring(commaIdx + 2).trim();
+            if (before.isNotEmpty && after.isNotEmpty) {
+              splitSentences.add(before.endsWith('.') ? before : '$before.');
+              trimmed = after;
+              continue;
+            }
+          }
+          final mid = words.length ~/ 2;
+          final before = words.take(mid).join(' ');
+          final after = words.skip(mid).join(' ');
+          splitSentences.add(before.endsWith('.') ? before : '$before.');
+          trimmed = after;
         }
-      } else {
-        splitSentences.add(trimmed);
       }
     }
 
@@ -965,13 +1041,13 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
     }
 
     final result = StringBuffer();
-    result.writeln(splitSentences[0]);
+    result.writeln('→ ${splitSentences[0]}');
     result.writeln();
     for (var i = 1; i < splitSentences.length - 1; i++) {
-      result.writeln(splitSentences[i]);
+      result.writeln('→ ${splitSentences[i]}');
+      result.writeln();
     }
-    result.writeln();
-    result.write(splitSentences.last);
+    result.write('→ ${splitSentences.last}');
 
     return result.toString().trim();
   }
