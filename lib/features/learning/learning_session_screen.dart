@@ -143,20 +143,6 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
         title: Text(content.contentType.replaceAll('_', ' ')),
         centerTitle: true,
         actions: [
-          if (appState.shouldSimplifyContent(profile))
-            TextButton(
-              onPressed: () {
-                if (_useSimplified) {
-                  setState(() {
-                    _useSimplified = false;
-                    _simplifiedBody = null;
-                  });
-                } else {
-                  _simplifyContent(content);
-                }
-              },
-              child: Text(_useSimplified ? 'Original' : 'Simplify'),
-            ),
           if (appState.shouldShowPauseControls(profile))
             IconButton(
               icon: const Icon(Icons.pause_circle_outline),
@@ -272,6 +258,28 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Row(
+            children: [
+              const Spacer(),
+              TextButton.icon(
+                onPressed: () {
+                  if (_useSimplified) {
+                    setState(() {
+                      _useSimplified = false;
+                      _simplifiedBody = null;
+                    });
+                  } else {
+                    _simplifyContent(content);
+                  }
+                },
+                icon: Icon(
+                  _useSimplified ? Icons.auto_stories : Icons.psychology,
+                  size: 18,
+                ),
+                label: Text(_useSimplified ? 'Original' : 'Simplify'),
+              ),
+            ],
+          ),
           Text(
             displayText,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
