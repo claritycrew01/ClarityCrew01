@@ -836,7 +836,8 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
       return;
     }
 
-    final paragraphs = body.split(RegExp(r'\n\n+')).where((p) => p.trim().isNotEmpty).toList();
+    final simplified = _simplifyText(body);
+    final paragraphs = simplified.split(RegExp(r'\n\n+')).where((p) => p.trim().isNotEmpty).toList();
     final builder = StringBuffer();
 
     if (content.tags.isNotEmpty) {
@@ -845,21 +846,26 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
     }
 
     if (paragraphs.length <= 2) {
-      final sentences = body.split(RegExp(r'(?<=[.!?])\s+'));
-      if (sentences.length <= 3) {
-        builder.write(body);
+      final sentences = simplified.split(RegExp(r'(?<=[.!?])\s+')).where((s) => s.trim().isNotEmpty).toList();
+      if (sentences.length <= 4) {
+        builder.write(simplified);
       } else {
         builder.writeln(sentences[0]);
-        if (sentences.length > 1) {
-          builder.write(sentences.last);
-        }
+        builder.writeln();
+        builder.write(sentences.last);
       }
     } else {
       for (final para in paragraphs) {
         final trimmed = para.trim();
         if (trimmed.isEmpty) continue;
-        final firstSentence = trimmed.split(RegExp(r'(?<=[.!?])\s+')).first;
-        builder.writeln('- $firstSentence');
+        final sentences = trimmed.split(RegExp(r'(?<=[.!?])\s+')).where((s) => s.trim().isNotEmpty).toList();
+        if (sentences.length <= 2) {
+          builder.writeln(trimmed);
+        } else {
+          builder.writeln(sentences[0]);
+          builder.writeln(sentences[1]);
+        }
+        builder.writeln();
       }
     }
 
@@ -867,6 +873,107 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
       _useSimplified = true;
       _simplifiedBody = builder.toString().trim();
     });
+  }
+
+  String _simplifyText(String text) {
+    var s = text;
+
+    final fillers = [
+      'essentially', 'basically', 'actually', 'literally',
+      'virtually', 'practically', 'particularly', 'specifically',
+      'generally', 'typically', 'usually', 'often', 'sometimes',
+      'quite', 'very', 'extremely', 'incredibly', 'highly',
+      'significantly', 'substantially', 'considerably',
+      'importantly', 'interestingly', 'notably', 'remarkably',
+      'it is important to note that', 'it should be noted that',
+      'it is worth noting that', 'it is interesting to note that',
+      'in order to', 'as a result of', 'due to the fact that',
+      'on the other hand', 'in addition to', 'in terms of',
+      'with respect to', 'in relation to', 'with regard to',
+    ];
+    for (final filler in fillers) {
+      s = s.replaceAll(RegExp(RegExp.escape(filler), caseSensitive: false), '').trim();
+    }
+
+    final wordReplacements = <String, String>{
+      'utilize': 'use', 'utilizes': 'uses', 'utilized': 'used', 'utilizing': 'using',
+      'implement': 'use', 'implements': 'uses', 'implemented': 'used', 'implementing': 'using',
+      'demonstrate': 'show', 'demonstrates': 'shows', 'demonstrated': 'showed', 'demonstrating': 'showing',
+      'illustrate': 'show', 'illustrates': 'shows', 'illustrated': 'showed', 'illustrating': 'showing',
+      'indicate': 'show', 'indicates': 'shows', 'indicated': 'showed', 'indicating': 'showing',
+      'sufficient': 'enough', 'sufficiently': 'enough',
+      'additional': 'more', 'additionally': 'also',
+      'furthermore': 'also', 'moreover': 'also',
+      'nevertheless': 'but', 'nonetheless': 'but',
+      'consequently': 'so', 'therefore': 'so', 'thus': 'so', 'hence': 'so',
+      'regarding': 'about', 'concerning': 'about',
+      'approximately': 'about', 'numerous': 'many', 'multiple': 'many',
+      'subsequent': 'next', 'subsequently': 'next',
+      'previously': 'before', 'prior': 'before',
+      'obtain': 'get', 'obtains': 'gets', 'obtained': 'got', 'obtaining': 'getting',
+      'require': 'need', 'requires': 'needs', 'required': 'needed', 'requiring': 'needing',
+      'assist': 'help', 'assists': 'helps', 'assisted': 'helped', 'assisting': 'helping',
+      'construct': 'build', 'constructs': 'builds', 'constructed': 'built', 'constructing': 'building',
+      'locate': 'find', 'locates': 'finds', 'located': 'found', 'locating': 'finding',
+      'determine': 'find', 'determines': 'finds', 'determined': 'found', 'determining': 'finding',
+      'attempt': 'try', 'attempts': 'tries', 'attempted': 'tried', 'attempting': 'trying',
+      'comprehend': 'understand', 'comprehends': 'understands', 'comprehended': 'understood', 'comprehending': 'understanding',
+      'encounter': 'meet', 'encounters': 'meets', 'encountered': 'met', 'encountering': 'meeting',
+      'establish': 'set up', 'establishes': 'sets up', 'established': 'set up', 'establishing': 'setting up',
+      'generate': 'make', 'generates': 'makes', 'generated': 'made', 'generating': 'making',
+      'identify': 'name', 'identifies': 'names', 'identified': 'named', 'identifying': 'naming',
+      'initiate': 'start', 'initiates': 'starts', 'initiated': 'started', 'initiating': 'starting',
+      'modify': 'change', 'modifies': 'changes', 'modified': 'changed', 'modifying': 'changing',
+      'possess': 'have', 'possesses': 'has', 'possessed': 'had', 'possessing': 'having',
+      'proceed': 'go', 'proceeds': 'goes', 'proceeded': 'went', 'proceeding': 'going',
+      'terminate': 'end', 'terminates': 'ends', 'terminated': 'ended', 'terminating': 'ending',
+      'function': 'work', 'functions': 'works', 'functioned': 'worked', 'functioning': 'working',
+      'observe': 'see', 'observes': 'sees', 'observed': 'saw', 'observing': 'seeing',
+    };
+    for (final entry in wordReplacements.entries) {
+      s = s.replaceAll(RegExp('\\b${RegExp.escape(entry.key)}\\b', caseSensitive: false), entry.value);
+    }
+
+    final sentences = s.split(RegExp(r'(?<=[.!?])\s+'));
+    final splitSentences = <String>[];
+    for (final sentence in sentences) {
+      final trimmed = sentence.trim();
+      if (trimmed.isEmpty) continue;
+      final words = trimmed.split(' ');
+      if (words.length > 18) {
+        final conjPatterns = [', and ', ', but ', ', or ', ' and ', ' but ', ' or ', ' because ', ' which ', ' that '];
+        bool wasSplit = false;
+        for (final conj in conjPatterns) {
+          final idx = trimmed.indexOf(conj);
+          if (idx > 0 && idx < trimmed.length - conj.length - 1) {
+            splitSentences.add(trimmed.substring(0, idx).trim() + '.');
+            splitSentences.add(trimmed.substring(idx + conj.length).trim());
+            wasSplit = true;
+            break;
+          }
+        }
+        if (!wasSplit) {
+          splitSentences.add(trimmed);
+        }
+      } else {
+        splitSentences.add(trimmed);
+      }
+    }
+
+    if (splitSentences.length <= 2) {
+      return splitSentences.join(' ');
+    }
+
+    final result = StringBuffer();
+    result.writeln(splitSentences[0]);
+    result.writeln();
+    for (var i = 1; i < splitSentences.length - 1; i++) {
+      result.writeln(splitSentences[i]);
+    }
+    result.writeln();
+    result.write(splitSentences.last);
+
+    return result.toString().trim();
   }
 
   void _recordInteraction(
