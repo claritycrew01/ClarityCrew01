@@ -9,6 +9,7 @@ class ContentItem {
   final int estimatedDurationSeconds;
   final List<String> tags;
   final String body;
+  final String simplifiedVersion;
   final String subject;
   final String chapter;
   final String? chapterId;
@@ -29,6 +30,7 @@ class ContentItem {
     this.estimatedDurationSeconds = 300,
     this.tags = const [],
     this.body = '',
+    this.simplifiedVersion = '',
     this.subject = '',
     this.chapter = '',
     this.chapterId,
@@ -50,6 +52,7 @@ class ContentItem {
     int? estimatedDurationSeconds,
     List<String>? tags,
     String? body,
+    String? simplifiedVersion,
     String? subject,
     String? chapter,
     String? chapterId,
@@ -71,6 +74,7 @@ class ContentItem {
           estimatedDurationSeconds ?? this.estimatedDurationSeconds,
       tags: tags ?? this.tags,
       body: body ?? this.body,
+      simplifiedVersion: simplifiedVersion ?? this.simplifiedVersion,
       subject: subject ?? this.subject,
       chapter: chapter ?? this.chapter,
       chapterId: chapterId ?? this.chapterId,
@@ -93,6 +97,7 @@ class ContentItem {
         'estimatedDurationSeconds': estimatedDurationSeconds,
         'tags': tags,
         'body': body,
+        'simplifiedVersion': simplifiedVersion,
         'subject': subject,
         'chapter': chapter,
         'chapterId': chapterId,
@@ -116,6 +121,7 @@ class ContentItem {
           json['estimatedDurationSeconds'] as int? ?? 300,
       tags: (json['tags'] as List<dynamic>?)?.cast<String>() ?? [],
       body: json['body'] as String? ?? '',
+      simplifiedVersion: json['simplifiedVersion'] as String? ?? '',
       subject: json['subject'] as String? ?? '',
       chapter: json['chapter'] as String? ?? '',
       chapterId: json['chapterId'] as String?,
