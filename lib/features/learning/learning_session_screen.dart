@@ -10,6 +10,7 @@ import '../../models/interaction_event.dart';
 import '../../services/content/content_repository.dart';
 import '../ai_tutor/ai_tutor_screen.dart';
 import 'learning_profile_config.dart';
+import '../../services/speech_service.dart';
 
 class LearningSessionScreen extends StatefulWidget {
   final String? initialLessonId;
@@ -56,6 +57,9 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
   bool _focusTimerActive = false;
   int _templateIndex = 0;
   int _scaffoldStage = 0;
+  final _speechService = SpeechService();
+  bool _isListening = false;
+  String _transcribedText = '';
 
   @override
   void initState() {
@@ -66,6 +70,7 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
 
   @override
   void dispose() {
+    _speechService.stopListening();
     _answerController.dispose();
     _scrollController.dispose();
     super.dispose();
@@ -147,15 +152,6 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
         if (!mounted) return;
         _simplifiedForContentId = content.id;
         _simplifyContent(content);
-      });
-    } else if (!config.autoSimplify && _useSimplified) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (!mounted) return;
-        setState(() {
-          _useSimplified = false;
-          _simplifiedBody = null;
-          _simplifiedForContentId = null;
-        });
       });
     }
 
@@ -1355,19 +1351,7 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
               borderRadius: BorderRadius.circular(12),
             ),
             suffixIcon: config.showSpeechToText
-                ? IconButton(
-                    icon: const Icon(Icons.mic_outlined),
-                    tooltip: 'Use speech-to-text',
-                    onPressed: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Speech input enabled'),
-                          behavior: SnackBarBehavior.floating,
-                          duration: Duration(seconds: 2),
-                        ),
-                      );
-                    },
-                  )
+                ? _buildSpeechButton()
                 : null,
           ),
         ),
@@ -1510,19 +1494,7 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
               borderRadius: BorderRadius.circular(12),
             ),
             suffixIcon: config.showSpeechToText
-                ? IconButton(
-                    icon: const Icon(Icons.mic_outlined),
-                    tooltip: 'Use speech-to-text',
-                    onPressed: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Speech input enabled — speak your answer'),
-                          behavior: SnackBarBehavior.floating,
-                          duration: Duration(seconds: 2),
-                        ),
-                      );
-                    },
-                  )
+                ? _buildSpeechButton()
                 : null,
           ),
         ),
@@ -1719,6 +1691,52 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
     final words = text.split(' ');
     if (words.length <= 10) return text;
     return '${words.take(10).join(' ')}...';
+  }
+
+  Widget _buildSpeechButton() {
+    return IconButton(
+      icon: Icon(_isListening ? Icons.mic : Icons.mic_outlined),
+      tooltip: _isListening ? 'Tap to stop' : 'Use speech-to-text',
+      color: _isListening ? AppColors.warmCoral : null,
+      onPressed: () async {
+        if (_isListening) {
+          _speechService.stopListening();
+          setState(() => _isListening = false);
+          return;
+        }
+        if (!_speechService.isAvailable) {
+          await _speechService.initialize();
+        }
+        if (!_speechService.isAvailable) {
+          if (context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Speech not available on this device'),
+                behavior: SnackBarBehavior.floating,
+              ),
+            );
+          }
+          return;
+        }
+        setState(() => _isListening = true);
+        await _speechService.startListening(
+          onPartialResult: (text) {
+            _answerController.text = text;
+            _answerController.selection = TextSelection.fromPosition(
+              TextPosition(offset: text.length),
+            );
+          },
+          onResult: (text) {
+            _answerController.text = text;
+            _answerController.selection = TextSelection.fromPosition(
+              TextPosition(offset: text.length),
+            );
+            if (mounted) setState(() => _isListening = false);
+          },
+        );
+        if (mounted) setState(() => _isListening = false);
+      },
+    );
   }
 
   Widget _buildFocusModeBanner(LearningProfileConfig config) {
