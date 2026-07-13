@@ -48,6 +48,14 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
   List<bool> _checklistItems = [];
   bool _showChecklist = false;
   int _taskStep = 0;
+  int _currentChunk = 0;
+  List<String> _readingChunks = [];
+  final _scrollController = ScrollController();
+  bool _hintsRevealed = false;
+  int _hintLevel = 0;
+  bool _focusTimerActive = false;
+  int _templateIndex = 0;
+  int _scaffoldStage = 0;
 
   @override
   void initState() {
@@ -59,6 +67,7 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
   @override
   void dispose() {
     _answerController.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -90,6 +99,9 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
       }
       if (config.showChecklist && _contentLibrary.isNotEmpty) {
         _initChecklist(_contentLibrary.first);
+      }
+      if (config.chunkedReading && _contentLibrary.isNotEmpty) {
+        _initReadingChunks(_contentLibrary.first);
       }
     }
   }
@@ -186,6 +198,7 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
+          controller: config.persistPosition ? _scrollController : null,
           padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -194,6 +207,8 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
               const SizedBox(height: 20),
               _buildProfileSelector(config),
               if (config.sectionBreakAfterHeader) const SizedBox(height: 12),
+              if (config.showFocusMode) _buildFocusModeBanner(config),
+              if (config.showFocusMode) const SizedBox(height: 12),
               _buildContentBody(content, config),
               if (_showChecklist && config.showChecklist)
                 _buildChecklistSection(content, config),
@@ -305,6 +320,23 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
                     _checklistItems = [];
                     _taskStep = 0;
                   }
+                  if (newConfig.chunkedReading && _contentLibrary.isNotEmpty) {
+                    _initReadingChunks(_contentLibrary.first);
+                  } else {
+                    _readingChunks = [];
+                    _currentChunk = 0;
+                  }
+                  if (newConfig.scaffoldedRelease) {
+                    _scaffoldStage = 0;
+                  }
+                  if (newConfig.scaffoldHints) {
+                    _hintsRevealed = false;
+                    _hintLevel = 0;
+                  }
+                  if (newConfig.showFocusMode) {
+                    _focusTimerActive = false;
+                  }
+                  _templateIndex = 0;
                 });
               },
               selectedColor: config.color.withValues(alpha: 0.2),
@@ -322,10 +354,23 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
         ? _simplifiedBody!
         : content.body;
 
-    if (config.stepByStep && _steps.isNotEmpty) {
+    if (config.stepByStep && _steps.isNotEmpty && !config.scaffoldedRelease) {
       return _buildStepBody(content, displayText, config);
     }
 
+    if (config.scaffoldedRelease) {
+      return _buildScaffoldedReleaseBody(content, displayText, config);
+    }
+
+    if (config.chunkedReading && _readingChunks.isNotEmpty) {
+      return _buildChunkedReadingBody(content, displayText, config);
+    }
+
+    return _buildStandardContentBody(content, displayText, config);
+  }
+
+  Widget _buildStandardContentBody(
+      ContentItem content, String displayText, LearningProfileConfig config) {
     final bgColor = config.calmColors
         ? AppColors.calmBg.withValues(alpha: 0.4)
         : AppColors.cardLight;
@@ -341,6 +386,16 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          if (config.visualMathBar) _buildVisualMathBar(),
+          if (config.visualMathBar) const SizedBox(height: 12),
+          if (config.showWorkedExamples)
+            _buildWorkedExample(content, config, displayText),
+          if (config.showWorkedExamples && displayText.isNotEmpty)
+            const SizedBox(height: 16),
+          if (config.scaffoldHints) ...[
+            _buildScaffoldedHints(content, config),
+            const SizedBox(height: 12),
+          ],
           if (!config.autoSimplify)
             Row(
               children: [
@@ -364,6 +419,12 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
                 ),
               ],
             ),
+          if (config.showSectionLabels)
+            _buildSectionLabel('Lesson Content'),
+          if (config.showSectionLabels) const SizedBox(height: 8),
+          if (config.showProgressBar)
+            _buildProgressBar(config),
+          if (config.showProgressBar) const SizedBox(height: 12),
           Text(
             displayText,
             textAlign: TextAlign.left,
@@ -395,8 +456,68 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
               ),
             ),
           ],
+          if (config.showReadAloud) ...[
+            const SizedBox(height: 16),
+            _buildReadAloudButton(displayText, config),
+          ],
         ],
       ),
+    );
+  }
+
+  Widget _buildSectionLabel(String label) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      decoration: BoxDecoration(
+        color: AppColors.sereneBlue.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: Text(
+        label,
+        style: const TextStyle(
+          fontSize: 11,
+          fontWeight: FontWeight.w700,
+          color: AppColors.sereneBlue,
+          letterSpacing: 0.5,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildProgressBar(LearningProfileConfig config) {
+    final sessionState = context.watch<SessionState>();
+    final total = sessionState.activeContent.length;
+    final current = sessionState.activeContentIndex + 1;
+    final progress = total > 0 ? current / total : 0.0;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Text(
+              'Lesson $current of $total',
+              style: const TextStyle(fontSize: 11, color: AppColors.textSecondary),
+            ),
+            const Spacer(),
+            Text(
+              '${(progress * 100).round()}%',
+              style: const TextStyle(fontSize: 11, color: AppColors.textSecondary),
+            ),
+          ],
+        ),
+        const SizedBox(height: 4),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(4),
+          child: LinearProgressIndicator(
+            value: progress,
+            minHeight: 6,
+            backgroundColor: Colors.grey.withValues(alpha: 0.15),
+            valueColor: AlwaysStoppedAnimation<Color>(
+              config.color,
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -485,7 +606,809 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
     );
   }
 
+  void _initReadingChunks(ContentItem content) {
+    final text = _useSimplified && _simplifiedBody != null ? _simplifiedBody! : content.body;
+    _readingChunks = text
+        .split(RegExp(r'\n\n+'))
+        .where((p) => p.trim().isNotEmpty)
+        .map((p) => p.trim())
+        .toList();
+    _currentChunk = 0;
+  }
+
+  Widget _buildChunkedReadingBody(
+      ContentItem content, String displayText, LearningProfileConfig config) {
+    if (_readingChunks.isEmpty) _initReadingChunks(content);
+    if (_readingChunks.isEmpty) {
+      return _buildStandardContentBody(content, displayText, config);
+    }
+    final chunk = _currentChunk.clamp(0, _readingChunks.length - 1);
+    final chunkText = _readingChunks[chunk];
+    final chunkColors = [
+      const Color(0xFF7B68EE),
+      const Color(0xFF2A9D8F),
+      const Color(0xFFE76F51),
+      const Color(0xFF457B9D),
+      const Color(0xFFE9C46A),
+      const Color(0xFF52B788),
+    ];
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: AppColors.cardLight,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.grey.withValues(alpha: 0.1)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (config.showProgressIndication)
+            Row(
+              children: [
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                  decoration: BoxDecoration(
+                    color: AppColors.softPurple.withValues(alpha: 0.15),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Text(
+                    'Part ${chunk + 1} of ${_readingChunks.length}',
+                    style: const TextStyle(
+                      color: AppColors.softPurple,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                const Spacer(),
+                if (config.showReadAloud)
+                  IconButton(
+                    icon: const Icon(Icons.volume_up_outlined, size: 20),
+                    tooltip: 'Read aloud',
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Reading aloud...'),
+                          behavior: SnackBarBehavior.floating,
+                          duration: Duration(seconds: 1),
+                        ),
+                      );
+                    },
+                  ),
+              ],
+            ),
+          if (config.showProgressIndication) const SizedBox(height: 12),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: AppColors.cardLight,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: chunkColors[chunk % chunkColors.length]
+                    .withValues(alpha: 0.3),
+                width: 2,
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (config.multisensoryCues)
+                  Container(
+                    width: 4,
+                    height: 24,
+                    margin: const EdgeInsets.only(bottom: 8),
+                    decoration: BoxDecoration(
+                      color: chunkColors[chunk % chunkColors.length],
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                Text(
+                  chunkText,
+                  style: TextStyle(
+                    fontFamily: config.fontFamily,
+                    fontSize: 16,
+                    height: config.lineHeight,
+                    letterSpacing: config.letterSpacing,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          if (_readingChunks.length > 1) ...[
+            const SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                if (chunk > 0)
+                  OutlinedButton.icon(
+                    onPressed: () =>
+                        setState(() => _currentChunk = chunk - 1),
+                    icon: const Icon(Icons.arrow_back, size: 18),
+                    label: const Text('Back'),
+                  )
+                else
+                  const SizedBox.shrink(),
+                if (chunk < _readingChunks.length - 1)
+                  FilledButton.icon(
+                    onPressed: () =>
+                        setState(() => _currentChunk = chunk + 1),
+                    icon: const Icon(Icons.arrow_forward, size: 18),
+                    label: const Text('Next'),
+                  )
+                else
+                  const SizedBox.shrink(),
+              ],
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _buildReadAloudButton(String text, LearningProfileConfig config) {
+    return OutlinedButton.icon(
+      onPressed: () {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Reading ${text.length} characters aloud...'),
+            behavior: SnackBarBehavior.floating,
+            duration: const Duration(seconds: 2),
+          ),
+        );
+      },
+      icon: const Icon(Icons.volume_up_outlined, size: 18),
+      label: const Text('Read Aloud'),
+    );
+  }
+
+  Widget _buildVisualMathBar() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      decoration: BoxDecoration(
+        color: AppColors.calmTeal.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: AppColors.calmTeal.withValues(alpha: 0.2),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Icon(Icons.grid_view_rounded,
+                  size: 14, color: AppColors.calmTeal),
+              const SizedBox(width: 6),
+              Text(
+                'Number Reference',
+                style: const TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.calmTeal,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: List.generate(11, (i) {
+              return Column(
+                children: [
+                  Container(
+                    width: 20,
+                    height: 20 * (i / 10 + 0.2),
+                    decoration: BoxDecoration(
+                      color: AppColors.calmTeal.withValues(
+                        alpha: 0.3 + (i / 10) * 0.5,
+                      ),
+                      borderRadius: BorderRadius.circular(3),
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    '$i',
+                    style: const TextStyle(
+                      fontSize: 9,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                ],
+              );
+            }),
+          ),
+          const SizedBox(height: 6),
+          Row(
+            children: [
+              Container(
+                width: 40,
+                height: 3,
+                color: AppColors.calmTeal.withValues(alpha: 0.5),
+              ),
+              const SizedBox(width: 4),
+              const Text(
+                '= 1 unit',
+                style: TextStyle(
+                    fontSize: 9, color: AppColors.textSecondary),
+              ),
+              const Spacer(),
+              const Text(
+                '■■ = 2  ■■■ = 3',
+                style: TextStyle(
+                    fontSize: 9, color: AppColors.textSecondary),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildWorkedExample(
+      ContentItem content, LearningProfileConfig config, String displayText) {
+    final paragraphs =
+        displayText.split(RegExp(r'\n\n+')).where((p) => p.trim().isNotEmpty).toList();
+    final example = paragraphs.isNotEmpty ? paragraphs.first : displayText;
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: AppColors.success.withValues(alpha: 0.06),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: AppColors.success.withValues(alpha: 0.2),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                decoration: BoxDecoration(
+                  color: AppColors.success.withValues(alpha: 0.15),
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.auto_awesome, size: 12, color: AppColors.success),
+                    SizedBox(width: 4),
+                    Text(
+                      'Worked Example',
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.success,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const Spacer(),
+              if (config.scaffoldHints)
+                TextButton(
+                  onPressed: () =>
+                      setState(() => _hintsRevealed = !_hintsRevealed),
+                  child: Text(
+                    _hintsRevealed ? 'Hide hints' : 'Show hints',
+                    style: const TextStyle(fontSize: 11),
+                  ),
+                ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Text(
+            example.length > 120 ? '${example.substring(0, 120)}...' : example,
+            style: TextStyle(
+              fontSize: 14,
+              height: 1.6,
+              color: AppColors.textPrimary.withValues(alpha: 0.85),
+            ),
+          ),
+          if (_hintsRevealed) ...[
+            const SizedBox(height: 10),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: AppColors.success.withValues(alpha: 0.08),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'How this works:',
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.success,
+                    ),
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    '1. Read the main point above\n'
+                    '2. Notice how each idea connects\n'
+                    '3. Try to explain it in your own words',
+                    style: TextStyle(
+                      fontSize: 12,
+                      height: 1.5,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _buildScaffoldedHints(
+      ContentItem content, LearningProfileConfig config) {
+    final hints = [
+      'Think about the main idea of this section.',
+      'Look for keywords that tell you what is important.',
+      'Try to connect this to something you already know.',
+      'Can you explain this in one sentence?',
+    ];
+    final visibleHints = hints.take(_hintLevel + 1).toList();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            const Icon(Icons.lightbulb_outline,
+                size: 16, color: AppColors.softGold),
+            const SizedBox(width: 6),
+            Text(
+              'Hints',
+              style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                    color: AppColors.softGold,
+                    fontWeight: FontWeight.w600,
+                  ),
+            ),
+            const Spacer(),
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  if (_hintLevel < hints.length - 1) {
+                    _hintLevel++;
+                  }
+                });
+              },
+              child: Text(
+                _hintLevel < hints.length - 1
+                    ? 'Show next hint'
+                    : 'All hints shown',
+                style: const TextStyle(fontSize: 11),
+              ),
+            ),
+          ],
+        ),
+        ...visibleHints.map((hint) {
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 4),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('• ', style: TextStyle(color: AppColors.softGold)),
+                Expanded(
+                  child: Text(
+                    hint,
+                    style: TextStyle(
+                      fontSize: 13,
+                      height: 1.4,
+                      color: AppColors.textPrimary.withValues(alpha: 0.8),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        }),
+      ],
+    );
+  }
+
+  Widget _buildScaffoldedReleaseBody(ContentItem content, String displayText,
+      LearningProfileConfig config) {
+    final paragraphs = displayText
+        .split(RegExp(r'\n\n+'))
+        .where((p) => p.trim().isNotEmpty)
+        .toList();
+    if (paragraphs.isEmpty) {
+      return _buildStandardContentBody(content, displayText, config);
+    }
+
+    final iDoCount = (paragraphs.length * 0.25).ceil().clamp(1, paragraphs.length);
+    final weDoCount = (paragraphs.length * 0.35).ceil();
+    final iDoParagraphs = paragraphs.take(iDoCount).toList();
+    final weDoParagraphs = paragraphs.skip(iDoCount).take(weDoCount).toList();
+    final youDoParagraphs = paragraphs.skip(iDoCount + weDoCount).toList();
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: AppColors.cardLight,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.grey.withValues(alpha: 0.1)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (config.showProgressBar) _buildProgressBar(config),
+          if (config.showProgressBar) const SizedBox(height: 16),
+          if (config.showSectionLabels) ...[
+            _buildSectionLabel('Scaffolded Lesson'),
+            const SizedBox(height: 12),
+          ],
+          _buildScaffoldStageBanner(
+            _scaffoldStage == 0
+                ? 'I Do'
+                : _scaffoldStage == 1
+                    ? 'We Do'
+                    : 'You Do',
+            _scaffoldStage == 0
+                ? 'Watch and follow along'
+                : _scaffoldStage == 1
+                    ? 'Let us work through this together'
+                    : 'Now try on your own',
+            _scaffoldStage == 0
+                ? AppColors.softPurple
+                : _scaffoldStage == 1
+                    ? AppColors.calmTeal
+                    : AppColors.success,
+          ),
+          const SizedBox(height: 16),
+          if (_scaffoldStage == 0)
+            ...iDoParagraphs.map((p) => Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('→ ',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.softPurple)),
+                      Expanded(
+                        child: Text(
+                          p,
+                          style: TextStyle(
+                            height: config.lineHeight,
+                            fontFamily: config.fontFamily,
+                            letterSpacing: config.letterSpacing,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )),
+          if (_scaffoldStage == 1)
+            ...weDoParagraphs.map((p) => Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: AppColors.calmTeal.withValues(alpha: 0.06),
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                            color: AppColors.calmTeal.withValues(alpha: 0.15),
+                          ),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              p,
+                              style: TextStyle(
+                                height: config.lineHeight,
+                                fontFamily: config.fontFamily,
+                                letterSpacing: config.letterSpacing,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: AppColors.calmTeal.withValues(alpha: 0.08),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: const Row(
+                                children: [
+                                  Icon(Icons.help_outline,
+                                      size: 14, color: AppColors.calmTeal),
+                                  SizedBox(width: 6),
+                                  Expanded(
+                                    child: Text(
+                                      'What do you notice about this part?',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: AppColors.calmTeal,
+                                        fontStyle: FontStyle.italic,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                )),
+          if (_scaffoldStage == 2)
+            ...youDoParagraphs.map((p) => Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Checkbox(
+                        value: false,
+                        onChanged: null,
+                        visualDensity: VisualDensity.compact,
+                      ),
+                      const SizedBox(width: 6),
+                      Expanded(
+                        child: Text(
+                          p,
+                          style: TextStyle(
+                            height: config.lineHeight,
+                            fontFamily: config.fontFamily,
+                            letterSpacing: config.letterSpacing,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )),
+          const SizedBox(height: 16),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              if (_scaffoldStage > 0)
+                OutlinedButton.icon(
+                  onPressed: () =>
+                      setState(() => _scaffoldStage = _scaffoldStage - 1),
+                  icon: const Icon(Icons.arrow_back, size: 18),
+                  label: Text(_scaffoldStage == 1 ? 'Back to I Do' : 'Back to We Do'),
+                )
+              else
+                const SizedBox.shrink(),
+              if (_scaffoldStage < 2)
+                FilledButton.icon(
+                  onPressed: () =>
+                      setState(() => _scaffoldStage = _scaffoldStage + 1),
+                  icon: const Icon(Icons.arrow_forward, size: 18),
+                  label: Text(
+                      _scaffoldStage == 0 ? 'Start We Do' : 'Start You Do'),
+                )
+              else
+                const SizedBox.shrink(),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildScaffoldStageBanner(
+      String stage, String instruction, Color color) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: color.withValues(alpha: 0.25)),
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.2),
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: Text(
+              stage,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: color,
+              ),
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              instruction,
+              style: TextStyle(
+                fontSize: 13,
+                color: color,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildWritingTemplateQuiz(ContentItem content, LearningProfileConfig config) {
+    final templates = [
+      {
+        'title': 'Summary Template',
+        'prompt': 'The main topic of this lesson is __________. '
+            'One important fact is __________. '
+            'This connects to __________ because __________.',
+      },
+      {
+        'title': 'Question & Answer',
+        'prompt': 'Question: __________\n'
+            'My answer: __________\n'
+            'Evidence from the lesson: __________',
+      },
+      {
+        'title': 'Key Ideas',
+        'prompt': 'Three things I learned:\n'
+            '1. __________\n'
+            '2. __________\n'
+            '3. __________\n'
+            'One thing I want to know more about: __________',
+      },
+    ];
+
+    final template = templates[_templateIndex.clamp(0, templates.length - 1)];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Quick Check',
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+        ),
+        const SizedBox(height: 8),
+        Row(
+          children: [
+            const Icon(Icons.description_outlined, size: 16, color: AppColors.softGold),
+            const SizedBox(width: 6),
+            Text(
+              template['title'] ?? '',
+              style: const TextStyle(
+                fontWeight: FontWeight.w600,
+                color: AppColors.softGold,
+              ),
+            ),
+            const Spacer(),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.chevron_left, size: 20),
+                  onPressed: _templateIndex > 0
+                      ? () => setState(() => _templateIndex--)
+                      : null,
+                  visualDensity: VisualDensity.compact,
+                ),
+                Text(
+                  '${_templateIndex + 1}/${templates.length}',
+                  style: const TextStyle(
+                      fontSize: 11, color: AppColors.textSecondary),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.chevron_right, size: 20),
+                  onPressed: _templateIndex < templates.length - 1
+                      ? () => setState(() => _templateIndex++)
+                      : null,
+                  visualDensity: VisualDensity.compact,
+                ),
+              ],
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: AppColors.softGold.withValues(alpha: 0.06),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: AppColors.softGold.withValues(alpha: 0.2),
+            ),
+          ),
+          child: Text(
+            template['prompt'] ?? '',
+            style: const TextStyle(
+              height: 1.6,
+              color: AppColors.textPrimary,
+            ),
+          ),
+        ),
+        const SizedBox(height: 12),
+        TextField(
+          controller: _answerController,
+          maxLines: 4,
+          decoration: InputDecoration(
+            hintText: 'Fill in the blanks or write your answer...',
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            suffixIcon: config.showSpeechToText
+                ? IconButton(
+                    icon: const Icon(Icons.mic_outlined),
+                    tooltip: 'Use speech-to-text',
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Speech input enabled'),
+                          behavior: SnackBarBehavior.floating,
+                          duration: Duration(seconds: 2),
+                        ),
+                      );
+                    },
+                  )
+                : null,
+          ),
+        ),
+        const SizedBox(height: 12),
+        FilledButton.icon(
+          onPressed: () {
+            final answer = _answerController.text.trim();
+            if (answer.isEmpty) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Please fill in the template first'),
+                  behavior: SnackBarBehavior.floating,
+                ),
+              );
+              return;
+            }
+            _recordInteraction(
+              context,
+              content,
+              'completed',
+              wasSuccessful: true,
+            );
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Answer submitted!'),
+                behavior: SnackBarBehavior.floating,
+              ),
+            );
+            _answerController.clear();
+          },
+          icon: const Icon(Icons.send_rounded, size: 18),
+          label: const Text('Submit'),
+        ),
+      ],
+    );
+  }
+
   Widget _buildQuizSection(ContentItem content, LearningProfileConfig config) {
+    if (config.showWritingTemplates) {
+      return _buildWritingTemplateQuiz(content, config);
+    }
     if (config.useTextInputInsteadOfChoices) {
       return _buildTextInputQuiz(content, config);
     }
@@ -796,6 +1719,52 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
     final words = text.split(' ');
     if (words.length <= 10) return text;
     return '${words.take(10).join(' ')}...';
+  }
+
+  Widget _buildFocusModeBanner(LearningProfileConfig config) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+      decoration: BoxDecoration(
+        color: AppColors.warmCoral.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: AppColors.warmCoral.withValues(alpha: 0.2),
+        ),
+      ),
+      child: Row(
+        children: [
+          const Icon(Icons.bolt_outlined,
+              size: 18, color: AppColors.warmCoral),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              _focusTimerActive
+                  ? 'Focus mode active — keep going!'
+                  : 'Focus mode: one section at a time',
+              style: const TextStyle(
+                fontSize: 13,
+                color: AppColors.warmCoral,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: () =>
+                setState(() => _focusTimerActive = !_focusTimerActive),
+            style: TextButton.styleFrom(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              minimumSize: Size.zero,
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            ),
+            child: Text(
+              _focusTimerActive ? 'Pause' : 'Start',
+              style: const TextStyle(fontSize: 12),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildReminderBanner(LearningProfileConfig config) {
