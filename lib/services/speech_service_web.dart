@@ -35,8 +35,10 @@ class SpeechService {
 
     _resultSub = _recognition!.onResult.listen((event) {
       if (!_isListening) return;
-      for (var i = 0; i < event.results.length; i++) {
-        final result = event.results[i] as html.SpeechRecognitionResult;
+      final results = event.results;
+      if (results == null) return;
+      for (var i = 0; i < results.length; i++) {
+        final result = results[i] as html.SpeechRecognitionResult;
         final alternative = result[0] as html.SpeechRecognitionAlternative?;
         if (alternative == null) continue;
         final transcript = alternative.transcript;
