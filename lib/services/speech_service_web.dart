@@ -37,8 +37,7 @@ class SpeechService {
       final results = event.results;
       if (results == null) return;
       for (var i = 0; i < results.length; i++) {
-        final result = results.item(i);
-        if (result == null) continue;
+        final result = results[i] as html.SpeechRecognitionResult;
         final alternative = result.item(0);
         if (alternative == null) continue;
         final transcript = alternative.transcript ?? '';
