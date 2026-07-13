@@ -1721,6 +1721,7 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
           _speechService.startListening(
             onPartialResult: (text) {
               if (!mounted) return;
+              debugPrint('STT partial: "$text"');
               _answerController.text = text;
               _answerController.selection = TextSelection.fromPosition(
                 TextPosition(offset: text.length),
@@ -1729,6 +1730,7 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
             },
             onResult: (text) {
               if (!mounted) return;
+              debugPrint('STT final: "$text"');
               _answerController.text = text;
               _answerController.selection = TextSelection.fromPosition(
                 TextPosition(offset: text.length),
@@ -1736,7 +1738,7 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
               setState(() {});
             },
             onError: (error) {
-              debugPrint('Speech recognition error: $error');
+              debugPrint('STT error: $error');
             },
           );
         });

@@ -37,16 +37,27 @@ class SpeechService {
       if (!_isRecording) return;
       final results = event.results;
       if (results == null) return;
+
+      // Build full accumulated transcript from ALL results
+      final sb = StringBuffer();
       for (var i = 0; i < results.length; i++) {
         final result = results[i] as html.SpeechRecognitionResult;
         final alternative = result.item(0);
         if (alternative == null) continue;
         final transcript = alternative.transcript ?? '';
-        if (result.isFinal == true) {
-          onResult(transcript);
-        } else {
-          onPartialResult(transcript);
-        }
+        if (transcript.isEmpty) continue;
+        if (sb.isNotEmpty) sb.write(' ');
+        sb.write(transcript);
+      }
+      final fullText = sb.toString().trim();
+      if (fullText.isEmpty) return;
+
+      // Use last result to decide if all finalized or still interim
+      final lastResult = results[results.length - 1] as html.SpeechRecognitionResult;
+      if (lastResult.isFinal == true) {
+        onResult(fullText);
+      } else {
+        onPartialResult(fullText);
       }
     });
 
@@ -58,7 +69,6 @@ class SpeechService {
     });
 
     _endSub = _recognition!.onEnd.listen((_) {
-      // Chrome ends sessions unexpectedly; auto-restart if still recording
       if (_isRecording) {
         _recognition!.start();
       }
