@@ -9,6 +9,7 @@ import '../../models/content_item.dart';
 import '../../models/interaction_event.dart';
 import '../../services/content/content_repository.dart';
 import '../ai_tutor/ai_tutor_screen.dart';
+import 'learning_profile_config.dart';
 
 class LearningSessionScreen extends StatefulWidget {
   final String? initialLessonId;
@@ -31,14 +32,34 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
   bool _showPause = false;
   int _currentStep = 0;
   List<String> _steps = [];
-  bool _hasDyscalculia = false;
   String? _simplifiedForContentId;
+  LearningAccessibilityProfile _activeProfile = LearningAccessibilityProfile.none;
+  final _answerController = TextEditingController();
+  final _sentenceStarters = [
+    'The main idea is',
+    'This connects to',
+    'One example is',
+    'In summary',
+    'A key difference is',
+    'This matters because',
+    'First,',
+    'Another important point',
+  ];
+  List<bool> _checklistItems = [];
+  bool _showChecklist = false;
+  int _taskStep = 0;
 
   @override
   void initState() {
     super.initState();
     _contentLibrary.addAll(ContentRepository.getAll());
     _isInitialized = true;
+  }
+
+  @override
+  void dispose() {
+    _answerController.dispose();
+    super.dispose();
   }
 
   @override
@@ -52,19 +73,23 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
             startContentId: widget.initialLessonId,
           );
       _sessionInitialized = true;
-      if (appState.shouldShowSessionPreview(profile)) {
+      if (profile.neurodivergentTraits.isNotEmpty) {
+        _activeProfile = _traitsToProfile(profile.neurodivergentTraits);
+      }
+      final config = getProfileConfig(_activeProfile);
+      if (config.showSessionPreview) {
         _showPreview = true;
       }
-      if (appState.shouldSimplifyContent(profile) &&
-          _contentLibrary.isNotEmpty) {
+      if (config.autoSimplify && _contentLibrary.isNotEmpty) {
         _simplifiedForContentId = _contentLibrary.first.id;
         _simplifyContent(_contentLibrary.first);
       }
-      if (appState.shouldShowStepByStep(profile) &&
-          _contentLibrary.isNotEmpty) {
-        _hasDyscalculia = true;
+      if (config.stepByStep && _contentLibrary.isNotEmpty) {
         _steps = appState.splitIntoSteps(_contentLibrary.first.body, profile);
         _currentStep = 0;
+      }
+      if (config.showChecklist && _contentLibrary.isNotEmpty) {
+        _initChecklist(_contentLibrary.first);
       }
     }
   }
@@ -103,15 +128,15 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
     final profile = learnerState.profile;
     final content = sessionState.currentContent ??
         _contentLibrary.first;
+    final config = getProfileConfig(_activeProfile);
 
-    if (appState.shouldSimplifyContent(profile) &&
-        _simplifiedForContentId != content.id) {
+    if (config.autoSimplify && _simplifiedForContentId != content.id) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (!mounted) return;
         _simplifiedForContentId = content.id;
         _simplifyContent(content);
       });
-    } else if (!appState.shouldSimplifyContent(profile) && _useSimplified) {
+    } else if (!config.autoSimplify && _useSimplified) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (!mounted) return;
         setState(() {
@@ -126,6 +151,10 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
       return _buildSummaryScreen(context, sessionState);
     }
 
+    if (config.showSessionPreview && !_showPreview && !_sessionInitialized) {
+      _showPreview = true;
+    }
+
     if (_showPreview) {
       return _buildPreviewScreen(context, content, profile);
     }
@@ -134,7 +163,7 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
       return _buildPauseOverlay(context, sessionState);
     }
 
-    if (_hasDyscalculia && _contentLibrary.isNotEmpty) {
+    if (config.stepByStep && _contentLibrary.isNotEmpty) {
       _steps = appState.splitIntoSteps(content.body, profile);
     }
 
@@ -143,7 +172,7 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
         title: Text(content.contentType.replaceAll('_', ' ')),
         centerTitle: true,
         actions: [
-          if (appState.shouldShowPauseControls(profile))
+          if (config.showPauseControls)
             IconButton(
               icon: const Icon(Icons.pause_circle_outline),
               tooltip: 'Pause',
@@ -161,16 +190,21 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildContentHeader(content),
+              if (config.showHeader) _buildContentHeader(content, config),
               const SizedBox(height: 20),
-              _buildContentBody(content, profile, appState),
+              _buildProfileSelector(config),
+              if (config.sectionBreakAfterHeader) const SizedBox(height: 12),
+              _buildContentBody(content, config),
+              if (_showChecklist && config.showChecklist)
+                _buildChecklistSection(content, config),
               const SizedBox(height: 24),
               if (content.quizOptions.isNotEmpty)
-                _buildQuizSection(content, profile, appState),
-              if (content.flashcards.isNotEmpty)
+                _buildQuizSection(content, config),
+              if (content.flashcards.isNotEmpty && config.showFlashcards)
                 _buildFlashcardPreview(content.flashcards),
+              if (config.showReminders) _buildReminderBanner(config),
               const SizedBox(height: 24),
-              _buildNavigationButtons(content, profile, appState),
+              _buildNavigationButtons(content, config),
             ],
           ),
         ),
@@ -178,7 +212,7 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
     );
   }
 
-  Widget _buildContentHeader(ContentItem content) {
+  Widget _buildContentHeader(ContentItem content, LearningProfileConfig config) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -211,7 +245,7 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
                 color: AppColors.textSecondary,
               ),
         ),
-        if (content.tags.isNotEmpty) ...[
+        if (content.tags.isNotEmpty && config.showTags) ...[
           const SizedBox(height: 12),
           Wrap(
             spacing: 6,
@@ -238,53 +272,110 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
     );
   }
 
-  Widget _buildContentBody(ContentItem content, LearnerProfile profile, AppState appState) {
+  Widget _buildProfileSelector(LearningProfileConfig activeConfig) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: LearningAccessibilityProfile.values.map((profile) {
+          final config = getProfileConfig(profile);
+          final isSelected = profile == _activeProfile;
+          return Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child: FilterChip(
+              selected: isSelected,
+              label: Text(config.label, style: const TextStyle(fontSize: 12)),
+              avatar: Icon(config.icon, size: 16),
+              onSelected: (_) {
+                setState(() {
+                  _activeProfile = profile;
+                  final newConfig = getProfileConfig(profile);
+                  _showPreview = newConfig.showSessionPreview;
+                  if (newConfig.autoSimplify) {
+                    _simplifyContent(context.read<SessionState>().currentContent ?? _contentLibrary.first);
+                  } else {
+                    _useSimplified = false;
+                    _simplifiedBody = null;
+                    _simplifiedForContentId = null;
+                  }
+                  if (newConfig.showPauseControls) _showPause = false;
+                  if (newConfig.showChecklist && _contentLibrary.isNotEmpty) {
+                    _initChecklist(_contentLibrary.first);
+                  } else if (!newConfig.showChecklist) {
+                    _showChecklist = false;
+                    _checklistItems = [];
+                    _taskStep = 0;
+                  }
+                });
+              },
+              selectedColor: config.color.withValues(alpha: 0.2),
+              checkmarkColor: config.color,
+              visualDensity: VisualDensity.compact,
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
+  Widget _buildContentBody(ContentItem content, LearningProfileConfig config) {
     final displayText = _useSimplified && _simplifiedBody != null
         ? _simplifiedBody!
         : content.body;
 
-    if (_hasDyscalculia && _steps.isNotEmpty) {
-      return _buildStepBody(content, displayText, profile, appState);
+    if (config.stepByStep && _steps.isNotEmpty) {
+      return _buildStepBody(content, displayText, config);
     }
+
+    final bgColor = config.calmColors
+        ? AppColors.calmBg.withValues(alpha: 0.4)
+        : AppColors.cardLight;
 
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: AppColors.cardLight,
+        color: bgColor,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: Colors.grey.withValues(alpha: 0.1)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              const Spacer(),
-              TextButton.icon(
-                onPressed: () {
-                  if (_useSimplified) {
-                    setState(() {
-                      _useSimplified = false;
-                      _simplifiedBody = null;
-                    });
-                  } else {
-                    _simplifyContent(content);
-                  }
-                },
-                icon: Icon(
-                  _useSimplified ? Icons.auto_stories : Icons.psychology,
-                  size: 18,
+          if (!config.autoSimplify)
+            Row(
+              children: [
+                const Spacer(),
+                TextButton.icon(
+                  onPressed: () {
+                    if (_useSimplified) {
+                      setState(() {
+                        _useSimplified = false;
+                        _simplifiedBody = null;
+                      });
+                    } else {
+                      _simplifyContent(content);
+                    }
+                  },
+                  icon: Icon(
+                    _useSimplified ? Icons.auto_stories : Icons.psychology,
+                    size: 18,
+                  ),
+                  label: Text(_useSimplified ? 'Original' : 'Simplify'),
                 ),
-                label: Text(_useSimplified ? 'Original' : 'Simplify'),
-              ),
-            ],
-          ),
+              ],
+            ),
           Text(
             displayText,
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  height: _useSimplified ? 1.7 : 1.7,
-                ),
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontFamily: config.fontFamily,
+              fontSize: 16 * (config.calmColors ? 1.0 : 1.0),
+              height: config.lineHeight,
+              letterSpacing: config.letterSpacing,
+              color: config.calmColors
+                  ? AppColors.textPrimary.withValues(alpha: 0.85)
+                  : null,
+            ),
           ),
           if (_useSimplified) ...[
             const SizedBox(height: 12),
@@ -309,7 +400,7 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
     );
   }
 
-  Widget _buildStepBody(ContentItem content, String displayText, LearnerProfile profile, AppState appState) {
+  Widget _buildStepBody(ContentItem content, String displayText, LearningProfileConfig config) {
     final steps = _steps;
     final current = _currentStep.clamp(0, steps.length - 1);
     return Container(
@@ -394,8 +485,10 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
     );
   }
 
-  Widget _buildQuizSection(ContentItem content, LearnerProfile profile, AppState appState) {
-    final tapHeight = appState.tapTargetSize(profile).toDouble();
+  Widget _buildQuizSection(ContentItem content, LearningProfileConfig config) {
+    if (config.useTextInputInsteadOfChoices) {
+      return _buildTextInputQuiz(content, config);
+    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -430,15 +523,6 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
                     ),
                   );
                 },
-                style: OutlinedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(
-                    vertical: tapHeight > 48 ? 18 : 16,
-                    horizontal: 16,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(entry.value),
@@ -449,6 +533,125 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
         }),
       ],
     );
+  }
+
+  Widget _buildTextInputQuiz(ContentItem content, LearningProfileConfig config) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Quick Check',
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          'Type your answer below',
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: AppColors.textSecondary,
+              ),
+        ),
+        const SizedBox(height: 12),
+        if (config.showSentenceStarters) ...[
+          Wrap(
+            spacing: 6,
+            runSpacing: 6,
+            children: _sentenceStarters.map((starter) {
+              return ActionChip(
+                label: Text(starter, style: const TextStyle(fontSize: 11)),
+                onPressed: () {
+                  final existing = _answerController.text;
+                  if (existing.isNotEmpty && !existing.endsWith(' ')) {
+                    _answerController.text = '$existing ';
+                  }
+                  _answerController.text = '${_answerController.text}$starter ';
+                  _answerController.selection = TextSelection.fromPosition(
+                    TextPosition(offset: _answerController.text.length),
+                  );
+                },
+                visualDensity: VisualDensity.compact,
+              );
+            }).toList(),
+          ),
+          const SizedBox(height: 8),
+        ],
+        TextField(
+          controller: _answerController,
+          maxLines: 4,
+          decoration: InputDecoration(
+            hintText: config.showSentenceStarters
+                ? 'Pick a starter above or type your own...'
+                : 'Type your answer here...',
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            suffixIcon: config.showSpeechToText
+                ? IconButton(
+                    icon: const Icon(Icons.mic_outlined),
+                    tooltip: 'Use speech-to-text',
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Speech input enabled — speak your answer'),
+                          behavior: SnackBarBehavior.floating,
+                          duration: Duration(seconds: 2),
+                        ),
+                      );
+                    },
+                  )
+                : null,
+          ),
+        ),
+        const SizedBox(height: 12),
+        FilledButton.icon(
+          onPressed: () {
+            final answer = _answerController.text.trim();
+            if (answer.isEmpty) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Please type an answer first'),
+                  behavior: SnackBarBehavior.floating,
+                ),
+              );
+              return;
+            }
+            _recordInteraction(
+              context,
+              content,
+              'completed',
+              wasSuccessful: true,
+            );
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Answer submitted!'),
+                behavior: SnackBarBehavior.floating,
+              ),
+            );
+            _answerController.clear();
+          },
+          icon: const Icon(Icons.send_rounded, size: 18),
+          label: const Text('Submit'),
+        ),
+        if (config.showWordPrediction) ...[
+          const SizedBox(height: 12),
+          Text(
+            'Word suggestions: ${_getWordSuggestions(content)}',
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: AppColors.textSecondary,
+                  fontStyle: FontStyle.italic,
+                ),
+          ),
+        ],
+      ],
+    );
+  }
+
+  String _getWordSuggestions(ContentItem content) {
+    final all = [content.title, content.description, ...content.tags, ...content.quizOptions];
+    final words = all.expand((s) => s.split(RegExp(r'\s+'))).where((w) => w.length > 3).toSet().toList();
+    words.shuffle();
+    return words.take(5).join(', ');
   }
 
   Widget _buildFlashcardPreview(List<ContentItem> flashcards) {
@@ -505,11 +708,166 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
     );
   }
 
-  Widget _buildNavigationButtons(ContentItem content, LearnerProfile profile, AppState appState) {
-    final tapHeight = appState.tapTargetSize(profile).toDouble();
+  Widget _buildChecklistSection(ContentItem content, LearningProfileConfig config) {
+    if (_checklistItems.isEmpty) return const SizedBox.shrink();
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: AppColors.sereneBlue.withValues(alpha: 0.06),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppColors.sereneBlue.withValues(alpha: 0.15)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Icon(Icons.checklist_rounded, size: 20, color: AppColors.sereneBlue),
+              const SizedBox(width: 8),
+              Text(
+                'Progress Checklist',
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.sereneBlue,
+                    ),
+              ),
+              const Spacer(),
+              Text(
+                '${_checklistItems.where((e) => e).length}/${_checklistItems.length}',
+                style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                      color: AppColors.sereneBlue,
+                    ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          ..._checklistItems.asMap().entries.map((entry) {
+            final index = entry.key;
+            final done = entry.value;
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 6),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: Checkbox(
+                      value: done,
+                      onChanged: (val) {
+                        setState(() {
+                          _checklistItems[index] = val ?? false;
+                          if (val == true) {
+                            _taskStep = (_taskStep + 1).clamp(0, _checklistItems.length - 1);
+                          }
+                        });
+                      },
+                      visualDensity: VisualDensity.compact,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      config.showNextStepProminent && index == _taskStep
+                          ? '→ ${_getParagraphPreview(content, index)}'
+                          : _getParagraphPreview(content, index),
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: done
+                                ? AppColors.textSecondary
+                                : AppColors.textPrimary,
+                            decoration: done ? TextDecoration.lineThrough : null,
+                          ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }),
+        ],
+      ),
+    );
+  }
+
+  String _getParagraphPreview(ContentItem content, int index) {
+    final paragraphs = content.body.split(RegExp(r'\n\n+')).where((p) => p.trim().isNotEmpty).toList();
+    if (index >= paragraphs.length) return '';
+    final text = paragraphs[index].trim();
+    final words = text.split(' ');
+    if (words.length <= 10) return text;
+    return '${words.take(10).join(' ')}...';
+  }
+
+  Widget _buildReminderBanner(LearningProfileConfig config) {
+    return Container(
+      margin: const EdgeInsets.only(top: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+      decoration: BoxDecoration(
+        color: AppColors.softGold.withValues(alpha: 0.12),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        children: [
+          Icon(Icons.timer_outlined, size: 18, color: AppColors.softGold),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              config.profile == LearningAccessibilityProfile.adhd
+                  ? 'Stay focused on this section. Take a break when you finish.'
+                  : 'Keep going — you are making progress.',
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: AppColors.softGold,
+                  ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildNavigationButtons(ContentItem content, LearningProfileConfig config) {
     final sessionState = context.watch<SessionState>();
     final hasPrev = sessionState.activeContentIndex > 0;
     final hasNext = sessionState.activeContentIndex < sessionState.activeContent.length - 1;
+
+    if (config.showOneActionAtATime) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          if (hasNext)
+            FilledButton.icon(
+              onPressed: () {
+                sessionState.advanceContent();
+                if (config.autoSimplify) {
+                  _simplifyContent(_contentLibrary[
+                      sessionState.activeContentIndex.clamp(0, _contentLibrary.length - 1)]);
+                } else {
+                  _useSimplified = false;
+                  _simplifiedBody = null;
+                }
+              },
+              icon: const Icon(Icons.arrow_forward_rounded),
+              label: const Text('Next Lesson'),
+            )
+          else
+            FilledButton.icon(
+              onPressed: () {
+                _recordInteraction(context, content, 'completed', wasSuccessful: true);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Great progress!'),
+                    behavior: SnackBarBehavior.floating,
+                  ),
+                );
+              },
+              icon: const Icon(Icons.check_rounded),
+              label: const Text('Complete'),
+              style: FilledButton.styleFrom(backgroundColor: AppColors.success),
+            ),
+        ],
+      );
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -523,7 +881,7 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
                   child: OutlinedButton.icon(
                     onPressed: () {
                       sessionState.goBackContent();
-                      if (appState.shouldSimplifyContent(profile)) {
+                      if (config.autoSimplify) {
                         _simplifyContent(_contentLibrary[
                             sessionState.activeContentIndex.clamp(0, _contentLibrary.length - 1)]);
                       } else {
@@ -533,9 +891,6 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
                     },
                     icon: const Icon(Icons.arrow_back_rounded),
                     label: const Text('Previous'),
-                    style: OutlinedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(vertical: tapHeight > 48 ? 18 : 12),
-                    ),
                   ),
                 ),
               ),
@@ -548,7 +903,7 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
                   child: FilledButton.icon(
                     onPressed: () {
                       sessionState.advanceContent();
-                      if (appState.shouldSimplifyContent(profile)) {
+                      if (config.autoSimplify) {
                         _simplifyContent(_contentLibrary[
                             sessionState.activeContentIndex.clamp(0, _contentLibrary.length - 1)]);
                       } else {
@@ -558,9 +913,6 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
                     },
                     icon: const Icon(Icons.arrow_forward_rounded),
                     label: const Text('Next'),
-                    style: FilledButton.styleFrom(
-                      padding: EdgeInsets.symmetric(vertical: tapHeight > 48 ? 18 : 12),
-                    ),
                   ),
                 ),
               ),
@@ -575,12 +927,7 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
             width: double.infinity,
             child: FilledButton.icon(
               onPressed: () {
-                _recordInteraction(
-                  context,
-                  content,
-                  'completed',
-                  wasSuccessful: true,
-                );
+                _recordInteraction(context, content, 'completed', wasSuccessful: true);
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text('Great progress!'),
@@ -590,10 +937,7 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
               },
               icon: const Icon(Icons.check_rounded),
               label: const Text('Complete'),
-              style: FilledButton.styleFrom(
-                backgroundColor: AppColors.success,
-                padding: EdgeInsets.symmetric(vertical: tapHeight > 48 ? 18 : 12),
-              ),
+              style: FilledButton.styleFrom(backgroundColor: AppColors.success),
             ),
           ),
         ),
@@ -832,6 +1176,24 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
         ),
       ),
     );
+  }
+
+  LearningAccessibilityProfile _traitsToProfile(List<String> traits) {
+    if (traits.contains('dyslexia')) return LearningAccessibilityProfile.dyslexia;
+    if (traits.contains('adhd')) return LearningAccessibilityProfile.adhd;
+    if (traits.contains('dysgraphia')) return LearningAccessibilityProfile.dysgraphia;
+    if (traits.contains('dyscalculia')) return LearningAccessibilityProfile.dyscalculia;
+    if (traits.contains('autism')) return LearningAccessibilityProfile.autism;
+    if (traits.contains('sensory processing')) return LearningAccessibilityProfile.sensoryProcessing;
+    if (traits.contains('executive dysfunction')) return LearningAccessibilityProfile.executiveDysfunction;
+    return LearningAccessibilityProfile.none;
+  }
+
+  void _initChecklist(ContentItem content) {
+    final paragraphs = content.body.split(RegExp(r'\n\n+')).where((p) => p.trim().isNotEmpty).toList();
+    _checklistItems = List.filled(paragraphs.length, false);
+    _taskStep = 0;
+    _showChecklist = true;
   }
 
   void _simplifyContent(ContentItem content) {
