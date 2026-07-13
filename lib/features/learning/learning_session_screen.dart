@@ -1698,43 +1698,45 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
       icon: Icon(_isListening ? Icons.mic : Icons.mic_outlined),
       tooltip: _isListening ? 'Tap to stop' : 'Use speech-to-text',
       color: _isListening ? AppColors.warmCoral : null,
-      onPressed: () async {
+      onPressed: () {
         if (_isListening) {
           _speechService.stopListening();
           setState(() => _isListening = false);
           return;
         }
-        if (!_speechService.isAvailable) {
-          await _speechService.initialize();
-        }
-        if (!_speechService.isAvailable) {
-          if (context.mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Speech not available on this device'),
-                behavior: SnackBarBehavior.floating,
-              ),
-            );
+        _speechService.initialize().then((_) {
+          if (!_speechService.isAvailable) {
+            if (context.mounted) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Speech not available on this device'),
+                  behavior: SnackBarBehavior.floating,
+                ),
+              );
+            }
+            return;
           }
-          return;
-        }
-        setState(() => _isListening = true);
-        await _speechService.startListening(
-          onPartialResult: (text) {
-            _answerController.text = text;
-            _answerController.selection = TextSelection.fromPosition(
-              TextPosition(offset: text.length),
-            );
-          },
-          onResult: (text) {
-            _answerController.text = text;
-            _answerController.selection = TextSelection.fromPosition(
-              TextPosition(offset: text.length),
-            );
-            if (mounted) setState(() => _isListening = false);
-          },
-        );
-        if (mounted) setState(() => _isListening = false);
+          if (!mounted) return;
+          setState(() => _isListening = true);
+          _speechService.startListening(
+            onPartialResult: (text) {
+              if (!mounted) return;
+              _answerController.text = text;
+              _answerController.selection = TextSelection.fromPosition(
+                TextPosition(offset: text.length),
+              );
+              setState(() {});
+            },
+            onResult: (text) {
+              if (!mounted) return;
+              _answerController.text = text;
+              _answerController.selection = TextSelection.fromPosition(
+                TextPosition(offset: text.length),
+              );
+              setState(() => _isListening = false);
+            },
+          );
+        });
       },
     );
   }
