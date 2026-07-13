@@ -7,6 +7,7 @@ class SpeechService {
   StreamSubscription? _resultSub;
   StreamSubscription? _errorSub;
   StreamSubscription? _endSub;
+  Timer? _restartTimer;
 
   bool get isAvailable => _recognition != null;
 
@@ -38,7 +39,6 @@ class SpeechService {
       final results = event.results;
       if (results == null) return;
 
-      // Build full accumulated transcript from ALL results
       final sb = StringBuffer();
       for (var i = 0; i < results.length; i++) {
         final result = results[i] as html.SpeechRecognitionResult;
@@ -52,7 +52,6 @@ class SpeechService {
       final fullText = sb.toString().trim();
       if (fullText.isEmpty) return;
 
-      // Use last result to decide if all finalized or still interim
       final lastResult = results[results.length - 1] as html.SpeechRecognitionResult;
       if (lastResult.isFinal == true) {
         onResult(fullText);
@@ -70,7 +69,12 @@ class SpeechService {
 
     _endSub = _recognition!.onEnd.listen((_) {
       if (_isRecording) {
-        _recognition!.start();
+        // Delay avoids tight error→end→start loops from transient issues
+        _restartTimer = Timer(const Duration(milliseconds: 500), () {
+          if (_isRecording) {
+            _recognition!.start();
+          }
+        });
       }
     });
 
@@ -79,17 +83,20 @@ class SpeechService {
 
   void stopListening() {
     _isRecording = false;
+    _restartTimer?.cancel();
     _recognition?.stop();
     _cancelSubscriptions();
   }
 
   void cancel() {
     _isRecording = false;
+    _restartTimer?.cancel();
     _recognition?.abort();
     _cancelSubscriptions();
   }
 
   void _cancelSubscriptions() {
+    _restartTimer?.cancel();
     _resultSub?.cancel();
     _resultSub = null;
     _errorSub?.cancel();
