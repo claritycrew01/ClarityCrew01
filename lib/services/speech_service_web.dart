@@ -3,7 +3,7 @@ import 'dart:html' as html;
 
 class SpeechService {
   html.SpeechRecognition? _recognition;
-  bool _isListening = false;
+  bool _isRecording = false;
   StreamSubscription? _resultSub;
   StreamSubscription? _errorSub;
   StreamSubscription? _endSub;
@@ -20,12 +20,13 @@ class SpeechService {
   void startListening({
     required void Function(String text) onPartialResult,
     required void Function(String text) onResult,
+    void Function(String error)? onError,
   }) {
     if (_recognition == null) return;
 
     _cancelSubscriptions();
 
-    _isListening = true;
+    _isRecording = true;
     _recognition!
       ..continuous = true
       ..interimResults = true
@@ -33,7 +34,7 @@ class SpeechService {
       ..maxAlternatives = 1;
 
     _resultSub = _recognition!.onResult.listen((event) {
-      if (!_isListening) return;
+      if (!_isRecording) return;
       final results = event.results;
       if (results == null) return;
       for (var i = 0; i < results.length; i++) {
@@ -49,26 +50,32 @@ class SpeechService {
       }
     });
 
-    _errorSub = _recognition!.onError.listen((_) {
-      _isListening = false;
+    _errorSub = _recognition!.onError.listen((event) {
+      final message = (event as dynamic).error?.toString() ?? 'unknown';
+      if (onError != null) {
+        onError(message);
+      }
     });
 
     _endSub = _recognition!.onEnd.listen((_) {
-      _isListening = false;
+      // Chrome ends sessions unexpectedly; auto-restart if still recording
+      if (_isRecording) {
+        _recognition!.start();
+      }
     });
 
     _recognition!.start();
   }
 
   void stopListening() {
+    _isRecording = false;
     _recognition?.stop();
-    _isListening = false;
     _cancelSubscriptions();
   }
 
   void cancel() {
+    _isRecording = false;
     _recognition?.abort();
-    _isListening = false;
     _cancelSubscriptions();
   }
 

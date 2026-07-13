@@ -1733,7 +1733,10 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
               _answerController.selection = TextSelection.fromPosition(
                 TextPosition(offset: text.length),
               );
-              setState(() => _isListening = false);
+              setState(() {});
+            },
+            onError: (error) {
+              debugPrint('Speech recognition error: $error');
             },
           );
         });
