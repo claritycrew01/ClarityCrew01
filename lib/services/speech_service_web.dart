@@ -61,16 +61,24 @@ class SpeechService {
     });
 
     _errorSub = _recognition!.onError.listen((event) {
-      final message = (event as dynamic).error?.toString() ?? 'unknown';
+      final errorCode = (event as dynamic).error?.toString() ?? 'unknown';
       if (onError != null) {
-        onError(message);
+        onError(errorCode);
+      }
+      // Fatal errors: stop recording so onEnd does not restart
+      if (errorCode == 'network' ||
+          errorCode == 'not-allowed' ||
+          errorCode == 'service-not-allowed') {
+        _isRecording = false;
+        _restartTimer?.cancel();
+        _recognition?.stop();
+        _cancelSubscriptions();
       }
     });
 
     _endSub = _recognition!.onEnd.listen((_) {
       if (_isRecording) {
-        // Delay avoids tight error→end→start loops from transient issues
-        _restartTimer = Timer(const Duration(milliseconds: 500), () {
+        _restartTimer = Timer(const Duration(milliseconds: 300), () {
           if (_isRecording) {
             _recognition!.start();
           }

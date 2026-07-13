@@ -1739,6 +1739,18 @@ class _LearningSessionScreenState extends State<LearningSessionScreen> {
             },
             onError: (error) {
               debugPrint('STT error: $error');
+              if (!mounted) return;
+              setState(() => _isListening = false);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    error == 'network'
+                        ? 'Speech recognition unavailable (network issue). Check your internet connection.'
+                        : 'Speech recognition error: $error',
+                  ),
+                  behavior: SnackBarBehavior.floating,
+                ),
+              );
             },
           );
         });
